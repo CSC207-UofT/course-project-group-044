@@ -1,0 +1,21 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'junit:junit:4.13.1'
+    testImplementation('org.junit.jupiter:junit-jupiter:5.6.0')
+}
+
+mainClassName = 'Dummy'
+
+test {
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
