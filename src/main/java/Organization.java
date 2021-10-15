@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.Collection;
 import java.util.Map;
 
 public class Organization {
@@ -17,6 +18,10 @@ public class Organization {
     }
 
     public void removeEmployee(Employee employee) {
-        this.employees.remove(employee);
+        this.employees.remove(employee.id);
+    }
+
+    public Collection<Employee> getEmployees() {
+        return this.employees.values();
     }
 }
