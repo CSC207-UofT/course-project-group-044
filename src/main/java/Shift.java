@@ -2,7 +2,10 @@ import java.time.Duration;
 import java.time.Instant;
 
 public class Shift extends Event {
-	public Shift(Instant start, Duration duration, String location) {
-        super(start, duration, "Shift", location);
+	private Employee employee;
+
+	public Shift(Employee employee, Instant start, Duration duration, String location) {
+		super(start, duration, "Shift", location);
+		this.employee = employee;
 	}
 }
