@@ -1,10 +1,10 @@
 public class Employee {
-    private String name;
-    private int id;
-    private String title;
-    private Calendar calendar;
-    private int salary;
-    private int maxHoursPerWeek;
+    public final String name;
+    public final int id;
+    public final String title;
+    public final Calendar calendar;
+    public final int salary;
+    public final int maxHoursPerWeek;
 
     public Employee(String name, int id, String title, Calendar calendar,
                     int salary, int maxHoursPerWeek) {
