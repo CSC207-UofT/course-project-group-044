@@ -10,7 +10,7 @@ public class Organization {
     }
 
     public void addEmployee(Employee employee) {
-        this.employees.put(employee.id, employee);
+        this.employees.put(employee.getId(), employee);
     }
 
     public Employee getEmployee(int id) {
@@ -18,7 +18,7 @@ public class Organization {
     }
 
     public void removeEmployee(Employee employee) {
-        this.employees.remove(employee.id);
+        this.employees.remove(employee.getId());
     }
 
     public Collection<Employee> getEmployees() {
