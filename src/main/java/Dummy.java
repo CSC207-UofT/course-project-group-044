@@ -8,11 +8,10 @@ public class Dummy {
         // Create some entity classes. In the future, these would come from a
         // database. 
         Shift shift = new Shift(Instant.now(), Duration.ofHours(4), "Canterlot Maki");
-        List<Event> events = new ArrayList<Event>();
-        events.add(shift);
-
-        Calendar calendar = new Calendar(events);
+        Calendar calendar = new Calendar();
         Employee employee = new Employee("Sunset Shimmer", 1, "Sushi waitress", calendar, 15, 20, true);
+
+        calendar.addEvent(shift);
 
         Organization org = new Organization();
         org.addEmployee(employee);
