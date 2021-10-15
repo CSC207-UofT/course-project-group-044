@@ -10,7 +10,7 @@ public class Dummy {
 
         for (Employee it : org.getEmployees()) {
             System.out.println(String.format("%d: %s (%s), $%d CAD/hr, %d hr/wk",
-                        it.id, it.name, it.title, it.salary, it.maxHoursPerWeek));
+                        it.getId(), it.getName(), it.getSalary(), it.getMaxHoursPerWeek()));
         }
 
         System.out.println("\n");
@@ -25,9 +25,9 @@ public class Dummy {
         System.out.println("On start:\n");
         printOrganization(org);
 
-        Employee employee = employeeManager.hireEmployee("Jack", 1, "Sushi waiter", 15, 20);
-        Shift shift = new Shift(Instant.now(), Duration.ofHours(4), "Canterlot Maki");
-        employee.calendar.addEvent(shift);
+        Employee employee = employeeManager.hireEmployee("Jack", 1, 15, 20);
+        Shift shift = new Shift(employee, Instant.now(), Duration.ofHours(4), "Canterlot Maki");
+        employee.addEvent(shift);
 
         System.out.println("After hiring:\n");
         printOrganization(org);
