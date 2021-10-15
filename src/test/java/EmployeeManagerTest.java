@@ -27,16 +27,16 @@ public class EmployeeManagerTest {
 
     @Test(timeout = 50)
     public void testHireEmployee() {
-        mgr.hireEmployee("Sunset Shimmer", 1, "Sushi wiatress", 20, 20);
+        mgr.hireEmployee("Sunset Shimmer", 1, 20, 20);
 
         Employee arr[] = this.employees.toArray(new Employee[1]);
-        assertEquals(arr[0].name, "Sunset Shimmer");
+        assertEquals(arr[0].getName(), "Sunset Shimmer");
         assertEquals(arr.length, 1);
     }
 
     @Test(timeout = 50)
     public void testFireEmployee() {
-        Employee employee = mgr.hireEmployee("Sunset Shimmer", 1, "Sushi wiatress", 20, 20);
+        Employee employee = mgr.hireEmployee("Sunset Shimmer", 1, 20, 20);
         mgr.fireEmployee(employee);
 
         assertTrue(this.employees.isEmpty());
