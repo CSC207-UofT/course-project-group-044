@@ -12,7 +12,7 @@ public class Dummy {
         events.add(shift);
 
         Calendar calendar = new Calendar(events);
-        Employee employee = new Employee("Sunset Shimmer", 1, "Sushi waitress", calendar, 15, 20);
+        Employee employee = new Employee("Sunset Shimmer", 1, "Sushi waitress", calendar, 15, 20, true);
 
         Organization org = new Organization();
         org.addEmployee(employee);

@@ -5,9 +5,10 @@ public class Employee {
     public final Calendar calendar;
     public final int salary;
     public final int maxHoursPerWeek;
+    public boolean schedulable;
 
     public Employee(String name, int id, String title, Calendar calendar,
-                    int salary, int maxHoursPerWeek) {
+                    int salary, int maxHoursPerWeek, boolean schedulable) {
 
         this.name = name;
         this.id = id;
@@ -15,5 +16,6 @@ public class Employee {
         this.calendar = calendar;
         this.salary = salary;
         this.maxHoursPerWeek = maxHoursPerWeek;
+        this.schedulable = schedulable;
     }
 }
