@@ -1,12 +1,12 @@
 import java.util.List;
 
 public class Employee {
-    public final String name;
-    public final int id;
-    public List<Event> events;
-    public int salary;
-    public int maxHoursPerWeek;
-    public boolean schedulable;
+    private final String name;
+    private final int id;
+    private List<Event> events;
+    private int salary;
+    private int maxHoursPerWeek;
+    private boolean schedulable;
 
     public Employee(String name, int id, List<Event> events,
                     int salary, int maxHoursPerWeek, boolean schedulable) {
@@ -18,4 +18,26 @@ public class Employee {
         this.maxHoursPerWeek = maxHoursPerWeek;
         this.schedulable = schedulable;
     }
+
+    // getters for every attributes above
+    public String getName() { return this.name; }
+
+    public int getId() { return this.id; }
+
+    public List<Event> getEvents() { return this.events; }
+
+    public int getSalary() { return this.salary; }
+
+    public int getMaxHoursPerWeek() { return this.maxHoursPerWeek; }
+
+    public boolean getSchedulable() { return this.schedulable; }
+
+    // setters
+    public void addEvent(Event event) { this.events.add(event); }
+
+    public void setSalary(int new_sal) { this.salary = new_sal; }
+
+    public void setMaxHoursPerWeek(int new_hour) { this.maxHoursPerWeek = new_hour; }
+
+    public void setSchedulable(boolean new_bool) { this.schedulable = new_bool; }
 }
