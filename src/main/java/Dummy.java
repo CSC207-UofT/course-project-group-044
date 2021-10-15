@@ -14,9 +14,8 @@ public class Dummy {
         Calendar calendar = new Calendar(events);
         Employee employee = new Employee("Sunset Shimmer", 1, "Sushi waitress", calendar, 15, 20);
 
-        List<Employee> employees = new ArrayList<Employee>();
-        employees.add(employee);
-        Organization org = new Organization(employees);
+        Organization org = new Organization();
+        org.addEmployee(employee);
 
 		System.out.println("Hello, World!\n");
 	}
