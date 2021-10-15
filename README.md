@@ -91,5 +91,9 @@ Yuxiang Lin: Finish Scenario Walk-Through and help fix some parts in CRC cards. 
 Kunhan Duan: make a summary in progress report. coming up with an open question Also adding and editing some parts  on CRC cards, Scenario Walk-Through. Finishing part of controllers and command line function. planning to work on the Skeleton Program to implement our HR system.
 Jiawei Chen: Scheduling in-person meetings. Define classes and clarify which layer those classes belong to based on CLEAN Architecture.
 Haitao Zeng: Working on CRC model, discussing specification part with teammates.
+Alyssa Rosenzweig: Skeleton program, most of the specification.
+Xinglin Chen: most part of CRC model, refining the specification. 
+
+
 
 
