@@ -26,53 +26,6 @@ Meeting: a subclass of Event contains attributes of meeting host (Employee), par
 
 Remark: need to have an interface + dependency inversion so setting/getting properties is backed by a database class on the outside.
 
-SOLID principle.
-
-## Use case classes
-
-
-Scheduler(Abstract Class): Scheduler class aims to Create & Delete an event to the Calendar. This Abstract class have several abstract methods:
-    constructor:
-    createEvent(date): create an Event and add to the Calendar by its date.
-    deleteEvent(date): delete an existing Event from the Calendar
-assign(Employee employee, Event event): This method will assign tasks to the employee. By adding the Event to the Employee’s attribute: Events. 
-
-ShiftScheduler(Subclass of Scheduler): override scheduler and create & delete shift.
-    createEvent: create a Shift then add it to the Calendar.
-        deleteEvent: Delete an existing Shift from the Calendar.
-
-MeetingScheduler(Subclass of Scheduler): override scheduler and create & delete meetings.
-createEvent(Employee holder, ArrayList<Employee> participants): create a Meeting event according to the holder and participants. Then, add it to the Calendar
-        deleteEvent: Use the Superclass delete event
-
-
-
-EmployeeManager: A Manager has the power to modify employees in this organization. 
-
-HireEmployee: Add an employee to the organization. Assign a job through Shift Scheduler until his/her workload is full.
-    
-
-FireEmployee: Delete an employee from the organization after some time. For a certain time, marks the employee unschedulable, cancels events after that time, and prevents scheduling during that time.
-
-SalaryEvaluation: based on workload, title, leave to evaluate employee’s salary monthly. Workload is the number of hours that employee work on; title is the position of employee( like manager 
-
-(if time -- EmployeeEvaluation: decision of promotion, salary increase, year-end bonus)
-
-Controllers:
-
-employee - manage: enable user to access EmployeeManager in use case classes.
-
-Event - manage: enable user to access Scheduler in use case classes.
-
-     
-External Interfaces:
-
-Command line that is used to access EmployeeManager, SchedulerManager and SalaryManager.                      
-
-Database class(es) implementing the interface for serialization/deserialization. SQLite backend.
-
-GUI
-
 ## Scenario Walk-Through
   
 When a programmer Jack wants to enter a new company, the HR manager will firstly accept his application by EmployeeManager. This operation will certainly call HireEmployee to work. After entering Jack’s name, salary, worktime, and ID, the system will automatically initialize his work_time to 0. Then, the manager will assign events to Jack by  the SchedularManager. This controller will call several use case classes, which allow the manager not only to create a new event by time, location, duration, and event’s name for Jack to do, but also assign other events that have already existed to Jack. When the weekly meeting is held, another special event called “Meeting” is created by using additional names of attenders and the meeting holder and then was assigned to Jack. When Jack’s first month in this company comes to an end, the HR manager will calculate his salary by using SalaryManager. Since Jack cannot do his work very well, the HR manager is not going to assign him much work. As a result, Jack’s work_time is very low. What’s worse, the SalaryEvaluation called by SalaryManager calculates one employee’s salary only according to his work_time, Jack only gets a little. According to this, the HR manager is sad and decides to fire Jack. By raising FireEmployee called by EmployeeManager, Jack’s schedulable is set to false, and he was announced to hand over his work in a few days. All the events sent to him after a few days are reassigned to others. After that, he was finally fired.
