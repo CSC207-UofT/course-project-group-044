@@ -9,10 +9,12 @@ public class Dummy {
         // database. 
         Organization org = new Organization();
         EmployeeManager employeeManager = new EmployeeManager(org);
-        Employee employee = employeeManager.hireEmployee("Sunset Shimmer", 1, "Sushi waitress", 15, 20);
+        Employee employee = employeeManager.hireEmployee("Jack", 1, "Sushi waitress", 15, 20);
 
         Shift shift = new Shift(Instant.now(), Duration.ofHours(4), "Canterlot Maki");
         employee.calendar.addEvent(shift);
+
+        employeeManager.fireEmployee(employee);
 
 		System.out.println("Hello, World!\n");
 	}
