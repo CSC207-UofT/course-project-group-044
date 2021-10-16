@@ -1,0 +1,19 @@
+Class name: MeetingScheduler
+Parent class: Scheduler
+Subclass: None
+
+Responsibility:
+* able to create, add, delete and assign meeting from the Calendar.
+* inherit and overload methods from Scheduler
+
+
+ -- Attribute:
+   - calendar: the calendar of all events 
+
+
+Collaborator：
+
+* Event
+* Calendar
+* meeting
+* Employee
