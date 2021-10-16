@@ -1,0 +1,17 @@
+Class name: Meeting
+Parent class: Event
+Subclass: None
+
+Responsibility:
+* Meeting is the subclass of Event, which have holder to host the meeting with participants
+
+ -- Attribute:
+   - everything inherited from Event
+   - holder: the Employee to host the meeting
+   - participants: list of Employees who attend the meeting
+
+
+
+Collaborator：
+
+* Employee
