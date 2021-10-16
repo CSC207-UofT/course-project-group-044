@@ -6,7 +6,7 @@ public class Dummy {
     public static void printOrganization(Organization org) {
 		System.out.println("Organization:\n");
 
-        for (Employee it : org.getEmployees()) {
+        for (Employee it : org.getEmployees().values()) {
             System.out.println(String.format("%d: %s (%s), $%d CAD/hr, %d hr/wk",
                         it.getId(), it.getName(), it.getSalary(), it.getMaxHoursPerWeek()));
         }

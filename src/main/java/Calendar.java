@@ -16,4 +16,8 @@ public class Calendar {
         }
         this.events.get(startTime).add(event);
     }
+
+    public void delEvent(){
+
+    }
 }

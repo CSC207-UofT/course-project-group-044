@@ -11,7 +11,4 @@ public class Scheduler {
         this.calendar.addEvent(start, event);
     }
 
-    public void deleteEvent(Instant start, Event event){
-
-    }
 }

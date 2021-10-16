@@ -30,9 +30,8 @@ public class EmployeeModifierTest {
     public void testHireEmployee() {
         mgr.hireEmployee("Sunset Shimmer", 1, 20, 20);
 
-        Employee arr[] = this.employees.toArray(new Employee[1]);
-        assertEquals(arr[0].getName(), "Sunset Shimmer");
-        assertEquals(arr.length, 1);
+        assertTrue(this.employees.containsKey(1));
+        assertEquals(this.employees.size(), 1);
     }
 
     @Test(timeout = 50)
