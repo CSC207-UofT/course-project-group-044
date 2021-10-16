@@ -9,7 +9,9 @@ public class Managermentsystem {
         void sendOutput(Object s);
     }
 
-    // bug exists here private EmployeeModifier employeeModifier = new EmployeeModifier();
+    Organization organization = new Organization();
+
+    EmployeeModifier employeeModifier = new EmployeeModifier(organization);
 
     public void run(InOut inOut){
 
