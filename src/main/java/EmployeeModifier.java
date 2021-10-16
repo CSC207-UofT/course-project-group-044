@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeeManager {
+public class EmployeeModifier {
     private final Organization organization;
 
-    public EmployeeManager(Organization organization) {
+    public EmployeeModifier(Organization organization) {
         this.organization = organization;
     }
 

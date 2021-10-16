@@ -3,16 +3,17 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 import java.util.Collection;
+import java.util.Map;
 
-public class EmployeeManagerTest {
+public class EmployeeModifierTest {
     private Organization org;
-    private EmployeeManager mgr;
-    private Collection<Employee> employees;
+    private EmployeeModifier mgr;
+    private Map<Integer,Employee> employees;
 
     @Before
     public void setUp() {
         this.org = new Organization();
-        this.mgr = new EmployeeManager(this.org);
+        this.mgr = new EmployeeModifier(this.org);
         this.employees = this.org.getEmployees();
     }
 

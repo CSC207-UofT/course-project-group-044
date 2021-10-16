@@ -1,7 +1,5 @@
 import java.time.Duration;
 import java.time.Instant;
-import java.util.List;
-import java.util.ArrayList;
 
 public class Dummy {
     // Pretty prints the contents of the organization for debug
@@ -20,7 +18,7 @@ public class Dummy {
         // Create some entity classes. In the future, these would come from a
         // database. 
         Organization org = new Organization();
-        EmployeeManager employeeManager = new EmployeeManager(org);
+        EmployeeModifier employeeManager = new EmployeeModifier(org);
 
         System.out.println("On start:\n");
         printOrganization(org);

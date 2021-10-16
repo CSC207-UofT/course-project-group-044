@@ -1,5 +1,5 @@
 public class ShiftScheduler extends Scheduler {
-    public ShiftScheduler() {
-        /* Stub */
+    public ShiftScheduler(Calendar calendar) {
+        super(calendar);
     }
 }
