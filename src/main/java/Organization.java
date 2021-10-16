@@ -10,6 +10,7 @@ public class Organization {
     }
 
     public Organization(List<Employee> employees) {
+        this.employees = Collections.emptyMap();
         for (Employee e: employees){
             this.employees.put(e.getId(), e);
         }
