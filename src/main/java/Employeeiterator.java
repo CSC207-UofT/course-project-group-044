@@ -28,7 +28,7 @@ public class Employeeiterator implements Iterator<String> {
 
     @Override
     public boolean hasNext() {
-        return false;
+        return current < properties.size();
     }
 
     @Override
