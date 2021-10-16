@@ -1,0 +1,18 @@
+Class name: Event
+Parent class: None
+Subclass: Shift, Meeting
+
+Responsibility:
+* Store the information of the Event
+
+ -- Attribute:
+  - start: the start time of the event, using java.time Instant variable.
+  - duration: the amount of time that from event start to end.
+  - name: the name of the event
+  - location: the name of the specific address of the event.
+  - capacity: the maximum number of employees for the event. In the consideration of efficiency, too 			 many employees would cause redundancy.
+
+
+Collaborator：
+
+* Calendar

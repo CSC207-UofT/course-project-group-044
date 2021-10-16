@@ -1,0 +1,18 @@
+Class name: Scheduler
+Parent class: None
+Subclass: ShiftScheduler, MeetingScheduler
+
+Responsibility:
+* an abstract class which have several methods to be overloaded.
+* able to create, add, delete and assign event from the Calendar.
+
+
+ -- Attribute:
+   - calendar: the calendar of all events 
+
+
+Collaborator：
+
+* Event
+* Calendar
+* Employee

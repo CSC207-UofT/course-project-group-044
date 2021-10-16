@@ -1,0 +1,16 @@
+Class name: Organization
+Parent class: None
+Subclass: None
+
+Responsibility:
+* Store all of the Employees in this Organization in a dictionary with int of Employee’s ID as key and the corresponding Employee as value.
+* able to get, add, and remove employee from the organization.
+
+
+ -- Attribute:
+   - employees: a dictionary stored all of the Employees in this Organization
+
+
+Collaborator：
+
+* Employee

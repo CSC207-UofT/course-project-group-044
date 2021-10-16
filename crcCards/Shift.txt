@@ -1,0 +1,12 @@
+Class name: Shift
+Parent Class: Event
+Subclass: None
+
+Responsibility:
+- Shift is the concrete instance of Event 
+
+  -- Attribute:
+   - everything inherited from Event
+
+Collaborator:
+Employee

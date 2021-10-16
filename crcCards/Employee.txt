@@ -1,0 +1,20 @@
+Class name: Employee
+Parent class: None
+Subclass: None
+
+Responsibility:
+* Store the information of the employee
+
+ -- Attribute:
+  - name: the name of an employee. Different employees might have the same name.
+  - ID: the unique ID of the employee. 
+  - events: a list of events involved by the employee
+  - maxHoursPerWeek: The max hours employee can work in a day
+  - salary: hourly wage of the employee.
+  - schedulable: a boolean variable indicating whether the employee can be assigned an event (due to leave)
+
+
+Collaborator：
+
+* Event
+* Organization

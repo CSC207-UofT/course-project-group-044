@@ -1,0 +1,18 @@
+Class name: EmployeeModifier
+Parent class: None
+Subclass: None
+
+Responsibility:
+* A Manager has the power to modify employees in this organization. 
+* able to hire and fire Employee from the Organization.
+
+
+ -- Attribute:
+   - organization: all of employees of the organization.
+
+
+Collaborator：
+
+* Event
+* Organization
+* Employee

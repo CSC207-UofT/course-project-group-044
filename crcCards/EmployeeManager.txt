@@ -1,0 +1,10 @@
+Class name: EmployeeManager
+Parent class: None
+Subclass: None
+
+Responsibility:
+* controller that enables HR access Employee Modifier to hire and fire employees
+
+Collaborator：
+
+* EmployeeModifier
