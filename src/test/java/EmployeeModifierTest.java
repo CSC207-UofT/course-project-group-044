@@ -36,7 +36,8 @@ public class EmployeeModifierTest {
 
     @Test(timeout = 50)
     public void testFireEmployee() {
-        Employee employee = mgr.hireEmployee("Sunset Shimmer", 1, 20, 20);
+        Employee employee;
+        employee = mgr.hireEmployee("Sunset Shimmer", 1, 20, 20);
         mgr.fireEmployee(employee);
 
         assertTrue(this.employees.isEmpty());
