@@ -2,7 +2,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Managermentsystem {
+public class ManagementSystem {
     public interface InOut {
         String getInput() throws IOException;
 
@@ -15,7 +15,7 @@ public class Managermentsystem {
 
     public void run(InOut inOut){
 
-        Employeeiterator prompts = new Employeeiterator();
+        EmployeeIterator prompts = new EmployeeIterator();
         List<String> temp = new ArrayList<>();
 
         inOut.sendOutput("Type 'exit' to quit or 'ok' to enter HR scheduling system");

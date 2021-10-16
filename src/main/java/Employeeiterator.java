@@ -4,12 +4,12 @@ import java.io.FileNotFoundException;
 import java.util.*;
 import java.io.*;
 
-public class Employeeiterator implements Iterator<String> {
+public class EmployeeIterator implements Iterator<String> {
     private List<String> properties = new ArrayList<>();
     private int current = 0;
 
 
-    public Employeeiterator() {
+    public EmployeeIterator() {
 
         //open file and read from it...
         BufferedReader br = null;
