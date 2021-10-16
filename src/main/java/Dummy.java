@@ -1,5 +1,7 @@
 import java.time.Duration;
 import java.time.Instant;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Dummy {
     // Pretty prints the contents of the organization for debug
@@ -7,8 +9,9 @@ public class Dummy {
 		System.out.println("Organization:\n");
 
         for (Employee it : org.getEmployees().values()) {
-            System.out.println(String.format("%d: %s (%s), $%d CAD/hr, %d hr/wk",
-                        it.getId(), it.getName(), it.getSalary(), it.getMaxHoursPerWeek()));
+            System.out.println("ID: " + it.getId() + ", Name: " + it.getName() +
+                    ", Salary: $" + it.getSalary() + "/hour" +
+                    ", Max Hours Per Week: " + it.getMaxHoursPerWeek() + " h");
         }
 
         System.out.println("\n");
@@ -27,17 +30,12 @@ public class Dummy {
         Shift shift = new Shift(employee, Instant.now(), Duration.ofHours(4), "Canterlot Maki");
         employee.addEvent(shift);
 
-        System.out.println("After Hire:\n");
-        for (Employee e : org.getEmployees().values()){
-            System.out.println(e.getName());
-        }
+        System.out.println("After hiring:\n");
+        printOrganization(org);
 
         employeeManager.fireEmployee(employee);
 
-        System.out.println("After Fire:\n");
-        for (Employee e : org.getEmployees().values()){
-            System.out.println(e.getName());
-        }
-
+        System.out.println("After firing:\n");
+        printOrganization(org);
 	}
 }
