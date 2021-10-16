@@ -1,22 +1,22 @@
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
+import java.util.HashMap;
 
 public class Organization {
-    private Map<Integer,Employee> employees;
+    private HashMap<Integer,Employee> employees;
 
     public Organization(){
-        this.employees = Collections.emptyMap();
+        this.employees = new HashMap<Integer, Employee>();
     }
 
     public Organization(List<Employee> employees) {
-        this.employees = Collections.emptyMap();
+        this.employees = new HashMap<Integer, Employee>();
         for (Employee e: employees){
             this.employees.put(e.getId(), e);
         }
     }
 
-    public Map<Integer, Employee> getEmployees() {
+    public HashMap<Integer, Employee> getEmployees() {
         return this.employees;
     }
 
