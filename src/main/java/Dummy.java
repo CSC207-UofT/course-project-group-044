@@ -27,12 +27,17 @@ public class Dummy {
         Shift shift = new Shift(employee, Instant.now(), Duration.ofHours(4), "Canterlot Maki");
         employee.addEvent(shift);
 
-        System.out.println("After hiring:\n");
-        printOrganization(org);
+        System.out.println("After Hire:\n");
+        for (Employee e : org.getEmployees().values()){
+            System.out.println(e.getName());
+        }
 
         employeeManager.fireEmployee(employee);
 
-        System.out.println("After firing:\n");
-        printOrganization(org);
+        System.out.println("After Fire:\n");
+        for (Employee e : org.getEmployees().values()){
+            System.out.println(e.getName());
+        }
+
 	}
 }
