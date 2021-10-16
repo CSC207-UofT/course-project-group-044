@@ -39,9 +39,9 @@ In our design, after several group discussions, we now have a clear perspective 
 **Yuxiang Lin**: Finish Scenario Walk-Through and help fix some parts in CRC cards. Next will focus on designing parts of Entity Classes.<br>
 **Kunhan Duan**: make a summary in progress report. coming up with an open question Also adding and editing some parts  on CRC cards, Scenario Walk-Through. Finishing part of controllers and command line function. planning to work on the Skeleton Program to implement our HR system.<br>
 **Jiawei Chen**: Scheduling in-person meetings. Define classes and clarify which layer those classes belong to based on CLEAN Architecture.<br>
-**Haitao Zeng**: Haitao Zeng: Working on CRC model, discussing specification part with teammates, and entity part of skeleton program. I may work on entity class or use case class, in the future.<br>
+**Haitao Zeng**: Working on CRC model, discussing specification part with teammates, and entity part of skeleton program. I may work on entity class or use case class, in the future.<br>
 **Alyssa Rosenzweig**: Skeleton program, most of the specification.<br>
-**Xinglin Chen**: most part of CRC model, refining the specification, editting README.
+**Xinglin Chen**: most part of CRC model, refining the specification, editting README. Later, may deal with Use Case EmployeeManager, and controller EmployeeModifier etc.
 
 
 
