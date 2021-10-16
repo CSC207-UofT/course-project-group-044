@@ -3,12 +3,12 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 import java.util.Collection;
-import java.util.Map;
+import java.util.HashMap;
 
 public class EmployeeModifierTest {
     private Organization org;
     private EmployeeModifier mgr;
-    private Map<Integer,Employee> employees;
+    private HashMap<Integer,Employee> employees;
 
     @Before
     public void setUp() {
