@@ -2,7 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class SystemInOut implements Managermentsystem.InOut {
+public class SystemInOut implements ManagementSystem.InOut {
 
     BufferedReader reader;
 
