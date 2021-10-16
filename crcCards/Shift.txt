@@ -5,5 +5,8 @@ Subclass: None
 Responsibility:
 - Shift is the concrete instance of Event 
 
+  -- Attribute:
+   - everything inherited from Event
+
 Collaborator:
 Employee
