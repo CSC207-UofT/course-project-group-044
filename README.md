@@ -1,5 +1,4 @@
-# HR SCHEDULING SYSTEM 
-### by group 044 
+# HR SCHEDULING SYSTEM - group 044
 
 
 ## Specification
