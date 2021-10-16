@@ -15,16 +15,6 @@ These scheduling requirements translate to requirements for the general employee
 
 All persistent state (employee data, schedules, and so on) must be serialized to an on-disk database as it is updated, and loaded from the database on start-up, to guarantee data integrity even if the system fails.
 
-Entity classes
-Organization: Map of Employees (key ID, value Employee)
-Employee: name, employee ID, Events(list of event), salary(hourly wage), workload(max hours can work in a day),  WorkTime(current working hours), Schedulable(Boolean)(if the WorkTime is equal to the Workload it should set to False. Set to False if the Employee is going to leave).
-
-Calendar: Map with date as key and List of Events as value.
-Event (abstract class): start, name, location, duration, capacity(maximum number of Employee for an event)
-Shift: concrete instantiation of Event
-Meeting: a subclass of Event contains attributes of meeting host (Employee), participants (set of Employees) for this meeting
-
-Remark: need to have an interface + dependency inversion so setting/getting properties is backed by a database class on the outside.
 
 ## Scenario Walk-Through
   
