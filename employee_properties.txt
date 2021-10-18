@@ -1,7 +1,1 @@
-name
-employee ID
-Events
-salary(hourly wage)
-workload(max hours can work in a day)
-WorkTime(current working hours)
-Schedulable
+Type "yes" to start the example
