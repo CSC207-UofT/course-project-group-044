@@ -1,8 +1,4 @@
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Duration;
-import java.time.ZoneOffset;
+import java.time.*;
 
 /**
  * The automatic shift scheduler manages the Calendars in the Organization,
@@ -33,12 +29,59 @@ import java.time.ZoneOffset;
 public class Scheduler {
     public Calendar calendar;
 
+    public Scheduler() {
+    }
+
     public Scheduler(Calendar calendar) {
         this.calendar = calendar;
     }
 
-    public void createEvent(Instant start, Event event){
-        this.calendar.addEvent(start, event);
+    /**
+     * Determine whether it is valid to schedule a shift with the given
+     * configuration.
+     *
+     * @param employee Employee to check scheduling.
+     * @param start Start of shift
+     * @param hours Length of shift
+     * @return Whether it is valid to schedule.
+     */
+
+    private boolean schedulable(Employee employee, ZonedDateTime start, int hours) {
+       // Maximum number of hours worked per employee per week
+       if (hours > employee.getUnscheduledHours(start)) {
+           return false;
+       }
+
+       // Shifts must be contiguous => only one shift per day
+       if (employee.getCalendar().eventsOnDay(start) >= 1) {
+           return false;
+       }
+
+       // Employees must not be scheduled while on leave.
+       // TODO: leave tracking
+
+       // Otherwise, no other constraints to check here
+       return true;
     }
 
+    /**
+     * Attempt to schedule a single shift.
+     *
+     * @param employee Employee to schedule
+     * @param date Date and time to schedule
+     * @param location Location of the shift
+     * @return The scheduled event, or null if no Shift could be scheduled.
+     */
+    public Shift scheduleShift(Employee employee, ZonedDateTime date, String location, int hours) {
+        // Check if legal to schedule
+        if (!schedulable(employee, date, hours))
+            return null;
+
+        // It is! Create the Shift.
+        Duration duration = Duration.ofHours(hours);
+        Shift shift = new Shift(employee, date.toInstant(), duration, location);
+
+        employee.getCalendar().addEvent(shift);
+        return shift;
+    }
 }
