@@ -1,3 +1,4 @@
+import java.time.*;
 import java.util.List;
 
 public class Employee {
@@ -38,4 +39,8 @@ public class Employee {
     public void setMaxHoursPerWeek(int new_hour) { this.maxHoursPerWeek = new_hour; }
 
     public void setSchedulable(boolean new_bool) { this.schedulable = new_bool; }
+
+    public long getUnscheduledHours(ZonedDateTime week) {
+        return maxHoursPerWeek - calendar.hoursInWeek(week);
+    }
 }
