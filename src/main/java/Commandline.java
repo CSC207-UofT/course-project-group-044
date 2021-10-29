@@ -32,7 +32,7 @@ public class Commandline {
 
         Employee employee = employeeManager.hireEmployee("Jack", 1, 15, 20);
         Shift shift = new Shift(employee, Instant.now(), Duration.ofHours(4), "Canterlot Maki");
-        employee.addEvent(shift);
+        employee.getCalendar().addEvent(shift);
 
         System.out.println("After hiring:\n");
         printOrganization(org);
