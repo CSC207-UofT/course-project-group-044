@@ -13,6 +13,6 @@ Responsibility:
 
 Collaborator：
 
-* Event
+* Entity.Event
 * Calendar
-* Employee
+* Entity.Employee

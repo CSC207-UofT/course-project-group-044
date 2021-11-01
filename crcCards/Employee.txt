@@ -1,4 +1,4 @@
-Class name: Employee
+Class name: Entity.Employee
 Parent class: None
 Subclass: None
 
@@ -16,5 +16,5 @@ Responsibility:
 
 Collaborator：
 
-* Event
+* Entity.Event
 * Organization

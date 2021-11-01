@@ -1,10 +1,22 @@
+package Entity;
+
+import Entity.Event;
+
 import java.time.*;
-import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 
 public class Calendar {
+
     private List<Event> events;
+
+    public List<Event> getEvents() {
+        return events;
+    }
+
+    public void setEvents(List<Event> events) {
+        this.events = events;
+    }
 
     public Calendar() {
         this.events = new ArrayList<>();
@@ -38,7 +50,4 @@ public class Calendar {
                      .mapToLong(c -> c.getHours()).sum();
     }
 
-    public void delEvent(){
-
-    }
 }

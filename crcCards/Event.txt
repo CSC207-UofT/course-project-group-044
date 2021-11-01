@@ -1,9 +1,9 @@
-Class name: Event
+Class name: Entity.Event
 Parent class: None
-Subclass: Shift, Meeting
+Subclass: Shift, Entity.Meeting
 
 Responsibility:
-* Store the information of the Event
+* Store the information of the Entity.Event
 
  -- Attribute:
   - start: the start time of the event, using java.time Instant variable.

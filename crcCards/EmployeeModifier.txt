@@ -4,7 +4,7 @@ Subclass: None
 
 Responsibility:
 * A Manager has the power to modify employees in this organization. 
-* able to hire and fire Employee from the Organization.
+* able to hire and fire Entity.Employee from the Organization.
 
 
  -- Attribute:
@@ -13,6 +13,6 @@ Responsibility:
 
 Collaborator：
 
-* Event
+* Entity.Event
 * Organization
-* Employee
+* Entity.Employee

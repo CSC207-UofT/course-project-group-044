@@ -1,7 +1,9 @@
+import Entity.Employee;
+import Entity.Organization;
+import Entity.Shift;
+
 import java.time.Duration;
 import java.time.Instant;
-import java.util.List;
-import java.util.ArrayList;
 
 public class Dummy {
     // Pretty prints the contents of the organization for debug

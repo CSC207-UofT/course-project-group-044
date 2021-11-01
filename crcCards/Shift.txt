@@ -1,12 +1,12 @@
 Class name: Shift
-Parent Class: Event
+Parent Class: Entity.Event
 Subclass: None
 
 Responsibility:
-- Shift is the concrete instance of Event 
+- Shift is the concrete instance of Entity.Event
 
   -- Attribute:
-   - everything inherited from Event
+   - everything inherited from Entity.Event
 
 Collaborator:
-Employee
+Entity.Employee

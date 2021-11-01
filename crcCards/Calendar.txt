@@ -4,7 +4,7 @@ Subclass: None
 
 Responsibility:
 * Store all of the events in a HashMap with Instant(start time of event) as key and the corresponding simultaneous  events as value.
-* able to add, and remove Event from the Calendar.
+* able to add, and remove Entity.Event from the Calendar.
 
 
  -- Attribute:
@@ -13,4 +13,4 @@ Responsibility:
 
 Collaborator：
 
-* Event
+* Entity.Event

@@ -3,7 +3,7 @@ Parent class: None
 Subclass: None
 
 Responsibility:
-* Store all of the Employees in this Organization in a dictionary with int of Employee’s ID as key and the corresponding Employee as value.
+* Store all of the Employees in this Organization in a dictionary with int of Entity.Employee’s ID as key and the corresponding Entity.Employee as value.
 * able to get, add, and remove employee from the organization.
 
 
@@ -13,4 +13,4 @@ Responsibility:
 
 Collaborator：
 
-* Employee
+* Entity.Employee

@@ -1,17 +1,17 @@
-Class name: Meeting
-Parent class: Event
+Class name: Entity.Meeting
+Parent class: Entity.Event
 Subclass: None
 
 Responsibility:
-* Meeting is the subclass of Event, which have holder to host the meeting with participants
+* Entity.Meeting is the subclass of Entity.Event, which have holder to host the meeting with participants
 
  -- Attribute:
-   - everything inherited from Event
-   - holder: the Employee to host the meeting
+   - everything inherited from Entity.Event
+   - holder: the Entity.Employee to host the meeting
    - participants: list of Employees who attend the meeting
 
 
 
 Collaborator：
 
-* Employee
+* Entity.Employee

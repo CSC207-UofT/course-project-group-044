@@ -1,12 +1,29 @@
+package Entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.time.*;
 import java.util.List;
 
+@Entity
 public class Employee {
-    private final String name;
+    @Id
     private final int id;
+
+    @Column
+    private final String name;
+
+    @Column
     private final Calendar calendar;
+
+    @Column
     private int salary;
+
+    @Column
     private int maxHoursPerWeek;
+
+    @Column
     private boolean schedulable;
 
     public Employee(String name, int id, Calendar calendar,
@@ -18,6 +35,16 @@ public class Employee {
         this.maxHoursPerWeek = maxHoursPerWeek;
         this.schedulable = schedulable;
         this.calendar = calendar;
+
+    }
+
+    public Employee() {
+        this.name = "";
+        this.id = 0;
+        this.salary = 0;
+        this.maxHoursPerWeek = 8;
+        this.schedulable = true;
+        this.calendar = new Calendar();
     }
 
     // getters for every attributes above
