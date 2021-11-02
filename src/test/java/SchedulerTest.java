@@ -34,35 +34,35 @@ public class SchedulerTest {
     // Test that only a single shift can be scheduled for a given day
     @Test(timeout = 50)
     public void testContiguous() {
-        ZonedDateTime date_1 = ZonedDateTime.of(2013, 6, 15, 9, 0, 0, 0, ZoneOffset.UTC);
-        ZonedDateTime date_2 = ZonedDateTime.of(2013, 6, 15, 21, 0, 0, 0, ZoneOffset.UTC);
+        ZonedDateTime date1 = ZonedDateTime.of(2013, 6, 15, 9, 0, 0, 0, ZoneOffset.UTC);
+        ZonedDateTime date2 = ZonedDateTime.of(2013, 6, 15, 21, 0, 0, 0, ZoneOffset.UTC);
 
-        assertNotNull(scheduler.scheduleShift(employee, date_1, "Canterlot", 8));
-        assertNull(scheduler.scheduleShift(employee, date_2, "Canterlot", 8));
+        assertNotNull(scheduler.scheduleShift(employee, date1, "Canterlot", 8));
+        assertNull(scheduler.scheduleShift(employee, date2, "Canterlot", 8));
     }
 
     // Test that the maximum hours may be attained
     @Test(timeout = 50)
     public void testMaxHoursAttained() {
-        ZonedDateTime date_1 = ZonedDateTime.of(2013, 6, 15, 9, 0, 0, 0, ZoneOffset.UTC);
-        ZonedDateTime date_2 = ZonedDateTime.of(2013, 6, 16, 9, 0, 0, 0, ZoneOffset.UTC);
-        ZonedDateTime date_3 = ZonedDateTime.of(2013, 6, 17, 9, 0, 0, 0, ZoneOffset.UTC);
+        ZonedDateTime date1 = ZonedDateTime.of(2013, 6, 15, 9, 0, 0, 0, ZoneOffset.UTC);
+        ZonedDateTime date2 = ZonedDateTime.of(2013, 6, 16, 9, 0, 0, 0, ZoneOffset.UTC);
+        ZonedDateTime date3 = ZonedDateTime.of(2013, 6, 17, 9, 0, 0, 0, ZoneOffset.UTC);
 
-        assertNotNull(scheduler.scheduleShift(employee, date_1, "Canterlot", 8));
-        assertNotNull(scheduler.scheduleShift(employee, date_2, "Canterlot", 8));
-        assertNotNull(scheduler.scheduleShift(employee, date_3, "Canterlot", 4));
+        assertNotNull(scheduler.scheduleShift(employee, date1, "Canterlot", 8));
+        assertNotNull(scheduler.scheduleShift(employee, date2, "Canterlot", 8));
+        assertNotNull(scheduler.scheduleShift(employee, date3, "Canterlot", 4));
     }
 
     // Test that only a maximum number of hours may be scheduled per week
     @Test(timeout = 50)
     public void testMaxHoursExceeded() {
-        ZonedDateTime date_1 = ZonedDateTime.of(2013, 6, 15, 9, 0, 0, 0, ZoneOffset.UTC);
-        ZonedDateTime date_2 = ZonedDateTime.of(2013, 6, 16, 9, 0, 0, 0, ZoneOffset.UTC);
-        ZonedDateTime date_3 = ZonedDateTime.of(2013, 6, 17, 9, 0, 0, 0, ZoneOffset.UTC);
+        ZonedDateTime date1 = ZonedDateTime.of(2013, 6, 15, 9, 0, 0, 0, ZoneOffset.UTC);
+        ZonedDateTime date2 = ZonedDateTime.of(2013, 6, 16, 9, 0, 0, 0, ZoneOffset.UTC);
+        ZonedDateTime date3 = ZonedDateTime.of(2013, 6, 17, 9, 0, 0, 0, ZoneOffset.UTC);
 
-        assertNotNull(scheduler.scheduleShift(employee, date_1, "Canterlot", 8));
-        assertNotNull(scheduler.scheduleShift(employee, date_2, "Canterlot", 8));
-        assertNull(scheduler.scheduleShift(employee, date_3, "Canterlot", 8));
+        assertNotNull(scheduler.scheduleShift(employee, date1, "Canterlot", 8));
+        assertNotNull(scheduler.scheduleShift(employee, date2, "Canterlot", 8));
+        assertNull(scheduler.scheduleShift(employee, date3, "Canterlot", 8));
     }
 
 
