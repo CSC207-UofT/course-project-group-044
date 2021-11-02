@@ -65,3 +65,4 @@ devleopment of a web frontend.
 
 <!---        a summary of what each group member has been working on and plans to work on next -->
 
+Alyssa Rosenzweig: scheduler logic, code review, design document.
