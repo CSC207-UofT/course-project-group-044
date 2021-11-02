@@ -1,3 +1,8 @@
+package Entity;
+
+import Entity.Employee;
+import Entity.Event;
+
 import java.time.Duration;
 import java.time.Instant;
 

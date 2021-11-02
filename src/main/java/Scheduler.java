@@ -1,3 +1,7 @@
+import Entity.Calendar;
+import Entity.Employee;
+import Entity.Shift;
+
 import java.time.*;
 
 /**
@@ -40,7 +44,7 @@ public class Scheduler {
      * Determine whether it is valid to schedule a shift with the given
      * configuration.
      *
-     * @param employee Employee to check scheduling.
+     * @param employee Entity.Employee to check scheduling.
      * @param start Start of shift
      * @param hours Length of shift
      * @return Whether it is valid to schedule.
@@ -67,7 +71,7 @@ public class Scheduler {
     /**
      * Attempt to schedule a single shift.
      *
-     * @param employee Employee to schedule
+     * @param employee Entity.Employee to schedule
      * @param date Date and time to schedule
      * @param location Location of the shift
      * @return The scheduled event, or null if no Shift could be scheduled.
