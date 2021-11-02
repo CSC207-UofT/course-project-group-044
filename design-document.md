@@ -30,6 +30,17 @@ Since phase 0, we're implementing scheduling, data persistence, and an interacti
 
 <!-- A description of any major design decisions your group has made (along with brief explanations of why you made them). -->
 
+For persistence, we have decided to use the Java Persistence API in tandem with
+SpringBoot. Our original specification required persistence to a database; the
+JPA and Spring Framework provide an effective way to support this requirement
+with Clean Architecture. Since the entities involved map nautrally to a
+relational database, we don't need to specify a database schema explicitly in
+this approach; it suffices to annotate our entity classes. Similarly, since
+much of the application logic follows a standard CRUD model, making use of the
+Spring Framework's Repository interface allows reducing boilerplate while
+maintaining Clean Architecture. In addition, the combination will ease the
+devleopment of a web frontend.
+
 # Clean Architecture
 
 <!-- A brief description of how your project adheres to Clean Architecture (if you notice a violation and aren't sure how to fix it, talk about that too!) -->
