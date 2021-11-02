@@ -26,13 +26,18 @@ public class Employee {
     @Column
     private boolean schedulable;
 
+    @Column
+    private int hoursPerShift;
+
     public Employee(String name, int id, Calendar calendar,
-                    int salary, int maxHoursPerWeek, boolean schedulable) {
+                    int salary, int maxHoursPerWeek, int hoursPerShift,
+                    boolean schedulable) {
 
         this.name = name;
         this.id = id;
         this.salary = salary;
         this.maxHoursPerWeek = maxHoursPerWeek;
+        this.hoursPerShift = hoursPerShift;
         this.schedulable = schedulable;
         this.calendar = calendar;
 
@@ -44,6 +49,7 @@ public class Employee {
         this.salary = 0;
         this.maxHoursPerWeek = 8;
         this.schedulable = true;
+        this.hoursPerShift = 0;
         this.calendar = new Calendar();
     }
 
@@ -51,6 +57,8 @@ public class Employee {
     public String getName() { return this.name; }
 
     public int getId() { return this.id; }
+
+    public int getHoursPerShift() { return this.hoursPerShift; }
 
     public int getSalary() { return this.salary; }
 

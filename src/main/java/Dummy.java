@@ -28,7 +28,7 @@ public class Dummy {
         System.out.println("On start:\n");
         printOrganization(org);
 
-        Employee employee = employeeManager.hireEmployee("Jack", 1, 15, 20);
+        Employee employee = employeeManager.hireEmployee("Jack", 1, 15, 20, 4);
         Shift shift = new Shift(employee, Instant.now(), Duration.ofHours(4), "Canterlot Maki");
         employee.getCalendar().addEvent(shift);
 
