@@ -20,7 +20,11 @@ All persistent state (employee data, schedules, and so on) must be serialized
 to an on-disk database as it is updated, and loaded from the database on
 start-up, to guarantee data integrity even if the system fails.
 
+---
+
 <!-- Briefly highlight any additional functionality that you have implemented between phase 0 and the end of phase 1. -->
+
+Since phase 0, we're implementing scheduling, data persistence, and an interactice frontend.
 
 # Major design decisions
 
