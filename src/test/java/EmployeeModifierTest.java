@@ -30,7 +30,7 @@ public class EmployeeModifierTest {
 
     @Test(timeout = 50)
     public void testHireEmployee() {
-        mgr.hireEmployee("Sunset Shimmer", 1, 20, 20);
+        mgr.hireEmployee("Sunset Shimmer", 1, 20, 20, 4);
 
         assertTrue(this.employees.containsKey(1));
         assertEquals(this.employees.size(), 1);
@@ -39,7 +39,7 @@ public class EmployeeModifierTest {
     @Test(timeout = 50)
     public void testFireEmployee() {
         Employee employee;
-        employee = mgr.hireEmployee("Sunset Shimmer", 1, 20, 20);
+        employee = mgr.hireEmployee("Sunset Shimmer", 1, 20, 20, 4);
         mgr.fireEmployee(employee);
 
         assertTrue(this.employees.isEmpty());

@@ -19,7 +19,7 @@ public class SchedulerTest {
         scheduler = new Scheduler();
         org = new Organization();
         mgr = new EmployeeModifier(org);
-        employee = mgr.hireEmployee("Sunset Shimmer", 1, 20, 20);
+        employee = mgr.hireEmployee("Sunset Shimmer", 1, 20, 20, 4);
     }
 
     @After
