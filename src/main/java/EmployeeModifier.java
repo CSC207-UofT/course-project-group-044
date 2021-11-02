@@ -9,10 +9,10 @@ public class EmployeeModifier {
         this.organization = organization;
     }
 
-    public Employee hireEmployee(String name, int id, int salary, int maxHoursPerWeek) {
+    public Employee hireEmployee(String name, int id, int salary, int maxHoursPerWeek, int hoursPerShift) {
         // New employees have an empty calendar ready for scheduling
         Calendar calendar = new Calendar();
-        Employee employee = new Employee(name, id, calendar, salary, maxHoursPerWeek, true);
+        Employee employee = new Employee(name, id, calendar, salary, maxHoursPerWeek, hoursPerShift, true);
 
         this.organization.addEmployee(employee);
         return employee;
