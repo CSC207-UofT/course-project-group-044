@@ -3,12 +3,15 @@ package Entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import java.time.*;
 import java.util.List;
 
 @Entity
 public class Employee {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private final int id;
 
     @Column

@@ -11,11 +11,11 @@ repositories {
 
 dependencies {
     implementation 'junit:junit:4.13.2'
-    implementation 'org.springframework.boot:spring-boot-starter:2.5.5'
     implementation group: 'org.springframework.data', name: 'spring-data-jpa', version: '2.5.6'
     developmentOnly 'org.springframework.boot:spring-boot-devtools:2.5.5'
     testImplementation('org.junit.jupiter:junit-jupiter:5.8.1')
     implementation group: 'org.eclipse.persistence', name: 'javax.persistence', version: '2.2.1'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
 }
 
 mainClassName = 'Dummy'
