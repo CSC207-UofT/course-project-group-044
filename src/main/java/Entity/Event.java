@@ -1,12 +1,24 @@
 package Entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import java.time.*;
 import java.time.temporal.ChronoField;
 
+@MappedSuperclass
 public abstract class Event {
+    @Id
 	private Instant start;
+
+    @Column
 	private Duration duration;
+
+    @Column
 	private String name;
+
+    @Column
 	private String location;
 
 	public Event(Instant start, Duration duration, String name, String location) {
