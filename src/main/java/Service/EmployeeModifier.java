@@ -24,4 +24,11 @@ public class EmployeeModifier {
     public void fireEmployee(Employee employee) {
         employeeRepository.delete(employee);
     }
+
+    public Double SalaryEvaluation(int id){
+        // return the Salary of the person in a Week.
+        Employee employee = employeeRepository.findEmployeeBy(id);
+        //TODO: figure out the real total work time.
+        return (double) (7 * employee.getSalary() * employee.getMaxHoursPerWeek());
+    }
 }

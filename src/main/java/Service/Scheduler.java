@@ -1,3 +1,5 @@
+package Service;
+
 import Entity.Calendar;
 import Entity.Employee;
 import Entity.Shift;
@@ -62,7 +64,7 @@ public class Scheduler {
        }
 
        // Employees must not be scheduled while on leave.
-       // TODO: leave tracking
+        employee.setSchedulable(false);
 
        // Otherwise, no other constraints to check here
        return true;

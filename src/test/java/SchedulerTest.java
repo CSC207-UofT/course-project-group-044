@@ -1,6 +1,7 @@
 import Entity.Employee;
 import Entity.Organization;
 import Service.EmployeeModifier;
+import Service.Scheduler;
 import org.junit.*;
 
 import static org.junit.Assert.*;

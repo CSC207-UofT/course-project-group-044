@@ -21,6 +21,7 @@ public class Employee {
     private final Calendar calendar;
 
     @Column
+    // Hourly Wage of the Employee
     private int salary;
 
     @Column
@@ -63,14 +64,13 @@ public class Employee {
 
     public Calendar getCalendar() { return calendar; }
 
+    public long getUnscheduledHours(ZonedDateTime week) {
+        return maxHoursPerWeek - calendar.hoursInWeek(week);
+    }
     // setters
     public void setSalary(int new_sal) { this.salary = new_sal; }
 
     public void setMaxHoursPerWeek(int new_hour) { this.maxHoursPerWeek = new_hour; }
 
     public void setSchedulable(boolean new_bool) { this.schedulable = new_bool; }
-
-    public long getUnscheduledHours(ZonedDateTime week) {
-        return maxHoursPerWeek - calendar.hoursInWeek(week);
-    }
 }
