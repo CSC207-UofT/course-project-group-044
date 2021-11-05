@@ -28,8 +28,45 @@ import java.time.*;
  * constraint #4 is interpreted as only scheduling a single shift per day.
  * Constraint #2 is interpreted as applying across the entire Organization.
  *
- * The scheduler works locally to minimize the cost function. Globally, this
- * makes it a greedy heuristic solver, which should work well enough.
+ * Scheduling uses an off-the-shelf SAT solver. To keep the computational
+ * complexity tractable, we schedule at the granularity of a single week for a
+ * single location. First, we define the boolean variables. Enumerate the N
+ * employees that are considered for scheduling. For employee i, day of week d,
+ * start hour h, define the boolean variable x_idh as whether the employee is
+ * scheduled for an hour beginning at the given time. Shift starts are bounded
+ * to a particular set of hours [s_l, s_h). Since 1 < i <= N, 1 <= d < 7, s_l
+ * <= h < s_h, we have defined N (7) (s_h - s_l) < 168 N boolean variables.
+ * Notice that an efficient solver is needed even in this simple model: there
+ * are up to 2^168N combinations to search!
+ *
+ * Next, express the hard constraints in terms of the boolean variables.
+ *
+ * 1. For each employee i, sum_{d = 1}^7 sum_{h = s_l}^{s_h} x_idh <=
+ *    maximum # of hours employee i can work per week.
+ *
+ * 2. For each h, d: sum_{i = 1}^N x_i >= minimum # of employees simultaneously
+ *
+ * 3. For each employee i, each day d they are on leave, and each hour h of
+ *    that day, NOT(x_idh)
+ *
+ * 4. For each employee i, each day d, end hour h, and start hour s such that
+ *    s_l <= s < h - 1, x_ids AND x_idh IMPLIES x_id{s + 1}. Taken together,
+ *    these constraints asserts shifts are contiguous each day. Expanding out
+ *    the definition of IMPLIES and applying De Morgan's Law, this constraint
+ *    may be written in conjunctive normal form as NOT(x_ids) OR NOT(x_idh) OR
+ *    NOT(x_ID{s + 1}).
+ *
+ * The soft constraints will be used to guide optimization.
+ *
+ * 1. For each employee i, sum_{d = 1}^7 sum_{h = s_l}^{s_h} x_idh >= minimum #
+ *    of hours
+ *
+ * 2. For each h, d: sum_{i = 1}^N x_i <= maximum # of employees
+ *
+ * Combining these soft constraints gives an optimization function. Notice hard
+ * constraints 3 and 4 are purely propositional logic, while constraints 1 and
+ * 2 are pseudo-boolean constraints. SAT4J can handle both kinds of
+ * constraints, reducing the amount of set up work we have.
  */
 
 public class Scheduler {
