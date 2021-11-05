@@ -41,6 +41,20 @@ Spring Framework's Repository interface allows reducing boilerplate while
 maintaining Clean Architecture. In addition, the combination will ease the
 devleopment of a web frontend.
 
+For scheduler, we use an SAT solver. We model a shift schedule as propositional
+variables ("employee X works a shift on day D at hour H") and model scheduling
+constraints as propositional formulas. For ease of specification, we use
+pseudo-boolean constraints ("at least 2 employees work on day D at hour H",
+expressed as "the sum of all the shift variables on day D at hour H is at least
+2"). These constraints are passed to an off-the-shelf SAT solver in Java
+(`sat4j`), which finds a valid schedule conforming to our specification. SAT
+solvers represent a balance between generality, performance and ease of use. It
+would not be possible to build a better specialized algorithm in the project's
+time constraints, given the complexity of the scheduling problem and its
+NP-hardness. Transforming the problem to a well studied one (boolean
+satisfiability) allows us to focus on our business logic and not the details of
+NP-hard heuristics. This provides a clean layering.
+
 # Clean Architecture
 
 <!-- A brief description of how your project adheres to Clean Architecture (if you notice a violation and aren't sure how to fix it, talk about that too!) -->
@@ -65,4 +79,4 @@ devleopment of a web frontend.
 
 <!---        a summary of what each group member has been working on and plans to work on next -->
 
-Alyssa Rosenzweig: scheduler logic, code review, design document.
+Alyssa Rosenzweig: scheduler, code review, design document.
