@@ -1,10 +1,18 @@
-package Service;
-
 import Entity.Calendar;
 import Entity.Employee;
 import Entity.Shift;
 
 import java.time.*;
+import java.util.List;
+import java.util.ListIterator;
+
+import org.sat4j.pb.SolverFactory;
+import org.sat4j.pb.IPBSolver;
+import org.sat4j.specs.IProblem;
+import org.sat4j.specs.TimeoutException;
+import org.sat4j.specs.ContradictionException;
+import org.sat4j.specs.IVecInt;
+import org.sat4j.core.VecInt;
 
 /**
  * The automatic shift scheduler manages the Calendars in the Organization,
@@ -70,13 +78,22 @@ import java.time.*;
  */
 
 public class Scheduler {
-    public Calendar calendar;
+    private IPBSolver solver;
+    private List<Employee> employees;
+
+    // TODO: Should these constants be configurable for more flexibility?
+    private final int s_l = 0;
+    private final int s_h = 8;
+    private final int daysOfWeek = 7;
 
     public Scheduler() {
     }
 
-    public Scheduler(Calendar calendar) {
-        this.calendar = calendar;
+    public Scheduler(List<Employee> employees) {
+        this.employees = employees;
+
+        solver = SolverFactory.newDefault();
+        solver.setTimeout(10);
     }
 
     /**
@@ -99,9 +116,6 @@ public class Scheduler {
        if (employee.getCalendar().eventsOnDay(start) >= 1) {
            return false;
        }
-
-       // Employees must not be scheduled while on leave.
-        employee.setSchedulable(false);
 
        // Otherwise, no other constraints to check here
        return true;
@@ -126,5 +140,155 @@ public class Scheduler {
 
         employee.getCalendar().addEvent(shift);
         return shift;
+    }
+
+    private int hoursPerDay() {
+        return s_h - s_l;
+    }
+
+    private int countVariables() {
+        return employees.size() * daysOfWeek * hoursPerDay();
+    }
+
+    private int var(int employee, int day, int hour) {
+        // All quantities are flattened to be zero indexed
+        int h = hour - s_l;
+        int i = employee - 1;
+        int d = day - 1;
+
+        // Ensure maxes are satisfied
+        assert(0 <= h && h < hoursPerDay());
+        assert(0 <= d && d < daysOfWeek);
+        assert(0 <= i && i < employees.size());
+
+        // 3D index (i, d, h) flattened to 1D
+        int idx = h + hoursPerDay() * (d + daysOfWeek * i);
+
+        // Solver wants 1-indexed, so add 1
+        assert(idx >= 0 && idx < countVariables());
+        return idx + 1;
+    }
+
+    private void constrainMaxHours() throws ContradictionException {
+        // 1. Maximum number of hours worked per employee per week
+        // 1. For each employee i, sum_{d = 1}^7 sum_{h = s_l}^{s_h} x_idh <=
+        //    maximum # of hours employee i can work per week.
+        ListIterator<Employee> it = employees.listIterator();
+
+        while (it.hasNext()) {
+            int i = it.nextIndex() + 1;
+            IVecInt literals = new VecInt();
+
+            for (int d = 1; d <= 7; ++d) {
+                for (int h = s_l; h < s_h; ++h) {
+                    literals = literals.push(var(i, d, h));
+                }
+            }
+
+            solver.addAtMost(literals, it.next().getMaxHoursPerWeek());
+        }
+    }
+
+    private void constrainMinSimultaneous() throws ContradictionException {
+        // 2. Minimum number of employees working simultaneously
+        // 2. For each h, d: sum_{i = 1}^N x_i >= minimum # of employees simultaneously
+        for (int d = 1; d <= 7; ++d) {
+            for (int h = s_l; h < s_h; ++h) {
+                IVecInt literals = new VecInt();
+                final int minimum = 1; // TODO: configurable
+
+                for (int i = 1; i <= employees.size(); ++i) {
+                    literals.push(var(i, d, h));
+                }
+
+                solver.addAtLeast(literals, minimum);
+            }
+        }
+    }
+
+    private void constrainContiguousShifts() throws ContradictionException {
+        // 4. Shifts must be contiguous.
+        // 4. For each employee i, each day d, end hour h, and start hour s
+        // such that s_l <= s < h - 1, NOT(x_ids) OR NOT(x_idh) OR x_id{s + 1}
+        for (int i = 1; i <= employees.size(); ++i) {
+            for (int d = 1; d <= 7; ++d) {
+                for (int h = s_l; h < s_h; ++h) {
+                    for (int s = 0; s < h - 1; ++s) {
+                        int[] literals = {
+                            -var(i, d, s), -var(i, d, h), var(i, d, s + 1)
+                        };
+
+                        solver.addClause(new VecInt(literals));
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Automatically schedule a week
+     *
+     * @param base The week to schedule
+     * @return Whether scheduling was successful.
+     */
+
+    public boolean scheduleWeek(ZonedDateTime base) {
+        // Create all variables
+        solver.newVar(countVariables());
+
+        // Define constraints
+        try {
+            constrainMaxHours();
+            constrainMinSimultaneous();
+            constrainContiguousShifts();
+        } catch(ContradictionException exp) {
+            return false;
+        }
+
+        // Now solve
+        IProblem problem = solver;
+
+        try {
+            if (!problem.isSatisfiable()) {
+                return false;
+            }
+        } catch (TimeoutException exp) {
+            return false;
+        }
+
+        ListIterator<Employee> it = employees.listIterator();
+        while (it.hasNext()) {
+            int i = it.nextIndex() + 1;
+            Employee employee = it.next();
+
+            // Get the shift for each day and schedule
+            for (int d = 1; d <= 7; ++d) {
+                int firstHour = -1;
+                int lastHour = s_h;
+
+                // Combine subsequent shifts
+                for (int h = s_l; h < s_h; ++h) {
+                    boolean scheduled = problem.model(var(i, d, h));
+
+                    if (scheduled && firstHour < 0) {
+                        firstHour = h;
+                    } else if (!scheduled && firstHour >= 0 && lastHour == s_h) {
+                        lastHour = h;
+                    }
+                }
+
+                if (firstHour >= 0) {
+                    int hours = lastHour - firstHour;
+                    ZonedDateTime start = base.plusDays(d - 1).plusHours(firstHour);
+                    Shift shift = scheduleShift(employee, start, "Canterlot", hours);
+
+                    // Solver invariant
+                    System.out.println(employee.toString() + start.toString());
+                    assert(shift != null);
+                }
+            }
+        }
+
+        return true;
     }
 }
