@@ -8,8 +8,10 @@ repositories {
 }
 
 dependencies {
-    implementation 'junit:junit:4.13.1'
-    testImplementation('org.junit.jupiter:junit-jupiter:5.6.0')
+    implementation('org.springframework.boot:spring-boot-starter-web:2.5.6')
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa:2.5.6')
+    implementation 'junit:junit:4.13.2'
+    testImplementation('org.junit.jupiter:junit-jupiter:5.8.1')
     implementation group: 'org.eclipse.persistence', name: 'javax.persistence', version: '2.2.1'
     implementation 'org.sat4j:org.sat4j.core:2.3.1'
     implementation 'org.sat4j:org.sat4j.pb:2.3.1'
