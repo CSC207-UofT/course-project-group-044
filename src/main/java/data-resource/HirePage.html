@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<div>
+    <form th:action="@{/login}" th:object="${employee}" th:method="post">
+        <div class="container">
+            <label><b>ID</b></label>
+            <input type="text" placeholder="Enter Employee id" th:field="*{ID}" required>
+
+            <label><b>Name</b></label>
+            <input type="text" placeholder="Enter Employee name" th:field="*{Name}" required>
+
+            <label><b>Salary</b></label>
+            <input type="text" placeholder="Enter Employee's Salary'" th:field="*{Salary}" required>
+
+            <label><b>maxHoursPerWeek</b></label>
+            <input type="text" placeholder="Enter Employee's max work time per week" th:field="*{maxHoursPerWeek}"
+                   required>
+
+            <label><b>hoursPerShift</b></label>
+            <input type="text" placeholder="Enter Employee's hour per shift" th:field="*{hoursPerShift}"
+                   required>
+
+            <button type="submit">Hire</button>
+        </div>
+    </form>
+</div>
+<div>
+    <p th:text="${message}"></p>
+</div>
+</body>
+</html>
