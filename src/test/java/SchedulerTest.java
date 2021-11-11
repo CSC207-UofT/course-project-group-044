@@ -1,25 +1,29 @@
 import Entity.Employee;
 import Entity.Organization;
-import Service.EmployeeModifier;
+import Entity.Calendar;
+import Entity.Shift;
 import Service.Scheduler;
 import org.junit.*;
 
 import static org.junit.Assert.*;
 
 import java.time.*;
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SchedulerTest {
-    private Scheduler scheduler;
-    private Organization org;
     private Employee employee;
-    private EmployeeModifier mgr;
+    private Scheduler scheduler;
 
     @Before
     public void setUp() {
+        Calendar calendar = new Calendar();
+        employee = new Employee("Sunset Shimmer", 1, calendar, 20,
+                20, 4, true);
         scheduler = new Scheduler();
-        org = new Organization();
-        mgr = new EmployeeModifier(org);
-        employee = mgr.hireEmployee("Sunset Shimmer", 1, 20, 20, 4);
+        Organization org = new Organization();
+        org.addEmployee(employee);
     }
 
     @After
@@ -29,8 +33,44 @@ public class SchedulerTest {
     // Test that a single shift can be scheduled
     @Test(timeout = 50)
     public void testScheduleShift() {
-        ZonedDateTime date = ZonedDateTime.of(2013, 6, 15, 9, 0, 0, 0, ZoneOffset.UTC);
-        assertNotNull(scheduler.scheduleShift(employee, date, "Canterlot", 8));
+        ZonedDateTime date = ZonedDateTime.of(2013, 6, 15, 9,
+                0, 0, 0, ZoneOffset.UTC);
+        Shift actualShift = scheduler.scheduleShift(employee, date, "Canterlot", 8);
+
+        assertEquals(new Shift(employee, Instant.parse("2013-06-15T09:00:00Z"),
+                Duration.ofHours(8), "Canterlot"), actualShift);
+    }
+
+    // Test that whether the shift has been updated to a given employee's calendar.
+    @Test(timeout = 50)
+    public void testCalenderUpdate() {
+        ZonedDateTime date = ZonedDateTime.of(2013, 6, 15, 9,
+                0, 0, 0, ZoneOffset.UTC);
+        scheduler.scheduleShift(employee, date, "Canterlot", 8);
+        Calendar actualCalendar = employee.getCalendar();
+
+        Calendar expectCalendar = new Calendar();
+        expectCalendar.addEvent(new Shift(employee, Instant.parse("2013-06-15T09:00:00Z"),
+                Duration.ofHours(8), "Canterlot"));
+
+        assertEquals(expectCalendar, actualCalendar);
+    }
+
+    // Test that assigning two shifts which are overlapped to a given employee.
+    @Test(timeout = 50)
+    public void testOverlappedShifts() {
+        ZonedDateTime date1 = ZonedDateTime.of(2013, 6, 15, 9,
+                0, 0, 0, ZoneOffset.UTC);
+        ZonedDateTime date2 = ZonedDateTime.of(2013, 6, 15, 10,
+                0, 0, 0, ZoneOffset.UTC);
+        scheduler.scheduleShift(employee, date1, "Canterlot", 8);
+        scheduler.scheduleShift(employee, date2, "Canterlot", 8);
+
+        Calendar expectCalendar = new Calendar();
+        expectCalendar.addEvent(new Shift(employee, Instant.parse("2013-06-15T09:00:00Z"),
+                Duration.ofHours(8), "Canterlot")); // the second shift should not assign to employee,
+                                                            // since it overlapped to date1
+        assertEquals(expectCalendar, employee.getCalendar());
     }
 
     // Test that only a single shift can be scheduled for a given day
