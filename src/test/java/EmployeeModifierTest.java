@@ -1,22 +1,33 @@
 import Entity.Employee;
-import Entity.Organization;
+import Repository.EmployeeRepository;
 import Service.EmployeeModifier;
 import org.junit.*;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
+@RunWith(MockitoJUnitRunner.class)
 public class EmployeeModifierTest {
-    private Organization org;
+
+    @InjectMocks
     private EmployeeModifier mgr;
     private HashMap<Integer,Employee> employees;
 
+    @Mock
+    private EmployeeRepository employeeRepository;
+
     @Before
     public void setUp() {
-        this.org = new Organization();
-        this.mgr = new EmployeeModifier(this.org);
-        this.employees = this.org.getEmployees();
+        ArrayList<Employee> employees = (ArrayList<Employee>) employeeRepository.findAll();
+        for (Employee employee: employees){
+            this.employees.put(employee.getId(), employee);
+        }
     }
 
     @After

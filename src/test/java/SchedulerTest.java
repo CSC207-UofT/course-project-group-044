@@ -1,24 +1,31 @@
 import Entity.Employee;
-import Entity.Organization;
+import Repository.EmployeeRepository;
 import Service.EmployeeModifier;
 import Service.Scheduler;
 import org.junit.*;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.*;
 
 import java.time.*;
 
+@RunWith(MockitoJUnitRunner.class)
 public class SchedulerTest {
     private Scheduler scheduler;
-    private Organization org;
     private Employee employee;
+
+    @InjectMocks
     private EmployeeModifier mgr;
+
+    @Mock
+    private EmployeeRepository employeeRepository;
 
     @Before
     public void setUp() {
         scheduler = new Scheduler();
-        org = new Organization();
-        mgr = new EmployeeModifier(org);
         employee = mgr.hireEmployee("Sunset Shimmer", 1, 20, 20, 4);
     }
 
