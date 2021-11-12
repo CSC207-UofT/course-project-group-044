@@ -1,13 +1,15 @@
 package Controller;
 
 import Entity.Employee;
-import Entity.Employee;
 import Service.EmployeeModifier;
 import antlr.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Objects;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("employee")
@@ -17,13 +19,13 @@ public class FireController {
     @Autowired
     private EmployeeModifier employeeModifier;
 
-    @PostMapping("/fire")
+    @PostMapping ("/fire")
     public String deleteEmployee(@ModelAttribute(value="employee") Employee employee, Model model){
 
-        Employee user = EmployeeModifier.findEmployeeBy(employee.getId());
+        Employee user = employeeModifier.findEmployeeById(employee.getId());
 
-        if (user != null){
-            employeeModifier.fireEmployee(user);
+        if (!Objects.equals(user, Optional.empty())){
+            employeeModifier.fireEmployeebyID(user.getId());
             model.addAttribute("employee", employee);
             return "FirePage";
         }

@@ -2,10 +2,11 @@ package Service;
 
 import Entity.Calendar;
 import Entity.Employee;
-import Entity.Organization;
 import Repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class EmployeeModifier {
@@ -21,8 +22,15 @@ public class EmployeeModifier {
         return employee;
     }
 
-    public void fireEmployee(Employee employee) {
-        employeeRepository.delete(employee);
+    public Employee findEmployeeById(int id){
+        return employeeRepository.findById(id).orElse(null);
+    }
+
+    public void fireEmployeebyID(int id) {
+        if (employeeRepository.existsById(id)){
+            employeeRepository.deleteById(id);
+        }
+
     }
 
     public Double SalaryEvaluation(int id){

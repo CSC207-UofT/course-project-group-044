@@ -14,7 +14,7 @@ public class WelcomeController {
     @GetMapping()
     public String getLoginPage(Model model) {
         model.addAttribute("message", "Hi csc207 students!");
-        return "welcome";
+        return "Welcome";
     }
 
 }

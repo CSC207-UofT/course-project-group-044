@@ -19,7 +19,7 @@ public class HireController {
     @PostMapping("/hire")
     public String addEmployee(@ModelAttribute(value="employee") Employee employee, Model model){
 
-        Employee user = EmployeeModifier.findEmployeeBy(employee.getId());
+        Employee user = employeeModifier.findEmployeeById(employee.getId());
 
         if (user != null){
             employeeModifier.hireEmployee(user.getName(), user.getId(),
