@@ -2,6 +2,7 @@ package com.hr.service.impl;
 
 import com.hr.entity.Calendar;
 import com.hr.entity.Employee;
+import com.hr.repository.CalendarRepository;
 import com.hr.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,11 +14,15 @@ public class EmployeeModifierImpl implements EmployeeModifier {
     @Autowired
     EmployeeRepository employeeRepository;
 
+    @Autowired
+    CalendarRepository calendarRepository;
+
     public Employee hireEmployee(String name, int id, int salary, int maxHoursPerWeek, int hoursPerShift) {
         // New employees have an empty calendar ready for scheduling
         Calendar calendar = new Calendar();
         Employee employee = new Employee(name, id, calendar, salary, maxHoursPerWeek, hoursPerShift, true);
 
+        calendarRepository.save(calendar);
         employeeRepository.save(employee);
         return employee;
     }

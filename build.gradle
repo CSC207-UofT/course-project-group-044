@@ -18,6 +18,7 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:4.0.0'
     runtimeOnly 'com.h2database:h2'
     testCompileOnly 'junit:junit:4.12'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: '2.5.6'
 }
 
 test {

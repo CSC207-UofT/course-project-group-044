@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("employee")
 public class HireController {
-    private static Employee employee = new Employee();
+    private static Employee DUMMY = new Employee();
 
     @Autowired
     private EmployeeModifier employeeModifier;
@@ -18,18 +18,17 @@ public class HireController {
     @PostMapping("/hire")
     public String addEmployee(@ModelAttribute(value="employee") Employee employee, Model model){
 
-        Employee user = employeeModifier.findEmployeeById(employee.getId());
 
-        if (user != null){
-            employeeModifier.hireEmployee(user.getName(), user.getId(), user.getSalary(),
-                    user.getMaxHoursPerWeek(), user.getHoursPerShift());
+        if (employee != null){
+            employeeModifier.hireEmployee(employee.getName(), employee.getId(), employee.getSalary(),
+                    employee.getMaxHoursPerWeek(), employee.getHoursPerShift());
             model.addAttribute("employee", employee);
-            return "HirePage";
+            return "hirepage";
         }
 
-        model.addAttribute("employee", user);
+        model.addAttribute("employee", DUMMY);
         model.addAttribute("message", "hiring failed because you add nothing");
 
-        return "HirePage";
+        return "hirepage";
     }
 }

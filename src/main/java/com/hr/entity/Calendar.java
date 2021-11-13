@@ -1,12 +1,30 @@
 package com.hr.entity;
 
+import javax.persistence.*;
 import java.time.*;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.UUID;
 
+@Entity
 public class Calendar {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID calendarID;
 
+//    @ElementCollection
+//    private List<Integer> eventsID;
+
+    @OneToMany
     private List<Event> events;
+
+    public UUID getCalendarID() {
+        return calendarID;
+    }
+
+    public void setCalendarID(UUID calendarID) {
+        this.calendarID = calendarID;
+    }
 
     public List<Event> getEvents() {
         return events;

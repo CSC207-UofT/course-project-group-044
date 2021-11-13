@@ -1,13 +1,12 @@
 package com.hr.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 import java.time.*;
 import java.time.temporal.ChronoField;
 
-@MappedSuperclass
-public abstract class Event {
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public class Event {
     @Id
 	private Instant start;
 
@@ -26,6 +25,10 @@ public abstract class Event {
         this.name = name;
         this.location = location;
 	}
+
+    public Event() {
+
+    }
 
     /**
      * Get the date of a shift in a given timezone

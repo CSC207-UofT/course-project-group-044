@@ -3,7 +3,7 @@ package com.hr.entity;
 import javax.persistence.*;
 import java.time.*;
 
-//@Entity
+@Entity
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -12,11 +12,8 @@ public class Employee {
     @Column
     private final String name;
 
-    @Column
-    private final Calendar calendar;
-
-//    @Transient
-//    private Calendar calendar;
+    @OneToOne
+    private Calendar calendar;
 
     @Column
     // Hourly Wage of the Employee
@@ -42,7 +39,6 @@ public class Employee {
         this.hoursPerShift = hoursPerShift;
         this.schedulable = schedulable;
         this.calendar = calendar;
-
     }
 
     public Employee() {

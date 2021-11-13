@@ -13,12 +13,12 @@ import java.util.Optional;
 @Controller
 @RequestMapping("employee")
 public class FireController {
-    private static Employee employee = new Employee();
+    private static Employee DUMMY = new Employee();
 
     @Autowired
     private EmployeeModifier employeeModifier;
 
-    @PostMapping ("/fire")
+    @PostMapping("/fire")
     public String deleteEmployee(@ModelAttribute(value="employee") Employee employee, Model model){
 
         Employee user = employeeModifier.findEmployeeById(employee.getId());
@@ -28,7 +28,7 @@ public class FireController {
             model.addAttribute("employee", employee);
             return "FirePage";
         }
-        model.addAttribute("employee", user);
+        model.addAttribute("employee", DUMMY);
         model.addAttribute("message", "firing failed because you add nothing");
 
         return "FirePage";
