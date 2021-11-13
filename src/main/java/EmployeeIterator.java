@@ -1,9 +1,20 @@
+import Repository.EmployeeRepository;
+import org.springframework.stereotype.Service;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 import java.io.*;
 
+@Service
+/**
+ * A Manager has the power to modify employees in this Organization.
+ * has permission to hire and fire Employee from the Organization, and evaluate payroll .
+ *
+ * @param properties  the database that stores and accesses all Employees.
+ * @param current
+ */
 public class EmployeeIterator implements Iterator<String> {
     private List<String> properties = new ArrayList<>();
     private int current = 0;
