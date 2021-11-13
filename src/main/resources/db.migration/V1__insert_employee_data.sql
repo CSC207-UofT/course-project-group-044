@@ -1,0 +1,1 @@
+INSERT INTO student (username, password) VALUES ('chris', 'password');
