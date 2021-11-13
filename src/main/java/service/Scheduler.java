@@ -1,8 +1,7 @@
-package Service;
+package service;
 
-import Entity.Calendar;
-import Entity.Employee;
-import Entity.Shift;
+import entity.Employee;
+import entity.Shift;
 
 import java.time.*;
 import java.util.List;

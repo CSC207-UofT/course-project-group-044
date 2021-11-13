@@ -1,7 +1,7 @@
-import Entity.Employee;
-import Repository.EmployeeRepository;
-import Service.EmployeeModifier;
-import Service.Scheduler;
+import entity.Employee;
+import repository.EmployeeRepository;
+import service.impl.EmployeeModifierImpl;
+import service.Scheduler;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -18,7 +18,7 @@ public class SchedulerTest {
     private Employee employee;
 
     @InjectMocks
-    private EmployeeModifier mgr;
+    private EmployeeModifierImpl mgr;
 
     @Mock
     private EmployeeRepository employeeRepository;

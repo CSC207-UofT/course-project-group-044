@@ -1,14 +1,15 @@
-package Service;
+package service.impl;
 
-import Entity.Calendar;
-import Entity.Employee;
-import Entity.Organization;
-import Repository.EmployeeRepository;
+import entity.Calendar;
+import entity.Employee;
+import repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import service.EmployeeModifier;
+
 
 @Service
-public class EmployeeModifier implements EmployeeRepository{
+public class EmployeeModifierImpl implements EmployeeModifier {
     @Autowired
     EmployeeRepository employeeRepository;
 
@@ -30,9 +31,10 @@ public class EmployeeModifier implements EmployeeRepository{
         return employeeRepository.findById(id).orElse(null);
     }
 
-    public Double SalaryEvaluation(int id){
+    @Override
+    public Double evaluateSalary(int id){
         // return the Salary of the person in a Week.
-        Employee employee = employeeRepository.findEmployeeById(id);
+        Employee employee = findEmployeeById(id);
         //TODO: figure out the real total work time.
         return (double) (7 * employee.getSalary() * employee.getMaxHoursPerWeek());
     }

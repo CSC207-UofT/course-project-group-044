@@ -1,7 +1,4 @@
-package Entity;
-
-import Entity.Event;
-import Entity.Employee;
+package entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

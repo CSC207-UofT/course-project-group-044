@@ -1,6 +1,6 @@
-import Entity.Employee;
-import Repository.EmployeeRepository;
-import Service.EmployeeModifier;
+import entity.Employee;
+import repository.EmployeeRepository;
+import service.impl.EmployeeModifierImpl;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -16,7 +16,7 @@ import java.util.HashMap;
 public class EmployeeModifierTest {
 
     @InjectMocks
-    private EmployeeModifier mgr;
+    private EmployeeModifierImpl mgr;
     private HashMap<Integer,Employee> employees;
 
     @Mock
@@ -45,6 +45,11 @@ public class EmployeeModifierTest {
 
         assertTrue(this.employees.containsKey(1));
         assertEquals(this.employees.size(), 1);
+    }
+
+    @Test
+    public void testSalaryEvaluation(){
+        assertEquals(mgr.evaluateSalary(1), 2800.0);
     }
 
     @Test(timeout = 50)

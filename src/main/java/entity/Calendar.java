@@ -1,6 +1,4 @@
-package Entity;
-
-import Entity.Event;
+package entity;
 
 import java.time.*;
 import java.util.List;

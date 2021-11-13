@@ -25,7 +25,7 @@ The HR scheduling system adds events to a calendar among certain rules based on 
 
 By clean architecture, there are four layers in HR systems, **external interface -> controller -> use case classes -> entity**, we implement systems by first implementing our command line **(external interface)** to access EmployeeManager, SchedulerManager and SalaryManager **(controller)**,then controller will call schedule class **(use case classes)** to further access to our **entity**, where our class follows SOLID principle.
 
-We have finished a brief description of Classes **(Entity classes, user classes, controller)** with all constructor and methods covered. All relationships between each class and their function are clearly indicated in CRC cards and each CRC card only gets called from the upper layer and provides a path to access the lower layer.
+We have finished a brief description of Classes **(entity classes, user classes, controller)** with all constructor and methods covered. All relationships between each class and their function are clearly indicated in CRC cards and each CRC card only gets called from the upper layer and provides a path to access the lower layer.
 
 From our Scenario Walk-Through, Human resources managers can use three different types of management systems to fire or hire employees, placing different events to employees, and calculating each employees salary based on their workload. Through the story of Jack, Jack gets hired through HireEmploy called by EmployeeManager. His work term is scheduled and assessed by SchedulerManager and Salary Manager and eventually he is fired by FireEmployee called by EmployeeManager. Through this story, we demonstrate the whole process of how an employee enters, works and leaves in one company.
 
@@ -35,7 +35,7 @@ one issue our group is currently struggling with is whether we need to create di
 In our design, after several group discussions, we now have a clear perspective about how our HR system follows both clean architecture and SOLID principles. In our specification, we let the outer layer only implement the inner layer and fully explain what our HR system does, what classes they have and which method they are implementing. Moreover, we have written all CRC cards based on the description of the class in specification. Also we show how the HR manager uses this system to convenient their daily work. And eventually we implement our design into the Skeleton Program to let the description become true.
 
 ## Group Work Distribution:
-**Yuxiang Lin**: Finish Scenario Walk-Through and help fix some parts in CRC cards. Next will focus on designing parts of Entity Classes.<br>
+**Yuxiang Lin**: Finish Scenario Walk-Through and help fix some parts in CRC cards. Next will focus on designing parts of entity Classes.<br>
 **Kunhan Duan**: make a summary in progress report. coming up with an open question Also adding and editing some parts  on CRC cards, Scenario Walk-Through. Finishing part of controllers and command line function. planning to work on the Skeleton Program to implement our HR system.<br>
 **Jiawei Chen**: Scheduling in-person meetings. Define classes and clarify which layer those classes belong to based on CLEAN Architecture.<br>
 **Haitao Zeng**: Working on CRC model, discussing specification part with teammates, and entity part of skeleton program. I may work on entity class or use case class, in the future.<br>
