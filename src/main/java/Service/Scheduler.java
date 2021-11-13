@@ -1,6 +1,6 @@
-import Entity.Calendar;
-import Entity.Employee;
-import Entity.Shift;
+package Service;
+
+import Entity.*;
 
 import java.time.*;
 import java.util.List;
@@ -121,6 +121,31 @@ public class Scheduler {
        return true;
     }
 
+    public Shift shiftFinder(Employee employee, ZonedDateTime date, String location, int hours){
+        List<Event> events = employee.getCalendar().getEvents();
+        Duration duration = Duration.ofHours(hours);
+        Event target_shift = new Shift(employee, date.toInstant(), duration, location);
+        for (Event e:events){
+            if (e == target_shift){
+                return (Shift) e;
+            }
+        }
+        return null;
+    }
+
+    public Meeting meetingFinder(Employee host, List<Employee> participants, ZonedDateTime date,
+                               String name,  String location, int hours){
+        List<Event> events = host.getCalendar().getEvents();
+        Duration duration = Duration.ofHours(hours);
+        Event target_meeting = new Meeting(host, participants, date.toInstant(), duration, name, location);
+        for (Event e:events){
+            if (e == target_meeting){
+                return (Meeting) e;
+            }
+        }
+        return null;
+    }
+
     /**
      * Attempt to schedule a single shift.
      *
@@ -140,6 +165,49 @@ public class Scheduler {
 
         employee.getCalendar().addEvent(shift);
         return shift;
+    }
+
+    public Meeting scheduleMeeting (Employee host, List<Employee> participants, ZonedDateTime date,
+                                    String name,  String location, int hours) {
+        // Check if legal to schedule
+        if (!schedulable(host, date, hours))
+            return null;
+        for (Employee e:participants){
+            if (! schedulable(e, date, hours))
+                return null;
+        }
+
+        // It is! Create the Shift.
+        Duration duration = Duration.ofHours(hours);
+        Meeting meeting = new Meeting(host, participants, date.toInstant(), duration, name, location);
+
+        host.getCalendar().addEvent(meeting);
+        for (Employee e:participants){
+            e.getCalendar().addEvent(meeting);
+        }
+        return meeting;
+    }
+
+    public Shift cancelShift(Employee employee, ZonedDateTime date, String location, int hours){
+        Shift target = shiftFinder(employee, date, location, hours);
+        if (target != null){
+            employee.getCalendar().getEvents().remove(target);
+            return target;
+        }
+        return null;
+    }
+
+    public Meeting cancelMeeting(Employee host, List<Employee> participants, ZonedDateTime date,
+                                 String location, String name, int hours){
+        Meeting target = meetingFinder(host, participants, date, location, name, hours);
+        if (target != null){
+            host.getCalendar().getEvents().remove(target);
+            for (Employee e:participants){
+                e.getCalendar().getEvents().remove(target);
+            }
+            return target;
+        }
+        return null;
     }
 
     private int hoursPerDay() {

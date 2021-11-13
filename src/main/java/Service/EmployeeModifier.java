@@ -12,10 +12,10 @@ public class EmployeeModifier {
     @Autowired
     EmployeeRepository employeeRepository;
 
-    public Employee hireEmployee(String name, int id, int salary, int maxHoursPerWeek) {
+    public Employee hireEmployee(String name, int id, int salary, int hoursPerShift, int maxHoursPerWeek) {
         // New employees have an empty calendar ready for scheduling
         Calendar calendar = new Calendar();
-        Employee employee = new Employee(name, id, calendar, salary, maxHoursPerWeek, true);
+        Employee employee = new Employee(name, id, calendar, salary, hoursPerShift, maxHoursPerWeek, true);
 
         employeeRepository.save(employee);
         return employee;
