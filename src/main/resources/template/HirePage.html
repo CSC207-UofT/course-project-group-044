@@ -9,13 +9,13 @@
     <form th:action="@{/login}" th:object="${employee}" th:method="post">
         <div class="container">
             <label><b>ID</b></label>
-            <input type="text" placeholder="Enter Employee id" th:field="*{ID}" required>
+            <input type="text" placeholder="Enter Employee id" th:field="*{id}" required>
 
             <label><b>Name</b></label>
-            <input type="text" placeholder="Enter Employee name" th:field="*{Name}" required>
+            <input type="text" placeholder="Enter Employee name" th:field="*{name}" required>
 
             <label><b>Salary</b></label>
-            <input type="text" placeholder="Enter Employee's Salary'" th:field="*{Salary}" required>
+            <input type="text" placeholder="Enter Employee's Salary'" th:field="*{salary}" required>
 
             <label><b>maxHoursPerWeek</b></label>
             <input type="text" placeholder="Enter Employee's max work time per week" th:field="*{maxHoursPerWeek}"

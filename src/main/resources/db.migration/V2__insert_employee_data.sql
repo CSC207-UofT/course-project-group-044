@@ -1,1 +1,1 @@
-INSERT INTO student (username, password) VALUES ('savvypro', 'password');
+INSERT INTO employee (name, id, salary, maxHoursPerWeek, hoursPerShift) VALUES ('jason', 38, 500, 35, 12);
