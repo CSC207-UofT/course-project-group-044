@@ -1,6 +1,6 @@
-package repository;
+package com.hr.repository;
 
-import entity.Employee;
+import com.hr.entity.Employee;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

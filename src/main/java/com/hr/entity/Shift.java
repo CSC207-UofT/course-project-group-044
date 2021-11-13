@@ -1,11 +1,11 @@
-package entity;
+package com.hr.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import java.time.Duration;
 import java.time.Instant;
 
-@Entity
+//@Entity
 public class Shift extends Event {
 	@Column
 	private Employee employee;

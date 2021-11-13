@@ -1,7 +1,7 @@
-package service;
+package com.hr.service;
 
-import entity.Employee;
-import entity.Shift;
+import com.hr.entity.Employee;
+import com.hr.entity.Shift;
 
 import java.time.*;
 import java.util.List;

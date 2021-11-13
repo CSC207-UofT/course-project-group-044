@@ -1,7 +1,7 @@
-import entity.Employee;
-import repository.EmployeeRepository;
-import service.impl.EmployeeModifierImpl;
-import service.Scheduler;
+import com.hr.entity.Employee;
+import com.hr.repository.EmployeeRepository;
+import com.hr.service.impl.EmployeeModifierImpl;
+import com.hr.service.Scheduler;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

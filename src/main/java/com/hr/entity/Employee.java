@@ -1,13 +1,9 @@
-package entity;
+package com.hr.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.*;
 import java.time.*;
 
-@Entity
+//@Entity
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,6 +14,9 @@ public class Employee {
 
     @Column
     private final Calendar calendar;
+
+//    @Transient
+//    private Calendar calendar;
 
     @Column
     // Hourly Wage of the Employee

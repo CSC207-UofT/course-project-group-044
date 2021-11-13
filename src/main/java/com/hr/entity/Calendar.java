@@ -1,4 +1,4 @@
-package entity;
+package com.hr.entity;
 
 import java.time.*;
 import java.util.List;

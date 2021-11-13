@@ -1,16 +1,20 @@
-import entity.Employee;
-import repository.EmployeeRepository;
-import service.impl.EmployeeModifierImpl;
-import org.junit.*;
+import com.hr.entity.Employee;
+import com.hr.repository.EmployeeRepository;
+import com.hr.service.impl.EmployeeModifierImpl;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(MockitoJUnitRunner.class)
 public class EmployeeModifierTest {
@@ -49,7 +53,7 @@ public class EmployeeModifierTest {
 
     @Test
     public void testSalaryEvaluation(){
-        assertEquals(mgr.evaluateSalary(1), 2800.0);
+        assertEquals(2800.0, mgr.evaluateSalary(1));
     }
 
     @Test(timeout = 50)

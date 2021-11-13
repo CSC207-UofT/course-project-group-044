@@ -1,4 +1,4 @@
-package entity;
+package com.hr.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Id;

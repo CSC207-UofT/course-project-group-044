@@ -1,6 +1,6 @@
-package service;
+package com.hr.service;
 
-import entity.Employee;
+import com.hr.entity.Employee;
 
 public interface EmployeeModifier {
     Employee hireEmployee(String name, int id, int salary, int maxHoursPerWeek, int hoursPerShift);
@@ -9,5 +9,5 @@ public interface EmployeeModifier {
 
     Employee findEmployeeById(int id);
 
-    Double evaluateSalary(int id);
+    double evaluateSalary(int id);
 }

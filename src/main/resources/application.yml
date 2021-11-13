@@ -8,8 +8,8 @@ spring:
     console.enabled: true
     console.path: /h2
   datasource:
-    url: jdbc:h2:file:C:/data/sample/test2 #(for Windows machine)
-    # url: jdbc:h2:./data #(for Mac machine)
+    #url: jdbc:h2:file:C:/data/sample/test2 #(for Windows machine)
+    url: jdbc:h2:./data #(for Mac machine)
     username: sa
     password: password
     driver-class-name: org.h2.Driver

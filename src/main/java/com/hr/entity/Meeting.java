@@ -1,4 +1,4 @@
-package entity;
+package com.hr.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -6,7 +6,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
 
-@Entity
+//@Entity
 public class Meeting extends Event {
     @Column
     private Employee holder;

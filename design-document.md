@@ -35,9 +35,9 @@ SpringBoot. Our original specification required persistence to a database; the
 JPA and Spring Framework provide an effective way to support this requirement
 with Clean Architecture. Since the entities involved map nautrally to a
 relational database, we don't need to specify a database schema explicitly in
-this approach; it suffices to annotate our entity classes. Similarly, since
+this approach; it suffices to annotate our com.hr.entity classes. Similarly, since
 much of the application logic follows a standard CRUD model, making use of the
-Spring Framework's repository interface allows reducing boilerplate while
+Spring Framework's com.hr.repository interface allows reducing boilerplate while
 maintaining Clean Architecture. In addition, the combination will ease the
 devleopment of a web frontend.
 

@@ -1,7 +1,7 @@
-package repository;
+package com.hr.repository;
 
-import entity.Event;
-import entity.Shift;
+import com.hr.entity.Event;
+import com.hr.entity.Shift;
 import org.springframework.data.repository.CrudRepository;
 import java.time.*;
 

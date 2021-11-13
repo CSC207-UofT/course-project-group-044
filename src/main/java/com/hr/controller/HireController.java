@@ -1,8 +1,7 @@
-package controller;
+package com.hr.controller;
 
-import entity.Employee;
-import service.EmployeeModifier;
-import antlr.StringUtils;
+import com.hr.entity.Employee;
+import com.hr.service.EmployeeModifier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

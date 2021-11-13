@@ -1,4 +1,4 @@
-package entity;
+package com.hr.entity;
 
 import java.util.List;
 import java.util.HashMap;
