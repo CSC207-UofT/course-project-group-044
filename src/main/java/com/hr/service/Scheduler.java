@@ -2,6 +2,8 @@ package com.hr.service;
 
 import com.hr.entity.Employee;
 import com.hr.entity.Shift;
+import com.hr.entity.Event;
+import com.hr.entity.Meeting;
 
 import java.time.*;
 import java.util.List;
@@ -14,6 +16,7 @@ import org.sat4j.specs.TimeoutException;
 import org.sat4j.specs.ContradictionException;
 import org.sat4j.specs.IVecInt;
 import org.sat4j.core.VecInt;
+import org.springframework.stereotype.Service;
 
 /**
  * The automatic shift scheduler manages the Calendars in the Organization,
@@ -77,7 +80,7 @@ import org.sat4j.core.VecInt;
  * 2 are pseudo-boolean constraints. SAT4J can handle both kinds of
  * constraints, reducing the amount of set up work we have.
  */
-
+@Service
 public class Scheduler {
     private IPBSolver solver;
     private List<Employee> employees;
@@ -108,18 +111,43 @@ public class Scheduler {
      */
 
     private boolean schedulable(Employee employee, ZonedDateTime start, int hours) {
-       // Maximum number of hours worked per employee per week
-       if (hours > employee.getUnscheduledHours(start)) {
-           return false;
-       }
+        // Maximum number of hours worked per employee per week
+        if (hours > employee.getUnscheduledHours(start)) {
+            return false;
+        }
 
-       // Shifts must be contiguous => only one shift per day
-       if (employee.getCalendar().eventsOnDay(start) >= 1) {
-           return false;
-       }
+        // Shifts must be contiguous => only one shift per day
+        if (employee.getCalendar().eventsOnDay(start) >= 1) {
+            return false;
+        }
 
-       // Otherwise, no other constraints to check here
-       return true;
+        // Otherwise, no other constraints to check here
+        return true;
+    }
+
+    public Shift shiftFinder(Employee employee, ZonedDateTime date, String location, int hours){
+        List<Event> events = employee.getCalendar().getEvents();
+        Duration duration = Duration.ofHours(hours);
+        Event target_shift = new Shift(employee, date.toInstant(), duration, location);
+        for (Event e:events){
+            if (e == target_shift){
+                return (Shift) e;
+            }
+        }
+        return null;
+    }
+
+    public Meeting meetingFinder(Employee host, List<Employee> participants, ZonedDateTime date,
+                                 String name,  String location, int hours){
+        List<Event> events = host.getCalendar().getEvents();
+        Duration duration = Duration.ofHours(hours);
+        Event target_meeting = new Meeting(host, participants, date.toInstant(), duration, name, location);
+        for (Event e:events){
+            if (e == target_meeting){
+                return (Meeting) e;
+            }
+        }
+        return null;
     }
 
     /**
@@ -141,6 +169,49 @@ public class Scheduler {
 
         employee.getCalendar().addEvent(shift);
         return shift;
+    }
+
+    public Meeting scheduleMeeting (Employee host, List<Employee> participants, ZonedDateTime date,
+                                    String name,  String location, int hours) {
+        // Check if legal to schedule
+        if (!schedulable(host, date, hours))
+            return null;
+        for (Employee e:participants){
+            if (! schedulable(e, date, hours))
+                return null;
+        }
+
+        // It is! Create the Shift.
+        Duration duration = Duration.ofHours(hours);
+        Meeting meeting = new Meeting(host, participants, date.toInstant(), duration, name, location);
+
+        host.getCalendar().addEvent(meeting);
+        for (Employee e:participants){
+            e.getCalendar().addEvent(meeting);
+        }
+        return meeting;
+    }
+
+    public Shift cancelShift(Employee employee, ZonedDateTime date, String location, int hours){
+        Shift target = shiftFinder(employee, date, location, hours);
+        if (target != null){
+            employee.getCalendar().getEvents().remove(target);
+            return target;
+        }
+        return null;
+    }
+
+    public Meeting cancelMeeting(Employee host, List<Employee> participants, ZonedDateTime date,
+                                 String location, String name, int hours){
+        Meeting target = meetingFinder(host, participants, date, location, name, hours);
+        if (target != null){
+            host.getCalendar().getEvents().remove(target);
+            for (Employee e:participants){
+                e.getCalendar().getEvents().remove(target);
+            }
+            return target;
+        }
+        return null;
     }
 
     private int hoursPerDay() {
@@ -216,7 +287,7 @@ public class Scheduler {
                 for (int h = s_l; h < s_h; ++h) {
                     for (int s = 0; s < h - 1; ++s) {
                         int[] literals = {
-                            -var(i, d, s), -var(i, d, h), var(i, d, s + 1)
+                                -var(i, d, s), -var(i, d, h), var(i, d, s + 1)
                         };
 
                         solver.addClause(new VecInt(literals));
