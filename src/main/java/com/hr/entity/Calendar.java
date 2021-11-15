@@ -1,11 +1,10 @@
-package Entity;
+package com.hr.entity;
 
-import Entity.Event;
-
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.time.*;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.UUID;
 
 @Entity
 /**
@@ -15,9 +14,23 @@ import java.util.ArrayList;
  * @see Event
  */
 public class Calendar {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID calendarID;
 
+//    @ElementCollection
+//    private List<Integer> eventsID;
+
+    @OneToMany
     private List<Event> events;
 
+    public UUID getCalendarID() {
+        return calendarID;
+    }
+
+    public void setCalendarID(UUID calendarID) {
+        this.calendarID = calendarID;
+    }
     /**
      * Gets the list of Events in this Calendar.
      *
@@ -26,24 +39,22 @@ public class Calendar {
     public List<Event> getEvents() {
         return events;
     }
-
     /**
      * Sets the list of Events as new events attribute for this Calendar.
      */
     public void setEvents(List<Event> events) {
         this.events = events;
     }
-
     /**
      * Constructor to create an instance of Calendar with an empty list of Employees.
      */
     public Calendar() {
         this.events = new ArrayList<>();
     }
-
     /**
      * Adds an Event to the list of Events of this Calendar.
      */
+
     public void addEvent(Event event) {
         this.events.add(event);
     }
@@ -51,8 +62,8 @@ public class Calendar {
     /**
      * Get the number of events on a given day.
      *
-     * @param argument Date/time to check
-     * @return the total number of Events on the given day.
+     * @param Date/time to check
+     * @return Count
      */
     public long eventsOnDay(ZonedDateTime argument) {
         LocalDate ref = argument.toLocalDate();

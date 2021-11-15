@@ -1,13 +1,11 @@
-package Entity;
+package com.hr.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 import java.time.*;
 import java.time.temporal.ChronoField;
 
-@MappedSuperclass
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 /**
  * An abstract entity class that stores the information of Event with two subclasses - Meeting & Shift.
  *
@@ -18,7 +16,7 @@ import java.time.temporal.ChronoField;
  * @see Meeting
  * @see Shift
  */
-public abstract class Event {
+public class Event {
     @Id
 	private Instant start;
 
@@ -30,7 +28,6 @@ public abstract class Event {
 
     @Column
 	private String location;
-
     /**
      * Constructor to create an instance of Event that has full complete information .
      */
@@ -40,6 +37,10 @@ public abstract class Event {
         this.name = name;
         this.location = location;
 	}
+
+    public Event() {
+
+    }
 
     /**
      * Gets the date of a shift in a given timezone.
@@ -53,6 +54,16 @@ public abstract class Event {
 
     /**
      * Tests if the Event occur during the same week as a given date/time.
+     * Get the date in the default timezone
+     *
+     * @return Local date
+     */
+    public LocalDate getDate() {
+        return getDate(ZoneOffset.UTC);
+    }
+
+    /**
+     * Test if the event occur during the same week as a given date/time.
      *
      * @return True if so, vice versa.
      */

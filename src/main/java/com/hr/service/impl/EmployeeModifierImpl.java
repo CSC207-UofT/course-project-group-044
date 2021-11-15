@@ -1,11 +1,13 @@
-package Service;
+package com.hr.service.impl;
 
-import Entity.Calendar;
-import Entity.Employee;
-import Entity.Organization;
-import Repository.EmployeeRepository;
+import com.hr.entity.Calendar;
+import com.hr.entity.Employee;
+import com.hr.repository.CalendarRepository;
+import com.hr.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.hr.service.EmployeeModifier;
+
 
 @Service
 /**
@@ -15,10 +17,12 @@ import org.springframework.stereotype.Service;
  * @param employeeRepository  the database that stores and accesses all Employees.
  * @see EmployeeRepository
  */
-
-public class EmployeeModifier {
+public class EmployeeModifierImpl implements EmployeeModifier {
     @Autowired
     EmployeeRepository employeeRepository;
+
+    @Autowired
+    CalendarRepository calendarRepository;
 
     /**
      * Hire a new employee to the organization. Create a new Employee by setting its id, salary, maxHoursPerWeek.
@@ -31,15 +35,15 @@ public class EmployeeModifier {
      * @param maxHoursPerWeek  the max hours that this employee can work in a week.
      * @return the employee that is added to the Organization.
      */
-    public Employee hireEmployee(String name, int id, int salary, int maxHoursPerWeek) {
+    public Employee hireEmployee(String name, int id, int salary, int maxHoursPerWeek, int hoursPerShift) {
         // New employees have an empty calendar ready for scheduling
         Calendar calendar = new Calendar();
-        Employee employee = new Employee(name, id, calendar, salary, maxHoursPerWeek, true);
+        Employee employee = new Employee(name, id, calendar, salary, maxHoursPerWeek, hoursPerShift, true);
 
+        calendarRepository.save(calendar);
         employeeRepository.save(employee);
         return employee;
     }
-
     /**
      * Fire an employee from the Organization.
      */
@@ -47,16 +51,23 @@ public class EmployeeModifier {
         employeeRepository.delete(employee);
     }
 
+    @Override
+    public Employee findEmployeeById(int id){
+        return employeeRepository.findById(id).orElse(null);
+    }
+
+
+    @Override
     /**
      * Evaluate the weekly salary of an Employee with given id.
      *
      * @see Employee#getSalary()
      * @see Employee#getMaxHoursPerWeek()
      */
-    public Double SalaryEvaluation(int id){
+    public double evaluateSalary(int id){
         // return the Salary of the person in a Week.
-        Employee employee = employeeRepository.findEmployeeBy(id);
+        Employee employee = findEmployeeById(id);
         //TODO: figure out the real total work time.
-        return (double) (7 * employee.getSalary() * employee.getMaxHoursPerWeek());
+        return 7 * employee.getSalary() * employee.getMaxHoursPerWeek();
     }
 }

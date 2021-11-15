@@ -1,10 +1,8 @@
-package Entity;
-
-import Entity.Employee;
-import Entity.Event;
+package com.hr.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import java.time.Duration;
 import java.time.Instant;
 
@@ -16,7 +14,7 @@ import java.time.Instant;
  * @see Event
  */
 public class Shift extends Event {
-	@Column
+	@OneToOne
 	private Employee employee;
 
 	/**
@@ -26,8 +24,13 @@ public class Shift extends Event {
 	 *  @param duration     the amount of time that from Event start to end.
 	 *  @param location     the specific address of this Event.
 	 */
+
 	public Shift(Employee employee, Instant start, Duration duration, String location) {
 		super(start, duration, "Shift", location);
 		this.employee = employee;
+	}
+
+	public Shift() {
+
 	}
 }

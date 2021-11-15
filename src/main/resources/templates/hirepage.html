@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<div>
+    <form th:action="@{/employee/hire}" th:object="${employee}" th:method="post">
+        <div class="container">
+            <label><b>ID</b></label>
+            <input type="text" placeholder="Enter Employee id" th:field="*{id}" required>
+
+            <label><b>Name</b></label>
+            <input type="text" placeholder="Enter Employee name" th:field="*{name}" required>
+
+            <label><b>Salary</b></label>
+            <input type="text" placeholder="Enter Employee's Salary'" th:field="*{salary}" required>
+
+            <label><b>maxHoursPerWeek</b></label>
+            <input type="text" placeholder="Enter Employee's max work time per week" th:field="*{maxHoursPerWeek}"
+                   required>
+
+            <label><b>hoursPerShift</b></label>
+            <input type="text" placeholder="Enter Employee's hour per shift" th:field="*{hoursPerShift}"
+                   required>
+
+            <button type="submit">Hire</button>
+        </div>
+    </form>
+</div>
+<div>
+    <form th:action="@{/employee/fire}" th:object="${employee}" th:method="post">
+        <div class="container">
+            <label><b>ID</b></label>
+            <input type="text" placeholder="Enter Employee id" th:field="*{id}" required>
+
+            <button type="submit">Fire</button>
+        </div>
+    </form>
+</div>
+
+<div>
+    <p th:text="${message}"></p>
+</div>
+</body>
+</html>

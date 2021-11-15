@@ -1,5 +1,3 @@
-package Service;
-
 import Entity.Calendar;
 import Entity.Employee;
 import Entity.Shift;
@@ -15,9 +13,7 @@ import org.sat4j.specs.TimeoutException;
 import org.sat4j.specs.ContradictionException;
 import org.sat4j.specs.IVecInt;
 import org.sat4j.core.VecInt;
-import org.springframework.stereotype.Service;
 
-@Service
 /**
  * The automatic shift scheduler manages the Calendars in the Organization,
  * creating Shift objects to satisfy shift scheduling constraints. We handle
@@ -80,6 +76,7 @@ import org.springframework.stereotype.Service;
  * 2 are pseudo-boolean constraints. SAT4J can handle both kinds of
  * constraints, reducing the amount of set up work we have.
  */
+
 public class Scheduler {
     private IPBSolver solver;
     private List<Employee> employees;
@@ -148,7 +145,6 @@ public class Scheduler {
     private int hoursPerDay() {
         return s_h - s_l;
     }
-
 
     private int countVariables() {
         return employees.size() * daysOfWeek * hoursPerDay();

@@ -1,10 +1,9 @@
-package Entity;
-
-import Entity.Event;
-import Entity.Employee;
+package com.hr.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
@@ -18,12 +17,11 @@ import java.util.List;
  * @see Event
  */
 public class Meeting extends Event {
-    @Column
+    @OneToOne
     private Employee holder;
 
-    @Column
+    @OneToMany
     private List<Employee> participants;
-
     /**
      * Constructor to create an instance of Meeting that has full complete information .
      *
@@ -37,5 +35,9 @@ public class Meeting extends Event {
         super(start, duration, name, location);
         this.holder = holder;
         this.participants = participants;
+    }
+
+    public Meeting() {
+
     }
 }
