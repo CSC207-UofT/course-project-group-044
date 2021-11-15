@@ -1,10 +1,12 @@
-package Repository;
+package com.hr.repository;
 
-import Entity.Event;
-import Entity.Shift;
+import com.hr.entity.Event;
+import com.hr.entity.Shift;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
 import java.time.*;
 
+@Repository
 public interface EventRepository extends CrudRepository<Event, Instant> {
-    Shift findEventBy(Instant start);
 }
