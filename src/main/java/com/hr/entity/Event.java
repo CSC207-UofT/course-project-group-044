@@ -54,6 +54,16 @@ public class Event {
 
     /**
      * Tests if the Event occur during the same week as a given date/time.
+     * Get the date in the default timezone
+     *
+     * @return Local date
+     */
+    public LocalDate getDate() {
+        return getDate(ZoneOffset.UTC);
+    }
+
+    /**
+     * Test if the event occur during the same week as a given date/time.
      *
      * @return True if so, vice versa.
      */
