@@ -12,7 +12,7 @@ public class WelcomeController {
     private static Employee DUMMY = new Employee();
     @GetMapping()
     public String getLoginPage(Model model) {
-        model.addAttribute("message", "Hi csc207 students!");
+        model.addAttribute("message", "hello!");
         model.addAttribute("employee", DUMMY);
         return "hirepage";
     }
