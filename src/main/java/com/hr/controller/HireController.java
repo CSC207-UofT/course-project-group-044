@@ -27,7 +27,7 @@ public class HireController {
         }
 
         model.addAttribute("employee", DUMMY);
-        model.addAttribute("message", "hiring failed since employee is not in our repository");
+        model.addAttribute("message", "hiring failed since since id is not found");
 
         return "hirepage";
     }
