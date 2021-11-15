@@ -1,0 +1,14 @@
+<h1>Scheduling</h1>
+<p>Status: <span th:text="${status}"></span></p>
+
+<div th:each="empl : ${employees}">
+	<p>Name: <span th:text="${empl.getName()}"></span></p>
+
+	<div style="margin-left: 3em">
+		<p th:each="event : ${empl.getCalendar().getEvents()}">
+			<strong th:text="${event.getDate()}"></strong>:
+			<span th:text="${event.getHours()}"></span>
+			hours
+		</p>
+	</div>
+</div>
