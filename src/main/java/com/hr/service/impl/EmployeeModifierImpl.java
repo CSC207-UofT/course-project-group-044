@@ -10,6 +10,13 @@ import com.hr.service.EmployeeModifier;
 
 
 @Service
+/**
+ * A Manager has the power to modify employees in this Organization.
+ * has permission to hire and fire Employee from the Organization, and evaluate payroll .
+ *
+ * @param employeeRepository  the database that stores and accesses all Employees.
+ * @see EmployeeRepository
+ */
 public class EmployeeModifierImpl implements EmployeeModifier {
     @Autowired
     EmployeeRepository employeeRepository;
@@ -17,6 +24,17 @@ public class EmployeeModifierImpl implements EmployeeModifier {
     @Autowired
     CalendarRepository calendarRepository;
 
+    /**
+     * Hire a new employee to the organization. Create a new Employee by setting its id, salary, maxHoursPerWeek.
+     * Assign a empty Calendar for this Employee.
+     * Add the data of this Employee into employeeRepository.
+     *
+     * @param name             the name of this Employee.
+     * @param id               the specific id of this Employee.
+     * @param salary           the salary of this Employee.
+     * @param maxHoursPerWeek  the max hours that this employee can work in a week.
+     * @return the employee that is added to the Organization.
+     */
     public Employee hireEmployee(String name, int id, int salary, int maxHoursPerWeek, int hoursPerShift) {
         // New employees have an empty calendar ready for scheduling
         Calendar calendar = new Calendar();
@@ -26,7 +44,9 @@ public class EmployeeModifierImpl implements EmployeeModifier {
         employeeRepository.save(employee);
         return employee;
     }
-
+    /**
+     * Fire an employee from the Organization.
+     */
     public void fireEmployee(Employee employee) {
         employeeRepository.delete(employee);
     }
@@ -36,7 +56,14 @@ public class EmployeeModifierImpl implements EmployeeModifier {
         return employeeRepository.findById(id).orElse(null);
     }
 
+
     @Override
+    /**
+     * Evaluate the weekly salary of an Employee with given id.
+     *
+     * @see Employee#getSalary()
+     * @see Employee#getMaxHoursPerWeek()
+     */
     public double evaluateSalary(int id){
         // return the Salary of the person in a Week.
         Employee employee = findEmployeeById(id);

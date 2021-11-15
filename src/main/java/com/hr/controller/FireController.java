@@ -23,14 +23,14 @@ public class FireController {
 
         Employee user = employeeModifier.findEmployeeById(employee.getId());
 
-        if (!Objects.equals(user, Optional.empty())){
+        if (user != null){
             employeeModifier.findEmployeeById(user.getId());
             model.addAttribute("employee", employee);
-            return "FirePage";
+            return "hirepage";
         }
         model.addAttribute("employee", DUMMY);
         model.addAttribute("message", "firing failed because you add nothing");
 
-        return "FirePage";
+        return "hirepage";
     }
 }

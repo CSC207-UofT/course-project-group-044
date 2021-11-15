@@ -30,6 +30,17 @@
     </form>
 </div>
 <div>
+    <form th:action="@{/employee/fire}" th:object="${employee}" th:method="post">
+        <div class="container">
+            <label><b>ID</b></label>
+            <input type="text" placeholder="Enter Employee id" th:field="*{id}" required>
+
+            <button type="submit">Fire</button>
+        </div>
+    </form>
+</div>
+
+<div>
     <p th:text="${message}"></p>
 </div>
 </body>

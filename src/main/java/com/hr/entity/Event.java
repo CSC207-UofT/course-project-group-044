@@ -6,6 +6,16 @@ import java.time.temporal.ChronoField;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+/**
+ * An abstract entity class that stores the information of Event with two subclasses - Meeting & Shift.
+ *
+ * @param start        the start time of this Event.
+ * @param duration     the amount of time that from Event start to end.
+ * @param name         the name of this Event.
+ * @param location     the specific address of this Event.
+ * @see Meeting
+ * @see Shift
+ */
 public class Event {
     @Id
 	private Instant start;
@@ -18,7 +28,9 @@ public class Event {
 
     @Column
 	private String location;
-
+    /**
+     * Constructor to create an instance of Event that has full complete information .
+     */
 	public Event(Instant start, Duration duration, String name, String location) {
         this.start = start;
         this.duration = duration;
@@ -31,18 +43,19 @@ public class Event {
     }
 
     /**
-     * Get the date of a shift in a given timezone
+     * Gets the date of a shift in a given timezone.
      *
-     * @return Local date
+     * @param zone a ZoneId represents local time zone.
+     * @return Local start time of this Event.
      */
     public LocalDate getDate(ZoneId zone) {
             return start.atZone(zone).toLocalDate();
     }
 
     /**
-     * Test if the event occur during the same week as a given date/time.
+     * Tests if the Event occur during the same week as a given date/time.
      *
-     * @return True if so.
+     * @return True if so, vice versa.
      */
     public boolean isSameWeek(ZonedDateTime ref) {
         ZonedDateTime comp = ZonedDateTime.ofInstant(start, ZoneOffset.UTC); // TODO
@@ -54,9 +67,9 @@ public class Event {
     }
 
     /**
-     * Get the number of hours spanned by the event
+     * Gets the number of hours spanned by this Event.
      *
-     * @return Hours
+     * @return the number of hours of entire eEvent.
      */
     public long getHours() {
         return duration.toHours();
