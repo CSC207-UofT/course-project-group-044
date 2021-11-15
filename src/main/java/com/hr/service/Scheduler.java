@@ -363,7 +363,6 @@ public class Scheduler {
                     Shift shift = scheduleShift(employee, start, "Canterlot", hours);
 
                     // Solver invariant
-                    System.out.println(employee.toString() + start.toString());
                     assert(shift != null);
                 }
             }
