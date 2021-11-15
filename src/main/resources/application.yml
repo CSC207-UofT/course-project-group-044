@@ -1,0 +1,18 @@
+spring:
+  thymeleaf:
+    cache: false
+  jpa:
+    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
+    hibernate.ddl-auto: update
+  h2:
+    console.enabled: true
+    console.path: /h2
+  datasource:
+    url: jdbc:h2:./data2
+    username: sa
+    password: password
+    driver-class-name: org.h2.Driver
+  flyway:
+    enabled: false
+
+

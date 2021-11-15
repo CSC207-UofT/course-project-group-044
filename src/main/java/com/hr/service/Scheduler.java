@@ -1,6 +1,7 @@
-import Entity.Calendar;
-import Entity.Employee;
-import Entity.Shift;
+package com.hr.service;
+
+import com.hr.entity.Employee;
+import com.hr.entity.Shift;
 
 import java.time.*;
 import java.util.List;

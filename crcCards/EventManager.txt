@@ -3,7 +3,7 @@ Parent class: None
 Subclass: None
 
 Responsibility:
-* controller that enables HR access to create Event, delete Event and assign Event to employees
+* com.hr.controller that enables HR access to create Event, delete Event and assign Event to employees
 
 Collaborator：
 
