@@ -24,8 +24,6 @@ public class Calendar {
     @OneToMany
     private List<Event> events;
 
-
-
     public UUID getCalendarID() {
         return calendarID;
     }
