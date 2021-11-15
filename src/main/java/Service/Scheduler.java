@@ -1,3 +1,5 @@
+package Service;
+
 import Entity.Calendar;
 import Entity.Employee;
 import Entity.Shift;
@@ -146,6 +148,7 @@ public class Scheduler {
     private int hoursPerDay() {
         return s_h - s_l;
     }
+
 
     private int countVariables() {
         return employees.size() * daysOfWeek * hoursPerDay();
