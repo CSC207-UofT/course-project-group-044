@@ -24,7 +24,7 @@ public class FireController {
         Employee user = employeeModifier.findEmployeeById(employee.getId());
 
         if (user != null){
-            employeeModifier.findEmployeeById(user.getId());
+            employeeModifier.fireEmployee(user);
             model.addAttribute("employee", employee);
             return "hirepage";
         }

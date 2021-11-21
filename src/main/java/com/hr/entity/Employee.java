@@ -17,11 +17,10 @@ import java.time.*;
  */
 public class Employee {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private final int id;
+    private int id;
 
     @Column
-    private final String name;
+    private String name;
 
     @OneToOne
     private Calendar calendar;
@@ -134,4 +133,10 @@ public class Employee {
      * Sets the boolean that indicates whether this Employee can be assigned Event.
      */
     public void setSchedulable(boolean new_bool) { this.schedulable = new_bool; }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name){this.name = name;}
 }
