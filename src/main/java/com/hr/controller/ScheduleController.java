@@ -1,17 +1,14 @@
 package com.hr.controller;
 
 import com.hr.entity.Employee;
-import com.hr.entity.Event;
 import com.hr.service.EmployeeModifier;
-import com.hr.service.Scheduler;
+import com.hr.service.impl.SchedulerImpl;
 import com.hr.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Objects;
-import java.util.Optional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +34,7 @@ public class ScheduleController {
             employees.add(it);
         }
 
-        Scheduler sched = new Scheduler(employees);
+        SchedulerImpl sched = new SchedulerImpl(employees);
         ZonedDateTime base = ZonedDateTime.of(2021, 11, 8, 9, 0, 0, 0, ZoneOffset.UTC);
 
         boolean succ = sched.scheduleWeek(base);
