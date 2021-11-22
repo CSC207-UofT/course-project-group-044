@@ -14,7 +14,7 @@ spring:
     password: csc207
     driver-class-name: org.h2.Driver
   flyway:
-    enabled: false
+    enabled: true
 server:
   port: 8082
 

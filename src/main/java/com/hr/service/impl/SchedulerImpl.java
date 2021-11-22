@@ -1,4 +1,4 @@
-package com.hr.service;
+package com.hr.service.impl;
 
 import com.hr.entity.Employee;
 import com.hr.entity.Shift;
@@ -85,7 +85,7 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-public class Scheduler {
+public class SchedulerImpl {
     private IPBSolver solver;
     private List<Employee> employees;
     @Autowired
@@ -98,10 +98,10 @@ public class Scheduler {
     private final int s_h = 8;
     private final int daysOfWeek = 7;
 
-    public Scheduler() {
+    public SchedulerImpl() {
     }
 
-    public Scheduler(List<Employee> employees) {
+    public SchedulerImpl(List<Employee> employees) {
         this.employees = employees;
 
         solver = SolverFactory.newDefault();
