@@ -55,6 +55,10 @@ Some people are able to use one input device but not the other due to various
 physical disabilities, or can use one more comfortable; a standards-compliant
 benefits from browser accessibility work in supporting both input methods.
 
+**Size and Space for Approach and Use**: Like Low Physical Effort, this
+principle does not apply directly. Respecting the usual browser defaults on
+colour contrast and font size facilitate this principle indirectly; this follows
+from the flexibility of use principle above.
 
 
 <!--
