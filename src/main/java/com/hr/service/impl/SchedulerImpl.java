@@ -11,6 +11,7 @@ import java.util.ListIterator;
 
 import com.hr.repository.CalendarRepository;
 import com.hr.repository.EmployeeRepository;
+import com.hr.repository.EventRepository;
 import org.sat4j.pb.SolverFactory;
 import org.sat4j.pb.IPBSolver;
 import org.sat4j.specs.IProblem;
@@ -92,6 +93,8 @@ public class SchedulerImpl {
     EmployeeRepository employeeRepository;
     @Autowired
     CalendarRepository calendarRepository;
+    @Autowired
+    EventRepository eventRepository;
 
     // TODO: Should these constants be configurable for more flexibility?
     private final int s_l = 0;
@@ -175,7 +178,9 @@ public class SchedulerImpl {
         Duration duration = Duration.ofHours(hours);
         Shift shift = new Shift(employee, date.toInstant(), duration, location);
 
+        this.eventRepository.save(shift);
         employee.getCalendar().addEvent(shift);
+        this.calendarRepository.save(employee.getCalendar());
         return shift;
     }
 
@@ -193,10 +198,13 @@ public class SchedulerImpl {
         Duration duration = Duration.ofHours(hours);
         Meeting meeting = new Meeting(host, participants, date.toInstant(), duration, name, location);
 
+        this.eventRepository.save(meeting);
         host.getCalendar().addEvent(meeting);
         for (Employee e:participants){
             e.getCalendar().addEvent(meeting);
+            this.calendarRepository.save(e.getCalendar());
         }
+        this.calendarRepository.save(host.getCalendar());
         return meeting;
     }
 
@@ -204,6 +212,7 @@ public class SchedulerImpl {
         Shift target = shiftFinder(employee, date, location, hours);
         if (target != null){
             employee.getCalendar().getEvents().remove(target);
+            this.calendarRepository.delete(employee.getCalendar());
             return target;
         }
         return null;
@@ -214,8 +223,10 @@ public class SchedulerImpl {
         Meeting target = meetingFinder(host, participants, date, location, name, hours);
         if (target != null){
             host.getCalendar().getEvents().remove(target);
+            this.calendarRepository.delete(host.getCalendar());
             for (Employee e:participants){
                 e.getCalendar().getEvents().remove(target);
+                this.calendarRepository.delete(e.getCalendar());
             }
             return target;
         }

@@ -21,7 +21,7 @@ public class Calendar {
 //    @ElementCollection
 //    private List<Integer> eventsID;
 
-    @OneToMany
+    @ManyToMany
     private List<Event> events;
 
     public UUID getCalendarID() {
