@@ -14,6 +14,6 @@ public class WelcomeController {
     public String getLoginPage(Model model) {
         model.addAttribute("message", "hello!");
         model.addAttribute("employee", DUMMY);
-        return "welcome";
+        return "hirepage";
     }
 }

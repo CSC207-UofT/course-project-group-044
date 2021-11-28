@@ -4,7 +4,7 @@
 <head>
     <title>Getting Started: Serving Web Content</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link th:href="@{hirepage.css}" rel="stylesheet" />
+    <link th:href="@{/css/hirepage.css}" rel="stylesheet" />
 </head>
 <body>
 <h1> Welcome to HR system!</h1>
@@ -71,17 +71,53 @@
         <input type="text"  name = "location">
         <label><b>Meeting length</b></label>
         <input type="number"  name = "hours">
+        <label><b>Meeting name</b></label>
+        <input type="text"  name = "name">
         <label><b>Time Zone</b></label>
         <input type="datetime-local"  name = "date">
         <button type="submit">Addmeeting</button>
     </form>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div>
+    <div style="width:100%; height:10%; background-color:greenyellow; margin-top:6em; margin-bottom:6em;">
+        <form th:action="@{/employee/removeshift}" method="post">
+            <label><b>employeeID</b></label>
+            <input type="text" th:value="${employee.id}" name = "employee">
+            <label><b>Date</b></label>
+            <input type="datetime-local" name = "date">
+            <label><b>Location</b></label>
+            <input type="text"  name = "location">
+            <label><b>Hours</b></label>
+            <input type="number"  name = "hours">
+            <button type="submit">Removeshift</button>
+        </form>
+    </div>
+</div>
+<div>
+    <div style="width:100%; height:10%; background-color:greenyellow; margin-top:6em; margin-bottom:6em;">
+        <form th:action="@{/employee/removemeeting}" method="post">
+            <label><b>hostID</b></label>
+            <input type="text" th:value="${employee.id}" name = "employee">
+            <label><b>participantsID</b></label>
+            <input type="text" name = "participants">
+            <label><b>Location</b></label>
+            <input type="text"  name = "location">
+            <label><b>Meeting length</b></label>
+            <input type="number"  name = "hours">
+            <label><b>Meeting name</b></label>
+            <input type="text"  name = "name">
+            <label><b>Time Zone</b></label>
+            <input type="datetime-local"  name = "date">
+            <button type="submit">Removemeeting</button>
+        </form>
+    </div>
+</div>
 <div>
     <p th:text="${message}"></p>
-</div>
-</div>
-</div>
-</div>
 </div>
 </body>
 </html>
