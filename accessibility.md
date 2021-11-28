@@ -47,6 +47,14 @@ operations) and confirmation boxes for sensitive operations (like firing) would
 improve the program's tolerance for error. These should be added in the future
 to improve accessibility.
 
+**Low Physical Effort**: This principle does not directly apply to a
+software-only project like ours. The main consideration is providing a simple
+interface which minimizing clicks and typing needed, and allows the use of both
+mice or keyboards (via keyboard shortcuts and on-screen buttons) as necessary.
+Some people are able to use one input device but not the other due to various
+physical disabilities, or can use one more comfortable; a standards-compliant
+benefits from browser accessibility work in supporting both input methods.
+
 
 
 <!--
