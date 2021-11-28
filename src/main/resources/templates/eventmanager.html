@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link th:href="@{/css/hirepage.css}" rel="stylesheet" />
+</head>
+<body>
+<h1> Eventmanager for operation add/delete shift and add/delete meeting</h1>
+<div>
+    <div style="width:100%; height:10%; background-color:greenyellow; margin-top:6em; margin-bottom:6em;">
+        <form th:action="@{/employee/addshift}" method="post">
+            <label><b>ID</b></label>
+            <input type="text" th:value="${employee.id}" name = "employee">
+            <label><b>Localtime</b></label>
+            <input type="datetime-local" name = "date">
+            <label><b>Location</b></label>
+            <input type="text"  name = "location">
+            <label><b>Hours per shift</b></label>
+            <input type="number" name = "hours">
+            <button type="submit">Shift</button>
+        </form>
+    </div>
+    <div>
+        <div style="width:100%; height:10%; background-color:greenyellow; margin-top:6em; margin-bottom:6em;">
+            <form th:action="@{/employee/addmeeting}" method="post">
+                <label><b>hostID</b></label>
+                <input type="text" th:value="${employee.id}" name = "employee">
+                <label><b>participantsID</b></label>
+                <input type="text" name = "participants">
+                <label><b>Location</b></label>
+                <input type="text"  name = "location">
+                <label><b>Meeting length</b></label>
+                <input type="number"  name = "hours">
+                <label><b>Meeting name</b></label>
+                <input type="text"  name = "name">
+                <label><b>Time Zone</b></label>
+                <input type="datetime-local"  name = "date">
+                <button type="submit">Addmeeting</button>
+            </form>
+        </div>
+    </div>
+</div>
+<div>
+    <div style="width:100%; height:10%; background-color:greenyellow; margin-top:6em; margin-bottom:6em;">
+        <form th:action="@{/employee/removeEvent}" method="post">
+            <label><b>employeeID</b></label>
+            <input type="text" th:value="${employee.id}" name = "employee">
+            <label><b>Date</b></label>
+            <input type="datetime-local" name = "date">
+        </form>
+    </div>
+</div>
+<div>
+    <input type="button" value="return to main menu!" class="button" onclick="history.back()">
+</div>
+</body>
+</html>

@@ -1,7 +1,6 @@
 package com.hr.controller;
 
 import com.hr.entity.Employee;
-import com.hr.entity.Event;
 import com.hr.repository.EventRepository;
 import com.hr.service.impl.SchedulerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +36,8 @@ public class ShiftController {
         Employee user = employeeModifier.findEmployeeById(employee.getId());
 
         if (user != null) {scheduler.scheduleShift(user, Zonetime, location, hours);
-            return "hirepage";}
-        return "hirepage";
+            return "eventmanager";}
+        return "eventmanager";
     }
     @PostMapping("/addmeeting")
     public String addMeeting(@ModelAttribute(value="employee")Employee employee, String participants, String date,
@@ -50,8 +49,8 @@ public class ShiftController {
         Employee user = employeeModifier.findEmployeeById(employee.getId());
         if (user != null) {
             scheduler.scheduleMeeting(user, guests, Zonetime, name, location, hours);
-        return "hirepage";}
-        return "hirepage";
+        return "eventmanager";}
+        return "eventmanager";
     }
 
 
@@ -64,8 +63,8 @@ public class ShiftController {
         if (user != null) {
             Instant EventID = Zonetime.toInstant();
             eventRepository.deleteById(EventID);
-            return "hirepage";}
-        return "hirepage";
+            return "eventmanager";}
+        return "eventmanager";
     }
 
     private ZonedDateTime localZoneconverter(String date){

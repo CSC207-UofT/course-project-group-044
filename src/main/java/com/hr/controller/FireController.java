@@ -26,11 +26,11 @@ public class FireController {
         if (user != null){
             employeeModifier.fireEmployee(user);
             model.addAttribute("employee", employee);
-            return "hirepage";
+            return "employeemanager";
         }
         model.addAttribute("employee", DUMMY);
         model.addAttribute("message", "firing failed because you add nothing");
 
-        return "hirepage";
+        return "employeemanager";
     }
 }
