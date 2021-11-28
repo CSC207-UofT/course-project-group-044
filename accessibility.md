@@ -6,6 +6,12 @@ do not have any such features you can either:
 
     (b) Explain why the principle does not apply to a program like yours. -->
 
+**Equitable Use**: By developing a web app with a simple user interface and
+semantic HTML, any user with web access can access our program. The program is
+automatically accessible to users of screen readers and other standard
+accessibility technologies (like sip and puff systems) which a user might have
+for their web browser.
+
 
 <!--
     Write a paragraph about who you would market your program towards, if you
