@@ -19,6 +19,19 @@ user might have (e.g. a system-wide dark theme applied to their browser,
 increased font size, etc) would be applied without requiring special
 application-specific settings.
 
+**Simple and Intuitive Use**: This principle requires a clean design. Following
+web best practices "ought" to have this principle come for free; unfortunately,
+designing intuitive applications is an art rather than a science, and cannot be
+distilled to a list of rules like screen reader accessibility. There is a
+special aspect of this principle, however -- accessibility to people of
+different language abilities. Adding internationalization and localization
+support to our app would be a feature we would implement in the future to adapt
+our program to non-Canadian markets and Canadians whose first language is not
+English. Thanks to clean architecture, this change is localized to the front-end
+and would be easily facilitated with the internationalization support in the
+templating library we use.
+
+
 
 <!--
     Write a paragraph about who you would market your program towards, if you
