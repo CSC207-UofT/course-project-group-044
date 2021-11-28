@@ -12,6 +12,13 @@ automatically accessible to users of screen readers and other standard
 accessibility technologies (like sip and puff systems) which a user might have
 for their web browser.
 
+**Flexibility in Use**: This principle is automatic with an unopinionated,
+standards-compliant web app. The application is accessible to users of any
+major operating system, both desktop and mobile, and any custom theming the
+user might have (e.g. a system-wide dark theme applied to their browser,
+increased font size, etc) would be applied without requiring special
+application-specific settings.
+
 
 <!--
     Write a paragraph about who you would market your program towards, if you
