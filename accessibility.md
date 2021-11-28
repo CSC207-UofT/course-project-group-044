@@ -31,6 +31,14 @@ English. Thanks to clean architecture, this change is localized to the front-end
 and would be easily facilitated with the internationalization support in the
 templating library we use.
 
+**Perceptible Information**: This principle requires a clean style sheet for
+the web program. Ironically, screen readers are the easy case here: provided we
+are screen reader accessible (per Equitable Use), we're done for users of
+screen readers. For sighted users, this principle requires effective use of
+semantic HTML and well-designed CSS. This goes hand-in-hand with simple and
+intuitive use; a clean design is inherently easier for people regardless of
+sensory abilities.
+
 
 
 <!--
