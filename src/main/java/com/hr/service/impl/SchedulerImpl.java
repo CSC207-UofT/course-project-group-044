@@ -208,30 +208,30 @@ public class SchedulerImpl {
         return meeting;
     }
 
-    public Shift cancelShift(Employee employee, ZonedDateTime date, String location, int hours){
-        Shift target = shiftFinder(employee, date, location, hours);
-        if (target != null){
-            employee.getCalendar().getEvents().remove(target);
-            this.calendarRepository.delete(employee.getCalendar());
-            return target;
-        }
-        return null;
-    }
-
-    public Meeting cancelMeeting(Employee host, List<Employee> participants, ZonedDateTime date,
-                                 String location, String name, int hours){
-        Meeting target = meetingFinder(host, participants, date, location, name, hours);
-        if (target != null){
-            host.getCalendar().getEvents().remove(target);
-            this.calendarRepository.delete(host.getCalendar());
-            for (Employee e:participants){
-                e.getCalendar().getEvents().remove(target);
-                this.calendarRepository.delete(e.getCalendar());
-            }
-            return target;
-        }
-        return null;
-    }
+//    public Shift cancelShift(Employee employee, ZonedDateTime date, String location, int hours){
+//        Shift target = shiftFinder(employee, date, location, hours);
+//        if (target != null){
+//            employee.getCalendar().getEvents().remove(target);
+//            this.calendarRepository.delete(employee.getCalendar());
+//            return target;
+//        }
+//        return null;
+//    }
+//
+//    public Meeting cancelMeeting(Employee host, List<Employee> participants, ZonedDateTime date,
+//                                 String location, String name, int hours){
+//        Meeting target = meetingFinder(host, participants, date, location, name, hours);
+//        if (target != null){
+//            host.getCalendar().getEvents().remove(target);
+//            this.calendarRepository.delete(host.getCalendar());
+//            for (Employee e:participants){
+//                e.getCalendar().getEvents().remove(target);
+//                this.calendarRepository.delete(e.getCalendar());
+//            }
+//            return target;
+//        }
+//        return null;
+//    }
 
     private int hoursPerDay() {
         return s_h - s_l;
