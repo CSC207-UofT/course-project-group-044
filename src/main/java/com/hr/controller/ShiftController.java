@@ -1,6 +1,8 @@
 package com.hr.controller;
 
 import com.hr.entity.Employee;
+import com.hr.entity.Event;
+import com.hr.repository.EventRepository;
 import com.hr.service.impl.SchedulerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,8 @@ public class ShiftController {
     private SchedulerImpl scheduler;
     @Autowired
     private EmployeeModifier employeeModifier;
+    @Autowired
+    private EventRepository eventRepository;
 
     public ShiftController(){}
 
@@ -51,26 +55,16 @@ public class ShiftController {
     }
 
 
-    @PostMapping("/removeshift")
-    public String removeShift(@ModelAttribute(value="employee")Employee employee, String date, String location, Integer hours){
+    @PostMapping("/removeEvent")
+    public String removeEvent(@ModelAttribute(value="employee")Employee employee, String date){
 
         ZonedDateTime Zonetime = localZoneconverter(date);
 
         Employee user = employeeModifier.findEmployeeById(employee.getId());
-        if (user != null) {scheduler.cancelShift(user, Zonetime, location, hours);
-        return "hirepage";}
-        return "hirepage";
-    }
-    @PostMapping("/removemeeting")
-    public String removeMeeting(@ModelAttribute(value="employee")Employee employee, String participants, String date,
-                              String name, String location, Integer hours){
-
-        ZonedDateTime Zonetime = localZoneconverter(date);
-
-        ArrayList<Employee> guests = participantSeperate(participants);
-        Employee user = employeeModifier.findEmployeeById(employee.getId());
-        if (user != null){scheduler.cancelMeeting(user, guests, Zonetime, location, name, hours);
-        return "hirepage";}
+        if (user != null) {
+            Instant EventID = Zonetime.toInstant();
+            eventRepository.deleteById(EventID);
+            return "hirepage";}
         return "hirepage";
     }
 
