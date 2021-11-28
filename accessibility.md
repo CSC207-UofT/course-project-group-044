@@ -39,6 +39,14 @@ semantic HTML and well-designed CSS. This goes hand-in-hand with simple and
 intuitive use; a clean design is inherently easier for people regardless of
 sensory abilities.
 
+**Tolerance for Error**: This principle requires "Undo" and confirmation
+functionality in our program. Currently, we do not support these features;
+operations like hiring and firing are permanent and immediate, violating this
+principle. Fixing this by adding in an undo (making it possible to rollback all
+operations) and confirmation boxes for sensitive operations (like firing) would
+improve the program's tolerance for error. These should be added in the future
+to improve accessibility.
+
 
 
 <!--
