@@ -1,3 +1,5 @@
+# Principles of Universal Design
+
 <!-- For each Principle of Universal Design, write 2-5 sentences or point form
 notes explaining which features your program adhere to that principle. If you
 do not have any such features you can either:
@@ -60,6 +62,7 @@ principle does not apply directly. Respecting the usual browser defaults on
 colour contrast and font size facilitate this principle indirectly; this follows
 from the flexibility of use principle above.
 
+# Target audience
 
 <!--
     Write a paragraph about who you would market your program towards, if you
@@ -78,6 +81,8 @@ necessary. Conversely if the business is too large, the requirement complexity
 may exceed what can be handled by any off-the-shelf program, ours included;
 although these companies are a lucrative market, they are out-of-scope for
 small scale software like ours.
+
+# Demographics
 
 <!--
     Write a paragraph about whether or not your program is less likely to be
