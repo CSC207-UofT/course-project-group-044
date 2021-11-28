@@ -1,22 +1,16 @@
 package com.hr.controller;
 
 import com.hr.entity.Employee;
-import com.hr.service.Scheduler;
 import com.hr.service.impl.SchedulerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import com.hr.service.EmployeeModifier;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.SimpleDateFormat;
 import java.time.*;
-import java.time.LocalDateTime;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -49,17 +43,23 @@ public class ShiftController {
         return "hirepage";
     }
     @PostMapping("/addmeeting")
-    public String addMeeting(@ModelAttribute(value="employee")Employee employee, List<Integer> participants, String date,
+    public String addMeeting(@ModelAttribute(value="employee")Employee employee, String participants, String date,
                            String name, String location, Integer hours){
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
         LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
-
         ZoneId zoneId = ZoneId.of( "Asia/Kolkata" );        //Zone information
-
         ZonedDateTime zdtAtAsia = dateTime.atZone( zoneId );     //Local time in Asia timezone
+
+        String[] temp = participants.split(",");
+        ArrayList<Integer> participantsID = new ArrayList<>();
+        for (String par: temp){
+            int part = Integer.parseInt(par);
+            participantsID.add(part);
+        }
         Employee user = employeeModifier.findEmployeeById(employee.getId());
         ArrayList<Employee> guests= new ArrayList<>();
-        for (Integer e: participants){
+        for (Integer e: participantsID){
             Employee guest = employeeModifier.findEmployeeById(e); //"later on I will add "guest not found function"
             guests.add(guest);
         }
