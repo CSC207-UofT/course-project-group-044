@@ -57,19 +57,68 @@ NP-hard heuristics. This provides a clean layering.
 
 # Clean Architecture
 
-<!-- A brief description of how your project adheres to Clean Architecture (if you notice a violation and aren't sure how to fix it, talk about that too!) -->
+As a whole, our design adheres to clean architecture by putting every effort to ensure that entities, use cases, interfaces, and controllers interact with one another in ways that are explicit in terms of relationships and dependencies, as shown in CRC cards.
+
+### To make our code clean:
+ - Data access interface of  `CalendarRepository `,  `EmployeeRepository `,  `EventRepository `             
+
+In this way, when use case classes create or load data, they won't interact with entity and concrete data loader classes. This helps we following the rule of Clean Architecture that the outer layers won't directly make use of inner layers.
+
+ - Independent Entity layer 
+
+The Entity layer, which is at the core of the architecture, consists of  `Calendar `,  `Employee `,  `Event `,  `Meeting `, and  `Shift `. Employees stores personal information such as their ID, name, salary, maxHoursPerWeek, schedulable hours, and hoursPerShift. Calendar stores a list of Events. Event stores the name, start time, and duration of an event that is categorised as Meeting or Shift. Each of these five classes is unaware of the other layers and is not reliant on other components found in the outer layers.
+
+ - Use case Layer: 
+
+It contains two parts,  `EmployeeModifierImpl ` and  `SchedulerImpl `, providing basic services by which present what we can do with the entity in pure business logic and plain code.
+1.  `EmployeeModifierImpl `: A Employee Manager has the permission to modify employees in this Organization to hire and fire Employee from the Organization, and evaluate payroll .
+
+2.  `SchedulerImpl `: The automatic scheduler manages the Calendars in the Organization,  creating Shift objects to satisfy shift scheduling constraints. We handle this as a discrete problem, with the basic step of scheduling a single Shift, or refusing to schedule any Shifts if scheduling is impossible.
+
+
+
 
 # SOLID design principles
 
-<!-- A brief description of how your project is consistent with the SOLID design principles (if you notice a violation and aren't sure how to fix it, talk about that too!) -->
+### - Single Responsibility Principle
 
-# Packaging strategies
+We adhere to the Single Responsibility principle by keeping our each classes unique, with only one major responsibility. Within each layer of clean architecture, we divided class functionality more specifically. This is done in accordance with their specific major responsibility. For instance, in use case layer, `EmployeeModifierImpl` is in charge of changes in Employee, whereas `SchedulerImpl` is in charge of managing events on Calendar. Moreover, we created a controller that is only associated with one use case; we have `FireController`, `HireController`, which is matched by `EmployeeModifierImpl`, and `SchedulerImpl`, which is matched by `ScheduleController`. Each component takes on a simple responsibility with little reliance on others. These approaches guarantee that the principle of single responsibility is followed.
 
-<!---    A brief description of which packaging strategies you considered, which you decided to use, and why. -->
+### - Closed/Open Principle
+
+Objects or entities should be open for extension but closed for modification. This means that a class should be extendable without modifying the class itself.
+First, All classes make use of private variables with getters and setters, which ensures internal implementations can be changed without changing the interface. The Command interface and structure of the modifier class allow easy adding of additional Use Cases for more functionality, by adding the new Use Case to the command dictionary. Take `EmployeeModifierImpl` as an example, we create an interface called `EmployeeModifier`, providing with various ways of managing employee like hire and fire. In the future, if we wanna add some new instruction towards employee,  the interface helps us  alternate the functionality without changing the existing code.
+
+### - Liskov Substitution Principle
+
+This rule states that every subclass or derived class should be substitutable for their base or parent class. The implementation of the `Event` superclass, as well as the `Shift` and `Meeting` subclasses, demonstrates our adherence to the Liskov substitution principle; they all share functionality such as the isSameWeek() and getHours() methods. This means that the SchedulerImpl can rely on these methods existing and functioning properly regardless of which subclass of Event is being used.
+
+### - Interface Segregation Principle
+
+We are able to assure that no class is forced to rely on methods that it does not use. We keep the interface's contents simple and responsibility-specific in order to prevent any class that implements it from receiving unnecessary methods. For example, in order to access a database, we implement three unique repository DAO interfaces: `CalendarRepository`, `EmployeeRepository`, and `EventRepository`. As a result, all interfaces are unique and do not interact with one another, which also adheres to the single responsibility rule.
+
+### - Dependency Inversion Principle
+
+Entities must depend on abstractions, not on concretions. It states that the high-level module must not depend on the low-level module, but they should depend on abstractions. We also made our `CrudRepository` an abstract interface with three unique subclasses as a dependency in whatever class needed access to database info. We offer repository interface for modifier to access database without directly depend on the entity, but abstraction methods, so that no clients of `EmployeeModifierImpl` depended on our specific database implementation.
+
+
 
 # Design patterns
+### - Template Pattern
 
-<!---    A summary of any design patterns your group has implemented (or plans to implement). -->
+The template method design pattern was used in the Event abstract class and Shift and Meeting subclasses. The `isSameWeek()` template method is used to determine whether an event occurs during the same week as a given date/time for a Shift or Meeting object. This design pattern was used because the method for determining event time was identical for both types of Events. As a result, the duplicated code was moved to an abstract class, while the remaining implementations were moved into subclasses.
+
+### - Factory Pattern
+
+This design pattern is used in the repository DAO interface. We provide varied repository classes for loading various entities (e.g. `EmployeeRepository` to access an Employee object into database, `EventRepository` to write an event object into database).
+
+As a consequence, if we do not implement the Factory Design Pattern, we must decide which repository class to instantiate every time we want to write an entity into the database. This leads to high-coupling issues.
+
+In this case, Factory Design Pattern is essential to solve the problem. This pattern takes the entity to be stored in the database and determines which repository class should be instantiated. In this manner, we grouped all of the repository classes into a single folder. Other classes are not required to decide which repository class to instantiate. Furthermore, if we want to add more entities in the future, it is easily extensible.
+
+< Packaging strategies>
+
+<!---    A brief description of which packaging strategies you considered, which you decided to use, and why. -->
 
 # Progress report
 
@@ -78,5 +127,9 @@ NP-hard heuristics. This provides a clean layering.
 <!---        what has worked well so far with your design -->
 
 <!---        a summary of what each group member has been working on and plans to work on next -->
+[required] brief summary of what each group member has been working on since phase 1
+Each group member should include a link to a significant pull request (or two if you can't pick just one) that they made throughout the term. Include a sentence or two explaining why you think this demonstrates a significant contribution to the team.
 
 Alyssa Rosenzweig: scheduler, code review, design document.
+
+
