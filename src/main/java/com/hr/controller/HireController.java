@@ -23,12 +23,12 @@ public class HireController {
             employeeModifier.hireEmployee(employee.getName(), employee.getId(), employee.getSalary(),
                     employee.getMaxHoursPerWeek(), employee.getHoursPerShift());
             model.addAttribute("employee", employee);
-            return "hirepage";
+            return "employeemanager";
         }
 
         model.addAttribute("employee", DUMMY);
         model.addAttribute("message", "hiring failed since since id is not found");
 
-        return "hirepage";
+        return "eventmanager";
     }
 }

@@ -29,4 +29,5 @@ public class WelcomeController {
         model.addAttribute("employee", DUMMY);
         return "eventmanager";
     }
+
 }
