@@ -12,6 +12,8 @@ import java.util.ListIterator;
 import com.hr.repository.CalendarRepository;
 import com.hr.repository.EmployeeRepository;
 import com.hr.repository.EventRepository;
+import com.hr.service.MeetingCreator;
+import com.hr.service.ShiftCreator;
 import org.sat4j.pb.SolverFactory;
 import org.sat4j.pb.IPBSolver;
 import org.sat4j.specs.IProblem;
@@ -136,31 +138,6 @@ public class SchedulerImpl {
         return true;
     }
 
-    public Shift shiftFinder(Employee employee, ZonedDateTime date, String location, int hours){
-        List<Event> events = employee.getCalendar().getEvents();
-        Duration duration = Duration.ofHours(hours);
-        Event target_shift = new Shift(employee, date.toInstant(), duration, location);
-        for (Event e:events){
-            if (e == target_shift){
-                return (Shift) e;
-            }
-        }
-        return null;
-    }
-
-    public Meeting meetingFinder(Employee host, List<Employee> participants, ZonedDateTime date,
-                                 String name,  String location, int hours){
-        List<Event> events = host.getCalendar().getEvents();
-        Duration duration = Duration.ofHours(hours);
-        Event target_meeting = new Meeting(host, participants, date.toInstant(), duration, name, location);
-        for (Event e:events){
-            if (e == target_meeting){
-                return (Meeting) e;
-            }
-        }
-        return null;
-    }
-
     /**
      * Attempt to schedule a single shift.
      *
@@ -174,14 +151,8 @@ public class SchedulerImpl {
         if (!schedulable(employee, date, hours))
             return null;
 
-        // It is! Create the Shift.
-        Duration duration = Duration.ofHours(hours);
-        Shift shift = new Shift(employee, date.toInstant(), duration, location);
-
-        this.eventRepository.save(shift);
-        employee.getCalendar().addEvent(shift);
-        this.calendarRepository.save(employee.getCalendar());
-        return shift;
+        ShiftCreator shiftCreator = new ShiftCreator(employee, date, location, hours);
+        return shiftCreator.create();
     }
 
     public Meeting scheduleMeeting (Employee host, List<Employee> participants, ZonedDateTime date,
@@ -194,44 +165,9 @@ public class SchedulerImpl {
                 return null;
         }
 
-        // It is! Create the Shift.
-        Duration duration = Duration.ofHours(hours);
-        Meeting meeting = new Meeting(host, participants, date.toInstant(), duration, name, location);
-
-        this.eventRepository.save(meeting);
-        host.getCalendar().addEvent(meeting);
-        for (Employee e:participants){
-            e.getCalendar().addEvent(meeting);
-            this.calendarRepository.save(e.getCalendar());
-        }
-        this.calendarRepository.save(host.getCalendar());
-        return meeting;
+        MeetingCreator meetingCreator = new MeetingCreator(host,participants, date, name, location, hours);
+        return meetingCreator.create();
     }
-
-//    public Shift cancelShift(Employee employee, ZonedDateTime date, String location, int hours){
-//        Shift target = shiftFinder(employee, date, location, hours);
-//        if (target != null){
-//            employee.getCalendar().getEvents().remove(target);
-//            this.calendarRepository.delete(employee.getCalendar());
-//            return target;
-//        }
-//        return null;
-//    }
-//
-//    public Meeting cancelMeeting(Employee host, List<Employee> participants, ZonedDateTime date,
-//                                 String location, String name, int hours){
-//        Meeting target = meetingFinder(host, participants, date, location, name, hours);
-//        if (target != null){
-//            host.getCalendar().getEvents().remove(target);
-//            this.calendarRepository.delete(host.getCalendar());
-//            for (Employee e:participants){
-//                e.getCalendar().getEvents().remove(target);
-//                this.calendarRepository.delete(e.getCalendar());
-//            }
-//            return target;
-//        }
-//        return null;
-//    }
 
     private int hoursPerDay() {
         return s_h - s_l;
