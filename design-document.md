@@ -101,13 +101,24 @@ We are able to assure that no class is forced to rely on methods that it does no
 
 Entities must depend on abstractions, not on concretions. It states that the high-level module must not depend on the low-level module, but they should depend on abstractions. We also made our `CrudRepository` an abstract interface with three unique subclasses as a dependency in whatever class needed access to database info. We offer repository interface for modifier to access database without directly depend on the entity, but abstraction methods, so that no clients of `EmployeeModifierImpl` depended on our specific database implementation.
 
-# Packaging strategies
 
-<!---    A brief description of which packaging strategies you considered, which you decided to use, and why. -->
 
 # Design patterns
+### - Template Pattern
 
-<!---    A summary of any design patterns your group has implemented (or plans to implement). -->
+The template method design pattern was used in the Event abstract class and Shift and Meeting subclasses. The `isSameWeek()` template method is used to determine whether an event occurs during the same week as a given date/time for a Shift or Meeting object. This design pattern was used because the method for determining event time was identical for both types of Events. As a result, the duplicated code was moved to an abstract class, while the remaining implementations were moved into subclasses.
+
+### - Factory Pattern
+
+This design pattern is used in the repository DAO interface. We provide varied repository classes for loading various entities (e.g. `EmployeeRepository` to access an Employee object into database, `EventRepository` to write an event object into database).
+
+As a consequence, if we do not implement the Factory Design Pattern, we must decide which repository class to instantiate every time we want to write an entity into the database. This leads to high-coupling issues.
+
+In this case, Factory Design Pattern is essential to solve the problem. This pattern takes the entity to be stored in the database and determines which repository class should be instantiated. In this manner, we grouped all of the repository classes into a single folder. Other classes are not required to decide which repository class to instantiate. Furthermore, if we want to add more entities in the future, it is easily extensible.
+
+< Packaging strategies>
+
+<!---    A brief description of which packaging strategies you considered, which you decided to use, and why. -->
 
 # Progress report
 
@@ -120,3 +131,5 @@ Entities must depend on abstractions, not on concretions. It states that the hig
 Each group member should include a link to a significant pull request (or two if you can't pick just one) that they made throughout the term. Include a sentence or two explaining why you think this demonstrates a significant contribution to the team.
 
 Alyssa Rosenzweig: scheduler, code review, design document.
+
+
