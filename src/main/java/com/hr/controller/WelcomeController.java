@@ -17,13 +17,13 @@ public class WelcomeController {
         model.addAttribute("employee", DUMMY);
         return "welcome";
     }
-    @GetMapping("1")
+    @GetMapping("employeemanager")
     public String getEmployeemanagerPage(Model model) {
         model.addAttribute("message", "hello!");
         model.addAttribute("employee", DUMMY);
         return "employeemanager";
     }
-    @GetMapping("2")
+    @GetMapping("eventmanager")
     public String getEventmanagerPage(Model model) {
         model.addAttribute("message", "hello!");
         model.addAttribute("employee", DUMMY);

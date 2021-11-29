@@ -1,23 +1,29 @@
 package com.hr.controller;
 
 import com.hr.entity.Employee;
+import com.hr.entity.Event;
 import com.hr.repository.EventRepository;
+import com.hr.service.impl.EventServiceImpl;
 import com.hr.service.impl.SchedulerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import com.hr.service.EmployeeModifier;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.ui.Model;
 
 import java.time.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("employee")
 public class ShiftController {
-    private static Employee DUMMY = new Employee();
+    private static Event EMPTY_EVENT = new Event();
 
+    @Autowired
+    private EventServiceImpl eventService;
     @Autowired
     private SchedulerImpl scheduler;
     @Autowired
@@ -53,6 +59,14 @@ public class ShiftController {
         return "eventmanager";
     }
 
+    @GetMapping("/displayEvent")
+    public String displayEvent(Model model){
+        List<Event> events = new ArrayList<>();
+        eventRepository.findAll().forEach(events::add);
+
+        model.addAttribute("events", events);
+        return "eventmanager";
+    }
 
     @PostMapping("/removeEvent")
     public String removeEvent(@ModelAttribute(value="employee")Employee employee, String date){

@@ -5,7 +5,7 @@ import java.time.*;
 import java.time.temporal.ChronoField;
 
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 /**
  * An abstract entity class that stores the information of Event with two subclasses - Meeting & Shift.
  *
@@ -40,6 +40,22 @@ public class Event {
 
     public Event() {
 
+    }
+
+    public String getStartString() {
+        return start.toString();
+    }
+
+    public String getDurationString() {
+        return duration.toString();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getLocation() {
+        return location;
     }
 
     /**
