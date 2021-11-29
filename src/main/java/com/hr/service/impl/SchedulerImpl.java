@@ -152,7 +152,13 @@ public class SchedulerImpl {
             return null;
 
         ShiftCreator shiftCreator = new ShiftCreator(employee, date, location, hours);
-        return shiftCreator.create();
+        Shift shift = shiftCreator.create();
+
+        this.eventRepository.save(shift);
+        employee.getCalendar().addEvent(shift);
+        this.calendarRepository.save(employee.getCalendar());
+
+        return shift;
     }
 
     public Meeting scheduleMeeting (Employee host, List<Employee> participants, ZonedDateTime date,
@@ -166,7 +172,17 @@ public class SchedulerImpl {
         }
 
         MeetingCreator meetingCreator = new MeetingCreator(host,participants, date, name, location, hours);
-        return meetingCreator.create();
+        Meeting meeting = meetingCreator.create();
+
+        this.eventRepository.save(meeting);
+        host.getCalendar().addEvent(meeting);
+        for (Employee e:participants){
+            e.getCalendar().addEvent(meeting);
+            this.calendarRepository.save(e.getCalendar());
+        }
+        this.calendarRepository.save(host.getCalendar());
+
+        return meeting;
     }
 
     private int hoursPerDay() {

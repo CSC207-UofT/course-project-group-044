@@ -39,9 +39,6 @@ public class ShiftCreator implements EventCreator {
         Duration duration = Duration.ofHours(hours);
         Shift shift = new Shift(employee, date.toInstant(), duration, location);
 
-        this.eventRepository.save(shift);
-        employee.getCalendar().addEvent(shift);
-        this.calendarRepository.save(employee.getCalendar());
         return shift;
     }
 }

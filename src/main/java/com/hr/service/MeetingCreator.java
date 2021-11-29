@@ -45,13 +45,6 @@ public class MeetingCreator implements EventCreator{
         Duration duration = Duration.ofHours(hours);
         Meeting meeting = new Meeting(host, participants, date.toInstant(), duration, name, location);
 
-        this.eventRepository.save(meeting);
-        host.getCalendar().addEvent(meeting);
-        for (Employee e:participants){
-            e.getCalendar().addEvent(meeting);
-            this.calendarRepository.save(e.getCalendar());
-        }
-        this.calendarRepository.save(host.getCalendar());
         return meeting;
     }
 }
