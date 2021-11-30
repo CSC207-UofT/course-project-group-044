@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("employee")
+@RequestMapping("event")
 public class ShiftController {
     private static Event EMPTY_EVENT = new Event();
 
