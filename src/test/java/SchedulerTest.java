@@ -2,7 +2,9 @@ import com.hr.entity.Employee;
 import com.hr.repository.EmployeeRepository;
 import com.hr.service.impl.EmployeeModifierImpl;
 import com.hr.service.impl.SchedulerImpl;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -34,14 +36,14 @@ public class SchedulerTest {
     }
 
     // Test that a single shift can be scheduled
-    @Test(timeout = 50)
+    @Test
     public void testScheduleShift() {
         ZonedDateTime date = ZonedDateTime.of(2013, 6, 15, 9, 0, 0, 0, ZoneOffset.UTC);
         assertNotNull(scheduler.scheduleShift(employee, date, "Canterlot", 8));
     }
 
     // Test that only a single shift can be scheduled for a given day
-    @Test(timeout = 50)
+    @Test
     public void testContiguous() {
         ZonedDateTime date1 = ZonedDateTime.of(2013, 6, 15, 9, 0, 0, 0, ZoneOffset.UTC);
         ZonedDateTime date2 = ZonedDateTime.of(2013, 6, 15, 21, 0, 0, 0, ZoneOffset.UTC);
@@ -51,7 +53,7 @@ public class SchedulerTest {
     }
 
     // Test that the maximum hours may be attained
-    @Test(timeout = 50)
+    @Test
     public void testMaxHoursAttained() {
         ZonedDateTime date1 = ZonedDateTime.of(2013, 6, 15, 9, 0, 0, 0, ZoneOffset.UTC);
         ZonedDateTime date2 = ZonedDateTime.of(2013, 6, 16, 9, 0, 0, 0, ZoneOffset.UTC);
@@ -63,7 +65,7 @@ public class SchedulerTest {
     }
 
     // Test that only a maximum number of hours may be scheduled per week
-    @Test(timeout = 50)
+    @Test
     public void testMaxHoursExceeded() {
         ZonedDateTime date1 = ZonedDateTime.of(2013, 6, 15, 9, 0, 0, 0, ZoneOffset.UTC);
         ZonedDateTime date2 = ZonedDateTime.of(2013, 6, 16, 9, 0, 0, 0, ZoneOffset.UTC);

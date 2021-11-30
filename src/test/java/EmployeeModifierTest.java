@@ -3,7 +3,7 @@ import com.hr.repository.EmployeeRepository;
 import com.hr.service.impl.EmployeeModifierImpl;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.*;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -38,12 +38,12 @@ public class EmployeeModifierTest {
     public void tearDown() {
     }
 
-    @Test(timeout = 50)
+    @Test
     public void testInit() {
         assertTrue(this.employees.isEmpty());
     }
 
-    @Test(timeout = 50)
+    @Test
     public void testHireEmployee() {
         mgr.hireEmployee("Sunset Shimmer", 1, 20, 20, 4);
 
@@ -56,7 +56,7 @@ public class EmployeeModifierTest {
         assertEquals(2800.0, mgr.evaluateSalary(1));
     }
 
-    @Test(timeout = 50)
+    @Test
     public void testFireEmployee() {
         Employee employee;
         employee = mgr.hireEmployee("Sunset Shimmer", 1, 20, 20, 4);
