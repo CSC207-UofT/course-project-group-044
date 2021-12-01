@@ -132,6 +132,7 @@ The packaing strategy that we use is packaging by layer. Because our team decide
 Each group member should include a link to a significant pull request (or two if you can't pick just one) that they made throughout the term. Include a sentence or two explaining why you think this demonstrates a significant contribution to the team.
 
 Alyssa Rosenzweig: scheduler, code review, design document, gradle setup.
+
 Jiawei Chen: 
  Entities, Spring Framework, Mockito Test, Gradle setup, Writting welcome controller and help to modify and improve other controller, CRUDRepository setup, Authored employee modifier service and event service while test them
 
