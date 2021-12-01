@@ -116,8 +116,9 @@ As a consequence, if we do not implement the Factory Design Pattern, we must dec
 
 In this case, Factory Design Pattern is essential to solve the problem. This pattern takes the entity to be stored in the database and determines which repository class should be instantiated. In this manner, we grouped all of the repository classes into a single folder. Other classes are not required to decide which repository class to instantiate. Furthermore, if we want to add more entities in the future, it is easily extensible.
 
-< Packaging strategies>
+# Packaging strategies
 
+The packaing strategy that we use is packaging by layer. Because our team decide to design the program in CLEAN architecture, we create packages: "entity" for entity layer, "service" for use case layer, "controller" for controller layer. Also, because we are using h2 database, we use "repository" as a package to organize all of our repository classes which is in use case layer in a role of gateways. The Outer layer are majorly HTMLs, so we put them into resources which is a good package organizing all the HTMLs.
 <!---    A brief description of which packaging strategies you considered, which you decided to use, and why. -->
 
 # Progress report
@@ -130,6 +131,8 @@ In this case, Factory Design Pattern is essential to solve the problem. This pa
 [required] brief summary of what each group member has been working on since phase 1
 Each group member should include a link to a significant pull request (or two if you can't pick just one) that they made throughout the term. Include a sentence or two explaining why you think this demonstrates a significant contribution to the team.
 
-Alyssa Rosenzweig: scheduler, code review, design document.
+Alyssa Rosenzweig: scheduler, code review, design document, gradle setup.
+Jiawei Chen: 
+ Entities, Spring Framework, Mockito Test, Gradle setup, Writting welcome controller and help to modify and improve other controller, CRUDRepository setup, Authored employee modifier service and event service while test them
 
 
