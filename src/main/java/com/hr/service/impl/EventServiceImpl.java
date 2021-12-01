@@ -26,15 +26,18 @@ public class EventServiceImpl implements EventService {
 
         List<Event> allEvents = new ArrayList<>();
 
+        boolean hasDeleted = false;
+
         eventRepository.findAll().forEach(allEvents::add);
 
         for (Event event : allEvents) {
             if (event.getDate().isEqual(localDate)) {
                 eventRepository.delete(event);
+                hasDeleted = true;
             }
         }
 
-        return true;
+        return hasDeleted;
     }
 
     @Override
