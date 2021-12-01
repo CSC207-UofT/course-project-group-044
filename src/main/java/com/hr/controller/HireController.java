@@ -27,7 +27,7 @@ public class HireController {
         }
 
         model.addAttribute("employee", DUMMY);
-        model.addAttribute("message", "hiring failed since since id is not found");
+        model.addAttribute("message", "hiring failed because lacking information");
 
         return "employeemanager";
     }
