@@ -1,28 +1,22 @@
-import com.hr.entity.Employee;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.hr.entity.Event;
-import com.hr.repository.CalendarRepository;
 import com.hr.repository.EventRepository;
-import com.hr.service.impl.EmployeeModifierImpl;
 import com.hr.service.impl.EventServiceImpl;
-import com.hr.service.impl.SchedulerImpl;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class EventServiceImplTest {
@@ -30,26 +24,47 @@ public class EventServiceImplTest {
     @InjectMocks
     private static EventServiceImpl eventService;
 
-    @BeforeAll
-    static void setUp() {
-//        SchedulerImpl scheduler = new SchedulerImpl();
-//        EmployeeModifierImpl mgr = new EmployeeModifierImpl();
-//        Employee employee = mgr.hireEmployee("Sunset Shimmer", 1, 20, 20, 4);
-        ZonedDateTime date = ZonedDateTime.of(2013, 6, 15, 9, 0, 0, 0, ZoneOffset.UTC);
-        Instant start = date.toInstant();
-        long oneHour = 1;
-        Duration duration = Duration.ofHours(oneHour);
-        Event event = new Event(start, duration, "Jason", "BA");
-//        scheduler.scheduleShift(employee, date, "Canterlot", 8);
+    @Mock
+    private EventRepository eventRepository;
 
-        EventRepository eventRepository = mock(EventRepository.class);
-        when(eventRepository.findAll()).thenReturn(Arrays.asList(event));
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+        eventService = new EventServiceImpl(eventRepository);
+    }
+
+    @Test
+    void testDeleteEvents(){
+        Event event = new Event(Instant.parse("2013-06-15T09:00:00.00Z"), Duration.ofHours(1),
+                "Jason", "BA");
+        when(eventRepository.findAll()).thenReturn(List.of(event));
+        boolean result = eventService.deleteEvents("2013-06-15");
+
+        verify(eventRepository).delete(event);
+        Assertions.assertTrue(result);
+
+    }
+
+    @Test
+    void testDeleteEventsNullEvent(){
+        Event event = new Event(Instant.parse("2013-06-15T09:00:00.00Z"), Duration.ofHours(1),
+                "Jason", "BA");
+        when(eventRepository.findAll()).thenReturn(List.of(event));
+        boolean result = eventService.deleteEvents("2013-06-16");
+
+        verify(eventRepository, times(0)).delete(event);
+        Assertions.assertFalse(result);
     }
 
     @Test
     void testGetEventsInSameDate() {
+        Event event = new Event(Instant.parse("2013-06-15T09:00:00.00Z"), Duration.ofHours(1),
+                "Jason", "BA");
+        List<Event> expect = new ArrayList<>();
+        expect.add(event);
+        when(eventRepository.findAll()).thenReturn(List.of(event));
         List<Event> temp = eventService.getEventsInSameDate("2013-06-15");
-
         Assertions.assertEquals(1, temp.size());
+        Assertions.assertEquals(expect, temp);
     }
 }

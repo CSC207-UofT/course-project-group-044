@@ -16,6 +16,10 @@ public class EventServiceImpl implements EventService {
     @Autowired
     private EventRepository eventRepository;
 
+    public EventServiceImpl(EventRepository eventRepository){
+        this.eventRepository = eventRepository;
+    }
+
     @Override
     public boolean deleteEvents(String date) {
         LocalDate localDate = localDateconverter(date);
