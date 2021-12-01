@@ -136,4 +136,6 @@ Alyssa Rosenzweig: scheduler, code review, design document, gradle setup.
 Jiawei Chen: 
  Entities, Spring Framework, Mockito Test, Gradle setup, Writting welcome controller and help to modify and improve other controller, CRUDRepository setup, Authored employee modifier service and event service while test them
 
+Duan Kunhan:
+Spring Framework, CSS file, FireController Test, Gradle setup, all controller except shedule controller(shift controller is cooperated with Alex). help to do modification on Test a
 
