@@ -10,7 +10,7 @@ import com.hr.service.EmployeeModifier;
 
 
 @Service
-/**
+/*
  * A Manager has the power to modify employees in this Organization.
  * has permission to hire and fire Employee from the Organization, and evaluate payroll .
  *
@@ -23,6 +23,11 @@ public class EmployeeModifierImpl implements EmployeeModifier {
 
     @Autowired
     CalendarRepository calendarRepository;
+
+    public EmployeeModifierImpl(EmployeeRepository employeeRepository, CalendarRepository calendarRepository){
+        this.employeeRepository = employeeRepository;
+        this.calendarRepository = calendarRepository;
+    }
 
     /**
      * Hire a new employee to the organization. Create a new Employee by setting its id, salary, maxHoursPerWeek.
@@ -58,7 +63,7 @@ public class EmployeeModifierImpl implements EmployeeModifier {
 
 
     @Override
-    /**
+    /*
      * Evaluate the weekly salary of an Employee with given id.
      *
      * @see Employee#getSalary()
