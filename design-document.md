@@ -110,7 +110,7 @@ The template method design pattern was used in the Event abstract class and Shif
 
 ### - Factory Pattern
 
-This design pattern is used in the repository DAO interface. We provide varied repository classes for loading various entities (e.g. `EmployeeRepository` to access an Employee object into database, `EventRepository` to write an event object into database).
+This design pattern is used in the repository Data Acess Object interface. We provide varied repository classes for loading various entities (e.g. `EmployeeRepository` to access an Employee object into database, `EventRepository` to write an event object into database).
 
 As a consequence, if we do not implement the Factory Design Pattern, we must decide which repository class to instantiate every time we want to write an entity into the database. This leads to high-coupling issues.
 
