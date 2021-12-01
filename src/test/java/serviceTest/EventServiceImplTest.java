@@ -1,3 +1,5 @@
+package serviceTest;
+
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.hr.entity.Event;
 import com.hr.repository.EventRepository;
