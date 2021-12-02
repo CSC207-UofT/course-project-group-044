@@ -1,0 +1,28 @@
+<html>
+<head>
+    <title>Login page</title>
+    <link th:href="@{/css/hirepage.css}" rel="stylesheet" />
+</head>
+<body>
+<h1>Employer Login Page</h1>
+<form name="login">
+    Username<input type="text" name="Userid"/>
+    Password<input type="password" name="Password"/>
+    <input type="button" onclick="check(this.form)" value="Login"/>
+    <input type="reset" value="Cancel"/>
+</form>
+<script language="javascript">
+    function check(form) {
+        if(form.Userid.value == "group44" && form.Password.value == "csc207") {
+            window.open('welcome')
+
+        }
+        else {
+            alert("Error Password or Username")
+        }
+    }
+</script>
+</body>
+</html>
+
+

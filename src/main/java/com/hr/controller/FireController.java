@@ -13,7 +13,6 @@ import java.util.Optional;
 @Controller
 @RequestMapping("employee")
 public class FireController {
-    private static Employee DUMMY = new Employee();
 
     @Autowired
     private EmployeeModifier employeeModifier;
@@ -28,7 +27,6 @@ public class FireController {
             model.addAttribute("employee", employee);
             return "employeemanager";
         }
-        model.addAttribute("employee", DUMMY);
         model.addAttribute("message", "firing failed because you add nothing");
 
         return "employeemanager";

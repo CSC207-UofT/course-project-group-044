@@ -2,6 +2,7 @@ package com.hr.controller;
 
 import com.hr.entity.Employee;
 import com.hr.service.EmployeeModifier;
+import com.hr.service.impl.EmployeeModifierImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +14,7 @@ public class HireController {
     private static Employee DUMMY = new Employee();
 
     @Autowired
-    private EmployeeModifier employeeModifier;
+    private EmployeeModifierImpl employeeModifier;
 
     @PostMapping("/hire")
     public String addEmployee(@ModelAttribute(value="employee") Employee employee, Model model){

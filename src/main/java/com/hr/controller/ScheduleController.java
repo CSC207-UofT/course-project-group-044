@@ -21,7 +21,6 @@ public class ScheduleController {
     @Autowired
     EmployeeRepository employeeRepository;
 
-    private static Employee DUMMY = new Employee();
 
     @Autowired
     private EmployeeModifier employeeModifier;

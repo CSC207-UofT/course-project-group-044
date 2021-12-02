@@ -10,4 +10,6 @@ public interface EmployeeModifier {
     Employee findEmployeeById(int id);
 
     double evaluateSalary(int id);
+
+    Employee creatingEmptyemployee();
 }

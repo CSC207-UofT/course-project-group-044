@@ -20,7 +20,6 @@ import java.util.List;
 @Controller
 @RequestMapping("event")
 public class ShiftController {
-    private static Event EMPTY_EVENT = new Event();
 
     @Autowired
     private EventServiceImpl eventService;

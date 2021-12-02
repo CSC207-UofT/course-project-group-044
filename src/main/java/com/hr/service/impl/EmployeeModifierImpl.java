@@ -75,4 +75,10 @@ public class EmployeeModifierImpl implements EmployeeModifier {
         //TODO: figure out the real total work time.
         return 7 * employee.getSalary() * employee.getMaxHoursPerWeek();
     }
+
+    @Override
+    public Employee creatingEmptyemployee(){
+        Employee DUMMY = new Employee();
+        return DUMMY;
+    }
 }
