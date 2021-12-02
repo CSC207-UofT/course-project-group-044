@@ -33,4 +33,6 @@ public class Shift extends Event {
 	public Shift() {
 
 	}
+
+	public Employee getEmployee(){ return this.employee; }
 }
