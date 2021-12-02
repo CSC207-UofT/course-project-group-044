@@ -10,7 +10,6 @@ import java.util.Observer;
 @Controller
 @RequestMapping("login")
 public class LoginController {
-    public boolean login = false;
 
     @GetMapping()
     public String getLoginPage(Model model) {

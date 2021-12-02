@@ -11,23 +11,21 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("employee")
 public class HireController {
-    private static Employee DUMMY = new Employee();
 
     @Autowired
-    private EmployeeModifierImpl employeeModifier;
+    private EmployeeModifierImpl employeeModifierImpl;
 
     @PostMapping("/hire")
     public String addEmployee(@ModelAttribute(value="employee") Employee employee, Model model){
 
 
         if (employee != null){
-            employeeModifier.hireEmployee(employee.getName(), employee.getId(), employee.getSalary(),
+            employeeModifierImpl.hireEmployee(employee.getName(), employee.getId(), employee.getSalary(),
                     employee.getMaxHoursPerWeek(), employee.getHoursPerShift());
             model.addAttribute("employee", employee);
             return "employeemanager";
         }
 
-        model.addAttribute("employee", DUMMY);
         model.addAttribute("message", "hiring failed because lacking information");
 
         return "employeemanager";
