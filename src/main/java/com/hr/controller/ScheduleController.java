@@ -34,10 +34,10 @@ public class ScheduleController {
             employees.add(it);
         }
 
-        SchedulerImpl sched = new SchedulerImpl(employees);
+        SchedulerImpl sched = new SchedulerImpl();
         ZonedDateTime base = ZonedDateTime.of(2021, 11, 8, 9, 0, 0, 0, ZoneOffset.UTC);
 
-        boolean succ = sched.scheduleWeek(base);
+        boolean succ = sched.scheduleWeek(employees, base);
 
         model.addAttribute("status", succ ? "success" : "fail");
         model.addAttribute("employees", employeeRepository.findAll());
