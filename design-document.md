@@ -118,7 +118,9 @@ In this case, Factory Design Pattern is essential to solve the problem. This pa
 
 # Packaging strategies
 
-The packaing strategy that we use is packaging by layer. Because our team decide to design the program in CLEAN architecture, we create packages: "entity" for entity layer, "service" for use case layer, "controller" for controller layer. Also, because we are using h2 database, we use "repository" as a package to organize all of our repository classes which is in use case layer in a role of gateways. The Outer layer are majorly HTMLs, so we put them into resources which is a good package organizing all the HTMLs.
+The packaing strategy that we use is packaging by layer. Because our team decide to design the program corresponds to a layer in Clean Architecture, we create packages: "entity" for entity layer, "service" for use case layer, "controller" for controller layer. Also, because we are using h2 database, we use "repository" as a package to organize all of our repository classes which is in use case layer in a role of gateways. The Outer layer are majorly HTMLs, so we put them into resources which is a good package organizing all the HTMLs. In addition, as shown in the resources package, we decided to package the project by feature. We have db.migration to control dataflow in the database, static.css to implement web format, and templates to implement html details. Those functions are clearly organised according to their functionality or feature. 
+
+
 <!---    A brief description of which packaging strategies you considered, which you decided to use, and why. -->
 
 # Progress report
