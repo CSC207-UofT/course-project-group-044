@@ -53,7 +53,9 @@ public class EmployeeModifierTest {
 
     @Test
     public void testSalaryEvaluation(){
-        assertEquals(2800.0, mgr.evaluateSalary(1));
+        Employee returned = mgr.hireEmployee("Sunset Shimmer", 1, 20, 20, 4);
+
+        assertEquals(2800.0, mgr.evaluateSalary(returned));
     }
 
     @Test(timeout = 50)
