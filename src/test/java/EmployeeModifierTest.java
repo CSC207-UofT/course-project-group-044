@@ -1,5 +1,6 @@
 import com.hr.entity.Employee;
 import com.hr.repository.EmployeeRepository;
+import com.hr.repository.CalendarRepository;
 import com.hr.service.impl.EmployeeModifierImpl;
 import org.junit.After;
 import org.junit.Before;
@@ -25,6 +26,9 @@ public class EmployeeModifierTest {
 
     @Mock
     private EmployeeRepository employeeRepository;
+
+    @Mock
+    private CalendarRepository calendarRepository;
 
     @Before
     public void setUp() {
