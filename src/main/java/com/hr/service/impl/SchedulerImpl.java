@@ -101,7 +101,13 @@ public class SchedulerImpl {
     private final int s_h = 8;
     private final int daysOfWeek = 7;
 
-    public SchedulerImpl() {
+    public  SchedulerImpl() {}
+
+    public SchedulerImpl(EmployeeRepository employeeRepository, CalendarRepository calendarRepository,
+                         EventRepository eventRepository) {
+        this.employeeRepository = employeeRepository;
+        this.calendarRepository = calendarRepository;
+        this.eventRepository = eventRepository;
     }
 
     public SchedulerImpl(List<Employee> employees) {
@@ -126,11 +132,11 @@ public class SchedulerImpl {
         if (hours > employee.getUnscheduledHours(start)) {
             return false;
         }
-
         // Shifts must be contiguous => only one shift per day
-        if (employee.getCalendar().eventsOnDay(start) >= 1) {
+        else if(employee.getCalendar().eventsOnDay(start) >= 1) {
             return false;
         }
+        else if(!employee.getSchedulable()){ return false; }
 
         // Otherwise, no other constraints to check here
         return true;
@@ -187,8 +193,7 @@ public class SchedulerImpl {
     public Meeting scheduleMeeting (Employee host, List<Employee> participants, ZonedDateTime date,
                                     String name,  String location, int hours) {
         // Check if legal to schedule
-        if (!schedulable(host, date, hours))
-            return null;
+        if (!schedulable(host, date, hours)) { return null; }
         for (Employee e:participants){
             if (! schedulable(e, date, hours))
                 return null;

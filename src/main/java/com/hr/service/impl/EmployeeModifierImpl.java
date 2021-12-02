@@ -24,6 +24,8 @@ public class EmployeeModifierImpl implements EmployeeModifier {
     @Autowired
     CalendarRepository calendarRepository;
 
+    public EmployeeModifierImpl() {}
+
     public EmployeeModifierImpl(EmployeeRepository employeeRepository, CalendarRepository calendarRepository){
         this.employeeRepository = employeeRepository;
         this.calendarRepository = calendarRepository;
