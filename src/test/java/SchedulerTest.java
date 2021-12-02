@@ -83,5 +83,15 @@ public class SchedulerTest {
         assertNull(scheduler.scheduleShift(employee, date3, "Canterlot", 8));
     }
 
+    // Test automatic scheduling fails if there are too few employees
+    @Test
+    public void testAutoScheduleNotEnoughEmployees() {
+        ZonedDateTime date1 = ZonedDateTime.of(2013, 6, 15, 9, 0, 0, 0, ZoneOffset.UTC);
+
+        List<Employee> employees = new ArrayList<>();
+        employees.add(employee);
+
+        assertFalse(scheduler.scheduleWeek(employees, date1));
+    }
 
 }
