@@ -2,13 +2,10 @@ import com.hr.entity.Employee;
 import com.hr.repository.EmployeeRepository;
 import com.hr.repository.CalendarRepository;
 import com.hr.service.impl.EmployeeModifierImpl;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.mockito.Mockito.when;
 import static org.mockito.ArgumentMatchers.any;
@@ -18,10 +15,11 @@ import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.ExtendWith;
+import static org.junit.jupiter.api.Assertions.*;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class EmployeeModifierTest {
 
     @InjectMocks
@@ -34,16 +32,16 @@ public class EmployeeModifierTest {
     @Mock
     private CalendarRepository calendarRepository;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
     }
 
-    @Test(timeout = 50)
+    @Test
     public void testHireEmployee() {
         Employee returned = mgr.hireEmployee("Sunset Shimmer", 1, 20, 20, 4);
 
@@ -58,7 +56,7 @@ public class EmployeeModifierTest {
         assertEquals(2800.0, mgr.evaluateSalary(returned));
     }
 
-    @Test(timeout = 50)
+    @Test
     public void testFireEmployee() {
         Employee employee;
         employee = mgr.hireEmployee("Sunset Shimmer", 1, 20, 20, 4);
