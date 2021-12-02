@@ -101,7 +101,7 @@ public class SchedulerImpl {
     private final int s_h = 8;
     private final int daysOfWeek = 7;
 
-    public  SchedulerImpl() {}
+    public SchedulerImpl() {}
 
     public SchedulerImpl(EmployeeRepository employeeRepository, CalendarRepository calendarRepository,
                          EventRepository eventRepository) {

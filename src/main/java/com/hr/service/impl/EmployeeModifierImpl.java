@@ -26,11 +26,6 @@ public class EmployeeModifierImpl implements EmployeeModifier {
 
     public EmployeeModifierImpl() {}
 
-    public EmployeeModifierImpl(EmployeeRepository employeeRepository, CalendarRepository calendarRepository){
-        this.employeeRepository = employeeRepository;
-        this.calendarRepository = calendarRepository;
-    }
-
     /**
      * Hire a new employee to the organization. Create a new Employee by setting its id, salary, maxHoursPerWeek.
      * Assign a empty Calendar for this Employee.

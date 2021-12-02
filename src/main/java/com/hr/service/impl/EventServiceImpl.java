@@ -14,13 +14,9 @@ import java.util.List;
 @Service
 public class EventServiceImpl implements EventService {
     @Autowired
-    private EventRepository eventRepository;
+    EventRepository eventRepository;
 
     public EventServiceImpl() {}
-
-    public EventServiceImpl(EventRepository eventRepository){
-        this.eventRepository = eventRepository;
-    }
 
     @Override
     public boolean deleteEvents(String date) {

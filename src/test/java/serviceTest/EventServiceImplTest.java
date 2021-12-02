@@ -32,7 +32,6 @@ public class EventServiceImplTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        eventService = new EventServiceImpl(eventRepository);
     }
 
     @Test

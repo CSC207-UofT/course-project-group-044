@@ -24,11 +24,9 @@ import java.util.List;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SchedulerTest {
-    private Employee employee;
 
     @InjectMocks
     private SchedulerImpl scheduler;
-    private EmployeeModifierImpl mgr;
 
     @Mock
     private EmployeeRepository employeeRepository;
@@ -40,10 +38,7 @@ public class SchedulerTest {
     private EventRepository eventRepository;
 
     @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.openMocks(this);
-        scheduler = new SchedulerImpl(employeeRepository, calendarRepository, eventRepository);
-    }
+    void setUp() { MockitoAnnotations.openMocks(this); }
 
 //    @After
 //    public void tearDown() {
