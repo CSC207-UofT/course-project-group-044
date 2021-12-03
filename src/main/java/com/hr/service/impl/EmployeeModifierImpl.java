@@ -2,11 +2,17 @@ package com.hr.service.impl;
 
 import com.hr.entity.Calendar;
 import com.hr.entity.Employee;
+import com.hr.entity.Event;
 import com.hr.repository.CalendarRepository;
 import com.hr.repository.EmployeeRepository;
+import com.hr.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.hr.service.EmployeeModifier;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 
 @Service
@@ -23,6 +29,12 @@ public class EmployeeModifierImpl implements EmployeeModifier {
 
     @Autowired
     CalendarRepository calendarRepository;
+
+    @Autowired
+    EventRepository eventRepository;
+
+    @Autowired
+    private EventServiceImpl eventService;
 
     public EmployeeModifierImpl() {}
 
@@ -48,8 +60,19 @@ public class EmployeeModifierImpl implements EmployeeModifier {
     }
     /**
      * Fire an employee from the Organization.
+     * precondition: employee must in the database
      */
     public void fireEmployee(Employee employee) {
+        UUID calendarID = employee.getCalendar().getCalendarID();
+        Calendar calendar = calendarRepository.findById(calendarID).orElse(null);
+        if (calendar == null){
+            return;
+        }
+        List<Event> events = calendar.getEvents();
+        for (Event event: events){
+            eventService.deleteEvent(event);
+        }
+
         employeeRepository.delete(employee);
     }
 

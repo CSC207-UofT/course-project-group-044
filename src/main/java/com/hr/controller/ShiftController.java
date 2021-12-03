@@ -2,6 +2,8 @@ package com.hr.controller;
 
 import com.hr.entity.Employee;
 import com.hr.entity.Event;
+import com.hr.entity.Meeting;
+import com.hr.entity.Shift;
 import com.hr.repository.EventRepository;
 import com.hr.service.impl.EventServiceImpl;
 import com.hr.service.impl.SchedulerImpl;
@@ -21,6 +23,7 @@ import java.util.List;
 @RequestMapping("event")
 public class ShiftController {
     private static Event EMPTY_EVENT = new Event();
+    private static Employee DUMMY = new Employee();
 
     @Autowired
     private EventServiceImpl eventService;
@@ -61,10 +64,20 @@ public class ShiftController {
 
     @GetMapping("/displayEvent")
     public String displayEvent(Model model){
-        List<Event> events = new ArrayList<>();
-        eventRepository.findAll().forEach(events::add);
+        List<Meeting> meetings = new ArrayList<>();
+        List<Shift> shifts = new ArrayList<>();
+        for (Event event: eventRepository.findAll()){
+            if (event instanceof Meeting){
+                meetings.add((Meeting) event);
+            }
+            else{
+                shifts.add((Shift) event);
+            }
+        }
 
-        model.addAttribute("events", events);
+        model.addAttribute("meetings", meetings);
+        model.addAttribute("shifts", shifts);
+        model.addAttribute("employee", DUMMY);
         return "eventmanager";
     }
 
@@ -78,6 +91,26 @@ public class ShiftController {
             Instant EventID = Zonetime.toInstant();
             eventRepository.deleteById(EventID);
             return "eventmanager";}
+        return "eventmanager";
+    }
+
+    @PostMapping("/findEventByDate")
+    public String findEventByDate(@ModelAttribute(value="employee")Model model, String date){
+        ArrayList<Event> events;
+        events = eventService.getEventsInSameDate(date);
+
+        model.addAttribute("events", events);
+        model.addAttribute("employee", DUMMY);
+        return "eventmanager";
+    }
+
+    @GetMapping("/displayEventsByDate")
+    public String displayEventsByDate(Model model){
+        List<Event> events = new ArrayList<>();
+        eventRepository.findAll().forEach(events::add);
+
+        model.addAttribute("events", events);
+        model.addAttribute("employee", DUMMY);
         return "eventmanager";
     }
 

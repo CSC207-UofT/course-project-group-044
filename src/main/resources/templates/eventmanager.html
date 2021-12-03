@@ -12,28 +12,40 @@
 <h2> EventManager</h2>
 <h3>Current Events in DataBase</h3>
 <div style="width:100%; height:10%; background-color:greenyellow; margin-top:6em; margin-bottom:6em;">
-    <form th:action="@{/event/displayEvent}" th:object="${events}" th:method="get">
-    <table>
+    <form th:action="@{/event/displayEvent}" th:method="get">
+    <table class="table table-bordered">
         <thead>
         <tr>
             <th> StartTime </th>
             <th> Duration </th>
             <th> Location </th>
             <th> EventName </th>
+            <th> HolderID </th>
+            <td> Participants ID</td>
         </tr>
         </thead>
         <tbody>
-        <tr th:if="${events == null}">
-            <td colspan="2"> No Event stored </td>
+        <tr th:if="${shifts == null && meetings == null}">
+            <h4> No Event stored </h4>
         </tr>
-        <tr th:each="event : ${events}">
-            <td><span th:text="${event.getStartString()}"> StartTime </span></td>
-            <td><span th:text="${event.getDurationString()}"> Duration </span></td>
-            <td><span th:text="${event.getLocation()}"> Location </span></td>
-            <td><span th:text="${event.getName()}"> EventName </span></td>
+        <tr th:each=" shift : ${shifts}">
+            <td><span th:text="${shift.getStartString()}"> StartTime </span></td>
+            <td><span th:text="${shift.getDurationString()}"> Duration </span></td>
+            <td><span th:text="${shift.getLocation()}"> Location </span></td>
+            <td><span th:text="${shift.getName()}"> EventName </span></td>
+            <td><span th:text="${shift.getEmployee().getId()}"> HolderID </span></td>
+        </tr>
+        <tr th:each="meeting : ${meetings}">
+            <td><span th:text="${meeting.getStartString()}"> StartTime </span></td>
+            <td><span th:text="${meeting.getDurationString()}"> Duration </span></td>
+            <td><span th:text="${meeting.getLocation()}"> Location </span></td>
+            <td><span th:text="${meeting.getName()}"> EventName </span></td>
+            <td><span th:text="${meeting.getHolder().getId()}"> EventName </span></td>
+            <td><span th:text="${meeting.getParticipantsID()}"> Participants ID </span></td>
         </tr>
         </tbody>
     </table>
+        <button type="submit" class="btn-primary">Find!</button>
     </form>
 </div>
 <h3>Create Events</h3>
@@ -72,17 +84,29 @@
     </div>
 </div>
 <h3>Delete Events</h3>
-<div>
-    <div style="width:100%; height:10%; background-color:greenyellow; margin-top:6em; margin-bottom:6em;" class="d-grid gap-2">
-        <form th:action="@{/event/removeEvent}" method="post">
-            <label><b>employeeID</b></label>
-            <input type="text" th:value="${employee.id}" name = "employee">
-            <label><b>Date</b></label>
-            <input type="datetime-local" name = "date">
-            <button class="btn-primary" type="submit">DeleteEvent!</button>
-        </form>
-    </div>
-</div>
+<!--<div>-->
+<!--    <div style="width:100%; height:10%; background-color:greenyellow; margin-top:6em; margin-bottom:6em;" class="d-grid gap-2">-->
+<!--        <form th:action="@{/event/removeEvent}" method="post">-->
+<!--            <label><b>Date</b></label>-->
+<!--            <input type="datetime-local" name = "date">-->
+<!--            <button class="btn-primary" type="submit">Find the Events on the date you input </button>-->
+<!--        </form>-->
+<!--    </div>-->
+<!--    <form th:action="@{/event/displayEventByDate}" th:object="${events}" th:method="get">-->
+<!--    <form th:action="@{/event/findEventByDate}" th:object="${events}" th:method="post">-->
+<!--        <input type="date" id="event" name="event">-->
+<!--        <input type="submit">-->
+<!--    </form>-->
+<!--    </form>-->
+
+<!--    <form>-->
+<!--        <select th:field="*{Event}">-->
+<!--            <option th:each="i : ${#numbers.sequence(0, 100)}" th:value="${i}" th:text="${i}"-->
+<!--                    th:selected="${i==75}"></option>-->
+<!--        </select>-->
+<!--    </form>-->
+
+<!--</div>-->
 <div>
     <input type="button" value="return to main menu!" class="button" onclick="history.back()">
 </div>

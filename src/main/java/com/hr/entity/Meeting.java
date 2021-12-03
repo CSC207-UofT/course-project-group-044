@@ -3,6 +3,7 @@ package com.hr.entity;
 import javax.persistence.*;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -48,6 +49,14 @@ public class Meeting extends Event {
 
     public List<Employee> getParticipants() {
         return participants;
+    }
+
+    public ArrayList<Integer> getParticipantsID(){
+        ArrayList<Integer> result = new ArrayList<>();
+        for (Employee participant: participants){
+            result.add(participant.getId());
+        }
+        return result;
     }
 
     public void setParticipants(List<Employee> participants) {

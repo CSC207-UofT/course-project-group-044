@@ -1,6 +1,5 @@
 package serviceTest;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.hr.entity.Event;
 import com.hr.repository.EventRepository;
 import com.hr.service.impl.EventServiceImpl;
@@ -39,7 +38,7 @@ public class EventServiceImplTest {
         Event event = new Event(Instant.parse("2013-06-15T09:00:00.00Z"), Duration.ofHours(1),
                 "Jason", "BA");
         when(eventRepository.findAll()).thenReturn(List.of(event));
-        boolean result = eventService.deleteEvents("2013-06-15");
+        boolean result = eventService.deleteEventsByDate("2013-06-15");
 
         verify(eventRepository).delete(event);
         Assertions.assertTrue(result);
@@ -51,7 +50,7 @@ public class EventServiceImplTest {
         Event event = new Event(Instant.parse("2013-06-15T09:00:00.00Z"), Duration.ofHours(1),
                 "Jason", "BA");
         when(eventRepository.findAll()).thenReturn(List.of(event));
-        boolean result = eventService.deleteEvents("2013-06-16");
+        boolean result = eventService.deleteEventsByDate("2013-06-16");
 
         verify(eventRepository, times(0)).delete(event);
         Assertions.assertFalse(result);
