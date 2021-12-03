@@ -31,7 +31,6 @@ public class EmployeeModifierTest {
 
     @InjectMocks
     private EmployeeModifierImpl mgr;
-    //private HashMap<Integer,Employee> employees;
 
     @Mock
     private EmployeeRepository employeeRepository;
@@ -45,21 +44,11 @@ public class EmployeeModifierTest {
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
-        EmployeeModifierImpl mgr = new EmployeeModifierImpl(employeeRepository, calendarRepository);
-
-      //  ArrayList<Employee> employees = (ArrayList<Employee>) employeeRepository.findAll();
-      //  for (Employee employee: employees){
-      //      this.employees.put(employee.getId(), employee);
         }
 
     @After
     public void tearDown() {
     }
-
-//    @Test
-//    public void testInit() {
-//        assertTrue(this.employees.isEmpty());
-//   }
 
     @Test
     public void testHireEmployee() {

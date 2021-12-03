@@ -2,6 +2,8 @@ package com.hr.controller;
 
 import com.hr.entity.Employee;
 import com.hr.entity.Event;
+import com.hr.entity.Meeting;
+import com.hr.entity.Shift;
 import com.hr.repository.EventRepository;
 import com.hr.service.impl.EventServiceImpl;
 import com.hr.service.impl.SchedulerImpl;
@@ -20,6 +22,8 @@ import java.util.List;
 @Controller
 @RequestMapping("event")
 public class ShiftController {
+    private static Event EMPTY_EVENT = new Event();
+    private static Employee DUMMY = new Employee();
 
     @Autowired
     private EventServiceImpl eventService;
@@ -30,7 +34,7 @@ public class ShiftController {
     @Autowired
     private EventRepository eventRepository;
 
-
+    public ShiftController(){}
 
     @PostMapping("/addshift")
     public String addShift(@ModelAttribute(value="employee")Employee employee, String date, String location,
@@ -60,10 +64,20 @@ public class ShiftController {
 
     @GetMapping("/displayEvent")
     public String displayEvent(Model model){
-        List<Event> events = new ArrayList<>();
-        eventRepository.findAll().forEach(events::add);
+        List<Meeting> meetings = new ArrayList<>();
+        List<Shift> shifts = new ArrayList<>();
+        for (Event event: eventRepository.findAll()){
+            if (event instanceof Meeting){
+                meetings.add((Meeting) event);
+            }
+            else{
+                shifts.add((Shift) event);
+            }
+        }
 
-        model.addAttribute("events", events);
+        model.addAttribute("meetings", meetings);
+        model.addAttribute("shifts", shifts);
+        model.addAttribute("employee", DUMMY);
         return "eventmanager";
     }
 
@@ -80,10 +94,30 @@ public class ShiftController {
         return "eventmanager";
     }
 
+    @PostMapping("/findEventByDate")
+    public String findEventByDate(@ModelAttribute(value="employee")Model model, String date){
+        ArrayList<Event> events;
+        events = eventService.getEventsInSameDate(date);
+
+        model.addAttribute("events", events);
+        model.addAttribute("employee", DUMMY);
+        return "eventmanager";
+    }
+
+    @GetMapping("/displayEventsByDate")
+    public String displayEventsByDate(Model model){
+        List<Event> events = new ArrayList<>();
+        eventRepository.findAll().forEach(events::add);
+
+        model.addAttribute("events", events);
+        model.addAttribute("employee", DUMMY);
+        return "eventmanager";
+    }
+
     private ZonedDateTime localZoneconverter(String date){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
         LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
-        ZoneId zoneId = ZoneId.of( "North/Kolkata" );        //Zone information
+        ZoneId zoneId = ZoneId.of( "Asia/Kolkata" );        //Zone information
         return dateTime.atZone( zoneId );
     }
 

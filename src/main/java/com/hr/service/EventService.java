@@ -5,7 +5,9 @@ import com.hr.entity.Event;
 import java.util.List;
 
 public interface EventService {
-    boolean deleteEvents(String date);
+    boolean deleteEventsByDate(String date);
 
     List<Event> getEventsInSameDate(String date);
+
+    void deleteEvent(Event event);
 }
