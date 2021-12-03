@@ -33,4 +33,5 @@ public class WelcomeController {
         model.addAttribute("employee", employeeModifier.creatingEmptyemployee());
         return "eventmanager";
     }
+
 }
