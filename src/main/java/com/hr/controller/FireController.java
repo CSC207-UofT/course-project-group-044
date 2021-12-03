@@ -7,8 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Objects;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("employee")
@@ -23,6 +21,8 @@ public class FireController {
         Employee user = employeeModifier.findEmployeeById(employee.getId());
 
         if (user != null){
+
+
             employeeModifier.fireEmployee(user);
             model.addAttribute("employee", employee);
             return "employeemanager";

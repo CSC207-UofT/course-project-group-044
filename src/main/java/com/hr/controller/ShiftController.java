@@ -30,7 +30,7 @@ public class ShiftController {
     @Autowired
     private EventRepository eventRepository;
 
-    public ShiftController(){}
+
 
     @PostMapping("/addshift")
     public String addShift(@ModelAttribute(value="employee")Employee employee, String date, String location,
@@ -83,7 +83,7 @@ public class ShiftController {
     private ZonedDateTime localZoneconverter(String date){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
         LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
-        ZoneId zoneId = ZoneId.of( "Asia/Kolkata" );        //Zone information
+        ZoneId zoneId = ZoneId.of( "North/Kolkata" );        //Zone information
         return dateTime.atZone( zoneId );
     }
 

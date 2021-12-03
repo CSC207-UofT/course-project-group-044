@@ -46,6 +46,7 @@
                 <div class="container">
                     <label><b>ID</b></label>
                     <input type="text" placeholder="Enter Employee id" th:field="*{id}" required>
+                    <div><span>ID: </span> <span th:text="${id}"></span></div>
                     <button class="btn-primary" type="submit">Fire</button>
                 </div>
             </form>

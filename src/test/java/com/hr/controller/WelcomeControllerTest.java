@@ -1,37 +1,33 @@
-package controllertestPackage;
+package com.hr.controller;
 
-import com.hr.Application;
-import com.hr.controller.FireController;
 import com.hr.entity.Calendar;
 import com.hr.entity.Employee;
-import com.hr.service.impl.EmployeeModifierImpl;
+import com.hr.service.EmployeeModifier;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import static org.junit.Assert.assertTrue;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(FireController.class)
-@ContextConfiguration(classes = {FireController.class})
-public class FireControllerIntegrationTest {
+@WebMvcTest(WelcomeController.class)
+public class WelcomeControllerTest {
     private static final String DUMMY_ID = "1";
 
     @Autowired
-    private MockMvc mvc;
+    MockMvc mvc;
 
     @MockBean
-    private EmployeeModifierImpl employeeModifier;
+    EmployeeModifier employeeModifier;
+
 
 
     @Before
@@ -42,14 +38,15 @@ public class FireControllerIntegrationTest {
                 .thenReturn(employee);
 
     }
-
     @Test
-    public void testFireEmployee() throws Exception {
-        MvcResult response = mvc.perform(post("/employee/fire")
-                .param("id", DUMMY_ID))
+    public void testgetWelcomePage() throws Exception {
+        MvcResult response = mvc.perform(get("/welcome")
+                )
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("text/html;charset=UTF-8"))
-                .andExpect(view().name("employeemanager")).andReturn();
+                .andExpect(view().name("welcome")).andReturn();
 
     }
+
+
 }

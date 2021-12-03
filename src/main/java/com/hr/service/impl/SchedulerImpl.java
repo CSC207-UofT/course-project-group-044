@@ -128,12 +128,9 @@ public class SchedulerImpl {
         }
 
         // Shifts must be contiguous => only one shift per day
-        if (employee.getCalendar().eventsOnDay(start) >= 1) {
-            return false;
-        }
+        return employee.getCalendar().eventsOnDay(start) < 1;
 
         // Otherwise, no other constraints to check here
-        return true;
     }
 
     public Shift shiftFinder(Employee employee, ZonedDateTime date, String location, int hours){
