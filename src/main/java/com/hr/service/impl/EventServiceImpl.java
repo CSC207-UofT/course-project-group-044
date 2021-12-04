@@ -25,7 +25,10 @@ public class EventServiceImpl implements EventService {
     @Autowired
     CalendarRepository calendarRepository;
 
-    public EventServiceImpl() {}
+    @Override
+    public Iterable<Event> findAllEvents(){
+        return eventRepository.findAll();
+    }
 
     /**
      * A delete Event method that could delete the event from the repository and update all the employees involved in
@@ -33,6 +36,9 @@ public class EventServiceImpl implements EventService {
      */
     @Override
     public void deleteEvent(Event event){
+        if (event == null){
+            return;
+        }
         if (event instanceof Shift){
             //update employee's calendar
             Employee employee = ((Shift) event).getEmployee();
@@ -45,10 +51,12 @@ public class EventServiceImpl implements EventService {
         }
         else{
             Meeting meeting = (Meeting) event;
+            // delete holder's calendar which contains this event
             Employee holder = meeting.getHolder();
             holder.getCalendar().getEvents().remove(meeting);
             calendarRepository.save(holder.getCalendar());
             employeeRepository.save(holder);
+            // delete all Events in participants' calendar
             List<Employee> employees = meeting.getParticipants();
             for (Employee employee: employees){
                 employee.getCalendar().getEvents().remove(meeting);
@@ -58,6 +66,12 @@ public class EventServiceImpl implements EventService {
 
             eventRepository.delete(meeting);
         }
+    }
+
+    @Override
+    public void deleteEventByInstant(Instant start){
+        Event event = eventRepository.findById(start).orElse(null);
+        deleteEvent(event);
     }
 
     @Override

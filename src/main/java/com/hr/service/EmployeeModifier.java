@@ -2,6 +2,8 @@ package com.hr.service;
 
 import com.hr.entity.Employee;
 
+import java.util.List;
+
 public interface EmployeeModifier {
     Employee hireEmployee(String name, int id, int salary, int maxHoursPerWeek, int hoursPerShift);
 
@@ -10,4 +12,6 @@ public interface EmployeeModifier {
     Employee findEmployeeById(int id);
 
     double evaluateSalary(int id);
+
+    List<Employee> findAllEmployees();
 }

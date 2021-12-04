@@ -41,6 +41,9 @@ public class Event {
     public Event() {
 
     }
+    public Instant getStart() {
+        return start;
+    }
 
     public String getStartString() {
         return start.toString();

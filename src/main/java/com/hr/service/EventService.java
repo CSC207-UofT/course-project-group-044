@@ -2,6 +2,7 @@ package com.hr.service;
 
 import com.hr.entity.Event;
 
+import java.time.Instant;
 import java.util.List;
 
 public interface EventService {
@@ -10,4 +11,8 @@ public interface EventService {
     List<Event> getEventsInSameDate(String date);
 
     void deleteEvent(Event event);
+
+    void deleteEventByInstant(Instant start);
+
+    Iterable<Event> findAllEvents();
 }

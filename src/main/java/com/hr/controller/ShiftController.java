@@ -22,8 +22,8 @@ import java.util.List;
 @Controller
 @RequestMapping("event")
 public class ShiftController {
-    private static Event EMPTY_EVENT = new Event();
     private static Employee DUMMY = new Employee();
+    private static ArrayList<Event> eventsByDate = new ArrayList<>();
 
     @Autowired
     private EventServiceImpl eventService;
@@ -31,8 +31,6 @@ public class ShiftController {
     private SchedulerImpl scheduler;
     @Autowired
     private EmployeeModifier employeeModifier;
-    @Autowired
-    private EventRepository eventRepository;
 
     public ShiftController(){}
 
@@ -66,7 +64,7 @@ public class ShiftController {
     public String displayEvent(Model model){
         List<Meeting> meetings = new ArrayList<>();
         List<Shift> shifts = new ArrayList<>();
-        for (Event event: eventRepository.findAll()){
+        for (Event event: eventService.findAllEvents()){
             if (event instanceof Meeting){
                 meetings.add((Meeting) event);
             }
@@ -81,43 +79,35 @@ public class ShiftController {
         return "eventmanager";
     }
 
-    @PostMapping("/removeEvent")
-    public String removeEvent(@ModelAttribute(value="employee")Employee employee, String date){
-
-        ZonedDateTime Zonetime = localZoneconverter(date);
-
-        Employee user = employeeModifier.findEmployeeById(employee.getId());
-        if (user != null) {
-            Instant EventID = Zonetime.toInstant();
-            eventRepository.deleteById(EventID);
-            return "eventmanager";}
-        return "eventmanager";
-    }
-
     @PostMapping("/findEventByDate")
-    public String findEventByDate(@ModelAttribute(value="employee")Model model, String date){
+    public String findEventByDate(Model model, String date){
         ArrayList<Event> events;
         events = eventService.getEventsInSameDate(date);
 
-        model.addAttribute("events", events);
+        eventsByDate = events;
         model.addAttribute("employee", DUMMY);
+        model.addAttribute("events", eventsByDate);
         return "eventmanager";
     }
 
-    @GetMapping("/displayEventsByDate")
-    public String displayEventsByDate(Model model){
-        List<Event> events = new ArrayList<>();
-        eventRepository.findAll().forEach(events::add);
+    @PostMapping("/deleteEvent")
+    public String deleteEvent(Model model, String start){
+        DateTimeFormatter sourceFormat  = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        DateTimeFormatter targetFormat  = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-        model.addAttribute("events", events);
+        LocalDateTime dateTime = LocalDateTime.parse(start, sourceFormat);
+        ZoneId zoneId = ZoneId.of( "Europe/London" );
+        Instant time = dateTime.atZone(zoneId).toInstant();
+
         model.addAttribute("employee", DUMMY);
+        eventService.deleteEventByInstant(time);
         return "eventmanager";
     }
 
     private ZonedDateTime localZoneconverter(String date){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
         LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
-        ZoneId zoneId = ZoneId.of( "Asia/Kolkata" );        //Zone information
+        ZoneId zoneId = ZoneId.of( "Europe/London" );        //Zone information
         return dateTime.atZone( zoneId );
     }
 
