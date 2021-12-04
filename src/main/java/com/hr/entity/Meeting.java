@@ -1,6 +1,8 @@
 package com.hr.entity;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;

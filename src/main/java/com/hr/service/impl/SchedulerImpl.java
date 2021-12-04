@@ -1,26 +1,26 @@
 package com.hr.service.impl;
 
 import com.hr.entity.Employee;
-import com.hr.entity.Shift;
-import com.hr.entity.Meeting;
 import com.hr.entity.Event;
-
-import java.time.*;
-import java.util.List;
-import java.util.ListIterator;
-
+import com.hr.entity.Meeting;
+import com.hr.entity.Shift;
 import com.hr.repository.CalendarRepository;
 import com.hr.repository.EmployeeRepository;
 import com.hr.repository.EventRepository;
-import org.sat4j.pb.SolverFactory;
-import org.sat4j.pb.IPBSolver;
-import org.sat4j.specs.IProblem;
-import org.sat4j.specs.TimeoutException;
-import org.sat4j.specs.ContradictionException;
-import org.sat4j.specs.IVecInt;
 import org.sat4j.core.VecInt;
+import org.sat4j.pb.IPBSolver;
+import org.sat4j.pb.SolverFactory;
+import org.sat4j.specs.ContradictionException;
+import org.sat4j.specs.IProblem;
+import org.sat4j.specs.IVecInt;
+import org.sat4j.specs.TimeoutException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.Duration;
+import java.time.ZonedDateTime;
+import java.util.List;
+import java.util.ListIterator;
 
 /**
  * The automatic shift scheduler manages the Calendars in the Organization,

@@ -4,6 +4,7 @@ import com.hr.entity.Employee;
 import com.hr.entity.Meeting;
 import com.hr.entity.Shift;
 import org.sat4j.specs.ContradictionException;
+
 import java.time.ZonedDateTime;
 import java.util.List;
 

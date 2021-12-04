@@ -6,9 +6,9 @@ import com.hr.entity.Event;
 import com.hr.repository.CalendarRepository;
 import com.hr.repository.EmployeeRepository;
 import com.hr.repository.EventRepository;
+import com.hr.service.EmployeeModifier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.hr.service.EmployeeModifier;
 
 import java.time.Instant;
 import java.util.ArrayList;
