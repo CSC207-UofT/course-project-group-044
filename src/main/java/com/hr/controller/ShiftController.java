@@ -22,8 +22,6 @@ import java.util.List;
 @Controller
 @RequestMapping("event")
 public class ShiftController {
-    private static Event EMPTY_EVENT = new Event();
-    private static Employee DUMMY = new Employee();
 
     @Autowired
     private EventServiceImpl eventService;
@@ -77,7 +75,7 @@ public class ShiftController {
 
         model.addAttribute("meetings", meetings);
         model.addAttribute("shifts", shifts);
-        model.addAttribute("employee", DUMMY);
+        model.addAttribute("employee", employeeModifier.creatingEmptyemployee());
         return "eventmanager";
     }
 
@@ -100,7 +98,7 @@ public class ShiftController {
         events = eventService.getEventsInSameDate(date);
 
         model.addAttribute("events", events);
-        model.addAttribute("employee", DUMMY);
+        model.addAttribute("employee", employeeModifier.creatingEmptyemployee());
         return "eventmanager";
     }
 
@@ -110,7 +108,7 @@ public class ShiftController {
         eventRepository.findAll().forEach(events::add);
 
         model.addAttribute("events", events);
-        model.addAttribute("employee", DUMMY);
+        model.addAttribute("employee", employeeModifier.creatingEmptyemployee());
         return "eventmanager";
     }
 
