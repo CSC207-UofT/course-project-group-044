@@ -26,8 +26,9 @@ import java.util.List;
 @Controller
 @RequestMapping("event")
 public class ShiftController {
-    private static Employee DUMMY = new Employee();
+
     private static ArrayList<Event> eventsByDate = new ArrayList<>();
+
 
     @Autowired
     private EventServiceImpl eventService;
@@ -79,7 +80,7 @@ public class ShiftController {
 
         model.addAttribute("meetings", meetings);
         model.addAttribute("shifts", shifts);
-        model.addAttribute("employee", DUMMY);
+        model.addAttribute("employee", employeeModifier.creatingEmptyemployee());
         return "eventmanager";
     }
 
@@ -88,8 +89,9 @@ public class ShiftController {
         ArrayList<Event> events;
         events = eventService.getEventsInSameDate(date);
 
+
         eventsByDate = events;
-        model.addAttribute("employee", DUMMY);
+        model.addAttribute("employee", employeeModifier.creatingEmptyemployee());
         model.addAttribute("events", eventsByDate);
         return "eventmanager";
     }
@@ -102,9 +104,9 @@ public class ShiftController {
         LocalDateTime dateTime = LocalDateTime.parse(start, sourceFormat);
         ZoneId zoneId = ZoneId.of( "Europe/London" );
         Instant time = dateTime.atZone(zoneId).toInstant();
-
-        model.addAttribute("employee", DUMMY);
+        model.addAttribute("employee", employeeModifier.creatingEmptyemployee());
         eventService.deleteEventByInstant(time);
+
         return "eventmanager";
     }
 

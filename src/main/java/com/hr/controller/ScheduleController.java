@@ -18,7 +18,6 @@ import java.util.List;
 @RequestMapping("schedule")
 public class ScheduleController {
 
-    private static Employee DUMMY = new Employee();
 
     @Autowired
     private EmployeeModifier employeeModifier;
