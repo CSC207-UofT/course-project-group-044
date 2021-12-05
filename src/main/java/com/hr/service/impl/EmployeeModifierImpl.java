@@ -110,11 +110,5 @@ public class EmployeeModifierImpl implements EmployeeModifier {
         Employee DUMMY = new Employee();
         return DUMMY;
     }
-    @Override
-    public double evaluateSalary(int id){
-        // return the Salary of the person in a Week.
-        Employee employee = findEmployeeById(id);
-        //TODO: figure out the real total work time.
-        return 7 * employee.getSalary() * employee.getMaxHoursPerWeek();
-    }
+
 }
