@@ -28,20 +28,16 @@ public class Observer {
     @Autowired
     EventRepository eventRepository;
 
-    @Autowired
-    EventService eventService;
-
-
     public Observer(EmployeeRepository employeeRepository, CalendarRepository calendarRepository,
-                    EventRepository eventRepository, EventService eventService){
+                    EventRepository eventRepository){
         this.employeeRepository = employeeRepository;
         this.calendarRepository = calendarRepository;
         this.eventRepository = eventRepository;
-        this.eventService = eventService;
     }
 
     //  clear all related information of the fired employee
     public void clearEmployee(Employee employee){
+        EventServiceImpl eventService = new EventServiceImpl(employeeRepository, calendarRepository, eventRepository);
         UUID calendarID = employee.getCalendar().getCalendarID();
         Calendar calendar = calendarRepository.findById(calendarID).orElse(null);
         if (calendar == null){
@@ -75,8 +71,22 @@ public class Observer {
         calendarRepository.save(host.getCalendar());
     }
 
-//    public void removeShift(Employee employee, Shift shift){
-//        eventRepository.delete(shift);
-//        //I need delete method for event in Calendar here.
-//    }
+    public void removeShift(Employee employee, Shift shift){
+        employee.getCalendar().getEvents().remove(shift);
+        calendarRepository.save(employee.getCalendar());
+        // update employee
+        employeeRepository.save(employee);
+    }
+
+    public void removeMeeting(Employee host, List<Employee> participants, Meeting meeting){
+        host.getCalendar().getEvents().remove(meeting);
+        calendarRepository.save(host.getCalendar());
+        employeeRepository.save(host);
+
+        for (Employee employee: participants){
+            employee.getCalendar().getEvents().remove(meeting);
+            calendarRepository.save(employee.getCalendar());
+        }
+        employeeRepository.saveAll(participants);
+    }
 }

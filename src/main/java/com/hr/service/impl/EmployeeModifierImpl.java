@@ -63,7 +63,7 @@ public class EmployeeModifierImpl implements EmployeeModifier {
      */
     @Override
     public void fireEmployee(Employee employee) {
-        Observer observer = new Observer(employeeRepository, calendarRepository, eventRepository, eventService);
+        Observer observer = new Observer(employeeRepository, calendarRepository, eventRepository);
         observer.clearEmployee(employee);
         employeeRepository.delete(employee);
     }
