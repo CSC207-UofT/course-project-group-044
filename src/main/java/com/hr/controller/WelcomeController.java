@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("welcome")
+/**
+ * Controller of welcome words when employee, employeemanager, eventmanager login through the web
+ */
 public class WelcomeController {
 
     @Autowired
@@ -16,18 +19,36 @@ public class WelcomeController {
 
 
     @GetMapping()
+    /**
+     * when an employee sign in through the web, based on its information, create employee account and display
+     * the welcome words.
+     *
+     * @return a string of "welcome"
+     */
     public String getWelcomePage(Model model) {
         model.addAttribute("message", "hello!");
         model.addAttribute("employee", employeeModifier.creatingEmptyemployee());
         return "welcome";
     }
     @GetMapping("employeemanager")
+    /**
+     * when an employee manager sign in through the web, based on its information, create employee account and display
+     * the welcome words.
+     *
+     * @return a string of "employeemanager"
+     */
     public String getEmployeemanagerPage(Model model) {
         model.addAttribute("message", "hello!");
         model.addAttribute("employee", employeeModifier.creatingEmptyemployee());
         return "employeemanager";
     }
     @GetMapping("eventmanager")
+    /**
+     * when an event manager sign in through the web, based on its information, create employee account and display
+     * the welcome words.
+     *
+     * @return a string of "eventmanager"
+     */
     public String getEventmanagerPage(Model model) {
         model.addAttribute("message", "hello!");
         model.addAttribute("employee", employeeModifier.creatingEmptyemployee());

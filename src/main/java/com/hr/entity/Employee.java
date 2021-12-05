@@ -146,9 +146,15 @@ public class Employee {
      */
     public void setSchedulable(boolean new_bool) { this.schedulable = new_bool; }
 
+    /**
+     * Sets the id for the Employee.
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * Sets the name for the Employee.
+     */
     public void setName(String name){this.name = name;}
 }
