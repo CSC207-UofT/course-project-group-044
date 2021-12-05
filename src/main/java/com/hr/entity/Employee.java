@@ -1,7 +1,10 @@
 package com.hr.entity;
 
-import javax.persistence.*;
-import java.time.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import java.time.ZonedDateTime;
 
 @Entity
 /**
