@@ -6,10 +6,11 @@ import com.hr.entity.Event;
 import com.hr.repository.CalendarRepository;
 import com.hr.repository.EmployeeRepository;
 import com.hr.repository.EventRepository;
+import com.hr.service.EmployeeModifier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.hr.service.EmployeeModifier;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -49,6 +50,7 @@ public class EmployeeModifierImpl implements EmployeeModifier {
      * @param maxHoursPerWeek  the max hours that this employee can work in a week.
      * @return the employee that is added to the Organization.
      */
+    @Override
     public Employee hireEmployee(String name, int id, int salary, int maxHoursPerWeek, int hoursPerShift) {
         // New employees have an empty calendar ready for scheduling
         Calendar calendar = new Calendar();
@@ -62,18 +64,33 @@ public class EmployeeModifierImpl implements EmployeeModifier {
      * Fire an employee from the Organization.
      * precondition: employee must in the database
      */
+    @Override
     public void fireEmployee(Employee employee) {
         UUID calendarID = employee.getCalendar().getCalendarID();
         Calendar calendar = calendarRepository.findById(calendarID).orElse(null);
         if (calendar == null){
             return;
         }
-        List<Event> events = calendar.getEvents();
-        for (Event event: events){
-            eventService.deleteEvent(event);
+        ArrayList<Instant> ids = new ArrayList<>();
+        for (Event event: calendar.getEvents()){
+            ids.add(event.getStart());
+        }
+
+        calendar.getEvents().clear();
+        for (Instant eventID: ids){
+            eventService.deleteEventByInstant(eventID);
         }
 
         employeeRepository.delete(employee);
+    }
+
+    @Override
+    public List<Employee> findAllEmployees(){
+        List<Employee> employees = new ArrayList<>();
+        for (Employee employee: employeeRepository.findAll()){
+            employees.add(employee);
+        }
+        return employees;
     }
 
     @Override
@@ -83,15 +100,7 @@ public class EmployeeModifierImpl implements EmployeeModifier {
 
 
     @Override
-    /*
-     * Evaluate the weekly salary of an Employee with given id.
-     *
-     * @see Employee#getSalary()
-     * @see Employee#getMaxHoursPerWeek()
-     */
-    public double evaluateSalary(int id){
-        // return the Salary of the person in a Week.
-        Employee employee = findEmployeeById(id);
+    public double evaluateSalary(Employee employee) {
         //TODO: figure out the real total work time.
         return 7 * employee.getSalary() * employee.getMaxHoursPerWeek();
     }
@@ -100,5 +109,12 @@ public class EmployeeModifierImpl implements EmployeeModifier {
     public Employee creatingEmptyemployee(){
         Employee DUMMY = new Employee();
         return DUMMY;
+    }
+    @Override
+    public double evaluateSalary(int id){
+        // return the Salary of the person in a Week.
+        Employee employee = findEmployeeById(id);
+        //TODO: figure out the real total work time.
+        return 7 * employee.getSalary() * employee.getMaxHoursPerWeek();
     }
 }
