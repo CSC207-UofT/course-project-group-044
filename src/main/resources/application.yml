@@ -9,12 +9,12 @@ spring:
     console.enabled: true
     console.path: /h2
   datasource:
-    url: jdbc:h2:./data8
+    url: jdbc:h2:./data7
     username: jack
     password: csc207
     driver-class-name: org.h2.Driver
   flyway:
     enabled: true
 server:
-  port: 8082
+  port: 8080
 

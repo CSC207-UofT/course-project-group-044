@@ -1,22 +1,25 @@
 import com.hr.entity.Employee;
 import com.hr.repository.EmployeeRepository;
+import com.hr.repository.CalendarRepository;
 import com.hr.service.impl.EmployeeModifierImpl;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.AdditionalAnswers.returnsFirstArg;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.ExtendWith;
+import static org.junit.jupiter.api.Assertions.*;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class EmployeeModifierTest {
 
     @InjectMocks
@@ -26,43 +29,41 @@ public class EmployeeModifierTest {
     @Mock
     private EmployeeRepository employeeRepository;
 
-    @Before
+    @Mock
+    private CalendarRepository calendarRepository;
+
+    @BeforeEach
     public void setUp() {
-        ArrayList<Employee> employees = (ArrayList<Employee>) employeeRepository.findAll();
-        for (Employee employee: employees){
-            this.employees.put(employee.getId(), employee);
-        }
+        MockitoAnnotations.openMocks(this);
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
     }
 
-    @Test(timeout = 50)
-    public void testInit() {
-        assertTrue(this.employees.isEmpty());
-    }
-
-    @Test(timeout = 50)
+    @Test
     public void testHireEmployee() {
-        mgr.hireEmployee("Sunset Shimmer", 1, 20, 20, 4);
+        Employee returned = mgr.hireEmployee("Sunset Shimmer", 1, 20, 20, 4);
 
-        assertTrue(this.employees.containsKey(1));
-        assertEquals(this.employees.size(), 1);
+        verify(employeeRepository).save(returned);
+        verify(calendarRepository).save(returned.getCalendar());
     }
 
     @Test
     public void testSalaryEvaluation(){
-        assertEquals(2800.0, mgr.evaluateSalary(1));
+        Employee returned = mgr.hireEmployee("Sunset Shimmer", 1, 20, 20, 4);
+
+        assertEquals(2800.0, mgr.evaluateSalary(returned));
     }
 
-    @Test(timeout = 50)
+    @Test
     public void testFireEmployee() {
         Employee employee;
         employee = mgr.hireEmployee("Sunset Shimmer", 1, 20, 20, 4);
         mgr.fireEmployee(employee);
 
-        assertTrue(this.employees.isEmpty());
+        verify(employeeRepository).save(employee);
+        verify(employeeRepository).delete(employee);
     }
 
 }

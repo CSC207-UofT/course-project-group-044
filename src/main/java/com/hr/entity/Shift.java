@@ -1,6 +1,5 @@
 package com.hr.entity;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import java.time.Duration;
@@ -33,4 +32,6 @@ public class Shift extends Event {
 	public Shift() {
 
 	}
+
+	public Employee getEmployee(){ return this.employee; }
 }
