@@ -158,6 +158,7 @@ public class SchedulerImpl {
         // It is! Create the Shift.
         Duration duration = Duration.ofHours(hours);
         Shift shift = new Shift(employee, date.toInstant(), duration, location);
+        eventRepository.save(shift);
 
         Observer observer = new Observer(employeeRepository, calendarRepository, eventRepository);
         observer.createShift(employee, shift);
@@ -176,6 +177,7 @@ public class SchedulerImpl {
         // It is! Create the Shift.
         Duration duration = Duration.ofHours(hours);
         Meeting meeting = new Meeting(host, participants, date.toInstant(), duration, name, location);
+        eventRepository.save(meeting);
 
         Observer observer = new Observer(employeeRepository, calendarRepository, eventRepository);
         observer.createMeeting(host, participants, meeting);

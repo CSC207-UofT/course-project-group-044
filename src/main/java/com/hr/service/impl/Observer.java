@@ -52,13 +52,11 @@ public class Observer {
     }
 
     public void createShift(Employee employee, Shift shift){
-        eventRepository.save(shift);
         employee.getCalendar().addEvent(shift);
         calendarRepository.save(employee.getCalendar());
     }
 
     public void createMeeting(Employee host, List<Employee> participants, Meeting meeting){
-        eventRepository.save(meeting);
         host.getCalendar().addEvent(meeting);
         for (Employee e:participants){
             e.getCalendar().addEvent(meeting);
