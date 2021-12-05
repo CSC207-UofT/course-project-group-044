@@ -1,7 +1,16 @@
 package com.hr.entity;
 
-import javax.persistence.*;
-import java.time.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.time.temporal.ChronoField;
 
 @Entity
@@ -40,6 +49,25 @@ public class Event {
 
     public Event() {
 
+    }
+    public Instant getStart() {
+        return start;
+    }
+
+    public String getStartString() {
+        return start.toString();
+    }
+
+    public String getDurationString() {
+        return duration.toString();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getLocation() {
+        return location;
     }
 
     /**

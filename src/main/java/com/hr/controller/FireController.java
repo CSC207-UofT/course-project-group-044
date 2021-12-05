@@ -5,10 +5,9 @@ import com.hr.service.EmployeeModifier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.Objects;
-import java.util.Optional;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("employee")
@@ -26,11 +25,11 @@ public class FireController {
         if (user != null){
             employeeModifier.fireEmployee(user);
             model.addAttribute("employee", employee);
-            return "hirepage";
+            return "employeemanager";
         }
         model.addAttribute("employee", DUMMY);
         model.addAttribute("message", "firing failed because you add nothing");
 
-        return "hirepage";
+        return "employeemanager";
     }
 }
