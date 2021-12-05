@@ -44,7 +44,7 @@ public class EmployeeModifierTest {
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
-        }
+    }
 
     @After
     public void tearDown() {
@@ -66,20 +66,7 @@ public class EmployeeModifierTest {
         Assertions.assertEquals(4, result.getHoursPerShift());
     }
 
-    @Test
-    public void testFireEmployee() {
-        when(calendarRepository.save(any(Calendar.class))).thenReturn(new Calendar());
-        when(employeeRepository.save(any(Employee.class))).thenReturn(new Employee());
-        Employee employee = mgr.hireEmployee("Sunset Shimmer", 1, 20,
-                20, 4);
 
-        doNothing().when(calendarRepository).delete(any(Calendar.class));
-        doNothing().when(employeeRepository).delete(employee);
-        mgr.fireEmployee(employee);
-
-        verify(employeeRepository).delete(employee);
-//        verify(calendarRepository).delete(employee.getCalendar());
-    }
 
     @Test
     public void testFindEmployeeById(){

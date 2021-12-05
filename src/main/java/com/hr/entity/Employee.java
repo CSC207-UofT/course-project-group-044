@@ -32,6 +32,10 @@ public class Employee {
     // Hourly Wage of the Employee
     private int salary;
 
+    public void setCalendar(Calendar calendar) {
+        this.calendar = calendar;
+    }
+
     @Column
     private int maxHoursPerWeek;
 
@@ -56,6 +60,11 @@ public class Employee {
         this.schedulable = schedulable;
         this.calendar = calendar;
     }
+
+    public void setHoursPerShift(int hoursPerShift) {
+        this.hoursPerShift = hoursPerShift;
+    }
+
     /**
      * Constructor to create an blank instance of Employee that sets all information default.
      */
