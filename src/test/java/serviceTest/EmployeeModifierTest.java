@@ -109,6 +109,6 @@ public class EmployeeModifierTest {
                 20, 4);
 
         when(employeeRepository.findById(1)).thenReturn(Optional.ofNullable(employee));
-        Assertions.assertEquals(2800.0, mgr.evaluateSalary(1));
+        Assertions.assertEquals(2800.0, mgr.evaluateSalary(employee));
     }
 }

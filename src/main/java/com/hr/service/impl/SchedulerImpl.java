@@ -101,22 +101,6 @@ public class SchedulerImpl {
     private final int s_h = 8;
     private final int daysOfWeek = 7;
 
-    public SchedulerImpl() {}
-
-    public SchedulerImpl(EmployeeRepository employeeRepository, CalendarRepository calendarRepository,
-                         EventRepository eventRepository) {
-        this.employeeRepository = employeeRepository;
-        this.calendarRepository = calendarRepository;
-        this.eventRepository = eventRepository;
-    }
-
-    public SchedulerImpl(List<Employee> employees) {
-        this.employees = employees;
-
-        solver = SolverFactory.newDefault();
-        solver.setTimeout(10);
-    }
-
     /**
      * Determine whether it is valid to schedule a shift with the given
      * configuration.
@@ -328,8 +312,12 @@ public class SchedulerImpl {
      * @return Whether scheduling was successful.
      */
 
-    public boolean scheduleWeek(ZonedDateTime base) {
-        // Create all variables
+    public boolean scheduleWeek(List<Employee> employees, ZonedDateTime base) {
+        this.employees = employees;
+
+        // Initialize the solver
+        solver = SolverFactory.newDefault();
+        solver.setTimeout(10);
         solver.newVar(countVariables());
 
         // Define constraints
