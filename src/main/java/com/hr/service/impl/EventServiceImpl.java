@@ -26,15 +26,6 @@ public class EventServiceImpl implements EventService {
     @Autowired
     CalendarRepository calendarRepository;
 
-    public EventServiceImpl(){}
-
-    public EventServiceImpl(EmployeeRepository employeeRepository, CalendarRepository calendarRepository,
-                            EventRepository eventRepository){
-        this.employeeRepository = employeeRepository;
-        this.calendarRepository = calendarRepository;
-        this.eventRepository =eventRepository;
-    }
-
     @Override
     public Iterable<Event> findAllEvents(){
         return eventRepository.findAll();
@@ -52,18 +43,27 @@ public class EventServiceImpl implements EventService {
         if (event instanceof Shift){
             //update employee's calendar
             Employee employee = ((Shift) event).getEmployee();
-            Observer observer = new Observer(employeeRepository, calendarRepository, eventRepository);
-            observer.removeShift(employee, (Shift) event);
+            employee.getCalendar().getEvents().remove(event);
+            calendarRepository.save(employee.getCalendar());
+            // update employee
+            employeeRepository.save(employee);
 
             eventRepository.delete(event);
         }
         else{
             Meeting meeting = (Meeting) event;
+            // delete holder's calendar which contains this event
             Employee holder = meeting.getHolder();
+            holder.getCalendar().getEvents().remove(meeting);
+            calendarRepository.save(holder.getCalendar());
+            employeeRepository.save(holder);
+            // delete all Events in participants' calendar
             List<Employee> employees = meeting.getParticipants();
-
-            Observer observer = new Observer(employeeRepository, calendarRepository, eventRepository);
-            observer.removeMeeting(holder, employees, meeting);
+            for (Employee employee: employees){
+                employee.getCalendar().getEvents().remove(meeting);
+                calendarRepository.save(employee.getCalendar());
+            }
+            employeeRepository.saveAll(employees);
 
             eventRepository.delete(meeting);
         }
