@@ -148,3 +148,5 @@ Spring Framework, CSS file, FireController Test, Gradle setup, all controller ex
 Xinglin Chen:
 Design document(clean architecture, solid principle, packaging strategies, design patterns), CRC cards, javadoc(controller & entitiy & service).
 
+Haitao Zeng: 
+Tests for service and controller classes (by using Mockito), and solving some error in these classes.
