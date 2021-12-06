@@ -12,7 +12,8 @@ do not have any such features you can either:
 semantic HTML, any user with web access can access our program. The program is
 automatically accessible to users of screen readers and other standard
 accessibility technologies (like sip and puff systems) which a user might have
-for their web browser.
+for their web browser. The color scheme can be changed to accomodate people with disabilities. For now we have demo our project changing the color to help people
+with red-green Color blindness recognize our services
 
 **Flexibility in Use**: This principle is automatic with an unopinionated,
 standards-compliant web app. The application is accessible to users of any
