@@ -1,7 +1,7 @@
 package com.hr.controller;
 
 import com.hr.entity.Employee;
-import com.hr.service.EmployeeModifier;
+import com.hr.service.impl.EmployeeModifierImpl;
 import com.hr.service.impl.SchedulerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,9 +23,11 @@ import java.util.List;
  */
 public class ScheduleController {
 
+    @Autowired
+    private  SchedulerImpl sched;
 
     @Autowired
-    private EmployeeModifier employeeModifier;
+    private EmployeeModifierImpl employeeModifier;
 
     @GetMapping("/schedule")
     /**
@@ -37,7 +39,6 @@ public class ScheduleController {
 
         List<Employee> employees = new ArrayList<>(employeeModifier.findAllEmployees());
 
-        SchedulerImpl sched = new SchedulerImpl();
         ZonedDateTime base = ZonedDateTime.of(2021, 11, 8, 9, 0, 0, 0, ZoneOffset.UTC);
 
         boolean succ = sched.scheduleWeek(employees, base);
