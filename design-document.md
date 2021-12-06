@@ -116,6 +116,12 @@ As a consequence, if we do not implement the Factory Design Pattern, we must dec
 
 In this case, Factory Design Pattern is essential to solve the problem. This pattern takes the entity to be stored in the database and determines which repository class should be instantiated. In this manner, we grouped all of the repository classes into a single folder. Other classes are not required to decide which repository class to instantiate. Furthermore, if we want to add more entities in the future, it is easily extensible.
 
+### - Observer Pattern
+
+Observer pattern is a one-to-many dependency between multiple objects/attributes, and when the state of an object changes, all objects that depend on it are notified and updated automatically. In our code, we can synchronize and update other databases according to the changes of single database. For example, if we delete an Employee, the delete function is responsible to remove the Employee from the EmployeeRepository(database). At the same time, the observer would delete all the events of the Employee in the EventRepository and empty his Calendar after receiving the deletion signal. In this case, we only need call delete function of Employee in `Oberserver` rather than bunch of corresponding delete functions. The benefit is that reduces the coupling between the target and the observer, also conforms to the dependency inversion principle.
+
+
+
 # Packaging strategies
 
 The packaing strategy that we use is packaging by layer. Because our team decide to design the program corresponds to a layer in Clean Architecture, we create packages: "entity" for entity layer, "service" for use case layer, "controller" for controller layer. Also, because we are using h2 database, we use "repository" as a package to organize all of our repository classes which is in use case layer in a role of gateways. The Outer layer are majorly HTMLs, so we put them into resources which is a good package organizing all the HTMLs. In addition, as shown in the resources package, we decided to package the project by feature. We have db.migration to control dataflow in the database, static.css to implement web format, and templates to implement html details. Those functions are clearly organised according to their functionality or feature. 
@@ -129,9 +135,7 @@ The packaing strategy that we use is packaging by layer. Because our team decide
 
 <!---        what has worked well so far with your design -->
 
-<!---        a summary of what each group member has been working on and plans to work on next -->
-[required] brief summary of what each group member has been working on since phase 1
-Each group member should include a link to a significant pull request (or two if you can't pick just one) that they made throughout the term. Include a sentence or two explaining why you think this demonstrates a significant contribution to the team.
+<!---        a summary of what each group member has been working on and plans to work on next -->.
 
 Alyssa Rosenzweig: scheduler, code review, design document, gradle setup.
 
@@ -140,4 +144,7 @@ Jiawei Chen:
 
 Duan Kunhan:
 Spring Framework, CSS file, FireController Test, Gradle setup, all controller except shedule controller(shift controller is cooperated with Alex). help to do modification on Test a
+
+Xinglin Chen:
+Design document(clean architecture, solid principle, packaging strategies, design patterns), CRC cards, javadoc(controller & entitiy & service).
 
