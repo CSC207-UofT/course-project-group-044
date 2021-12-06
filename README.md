@@ -1,5 +1,6 @@
 # HR SCHEDULING SYSTEM - group 044
-
+PHASE 2 Changes in design_document.md
+Universal Design in accessibility.md
 
 ## Specification
 
