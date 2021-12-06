@@ -34,11 +34,6 @@
                 <button class="btn-primary" type="submit">Hire</button>
             </div>
         </form>
-        <div><span>ID: </span> <span th:text="${id}"></span></div>
-        <div><span>Name: </span> <span th:text="${name}"></span></div>
-        <div><span>Salary: </span> <span th:text="${salary}"></span></div>
-        <div><span>maxHoursPerWeek: </span> <span th:text="${maxHoursPerWeek}"></span></div>
-        <div><span>hoursPerShift: </span> <span th:text="${hoursPerShift}"></span></div>
     </div>
     <div>
         <div style="width:100%; height:10%; background-color:greenyellow; margin-top:12em; margin-bottom:6em;">
@@ -46,7 +41,6 @@
                 <div class="container">
                     <label><b>ID</b></label>
                     <input type="text" placeholder="Enter Employee id" th:field="*{id}" required>
-                    <div><span>ID: </span> <span th:text="${id}"></span></div>
                     <button class="btn-primary" type="submit">Fire</button>
                 </div>
             </form>
