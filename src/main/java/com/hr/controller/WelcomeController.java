@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("welcome")
 /**
- * Controller of welcome words when employee, employeemanager, eventmanager login through the web
+ * Controller of welcome words when employee, employeemanager, eventmanager login.
+ *
+ * @see EmployeeModifier
  */
 public class WelcomeController {
 

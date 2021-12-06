@@ -11,12 +11,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("employee")
+/**
+ * Controller for hiring/adding employee
+ *
+ * @see EmployeeModifierImpl
+ */
 public class HireController {
 
     @Autowired
     private EmployeeModifierImpl employeeModifierImpl;
 
     @PostMapping("/hire")
+    /**
+     * check whether employee exists and then add it to database.
+     * if lack of information, then displays failure notification
+     *
+     * @return a string of "employeemanager"
+     */
     public String addEmployee(@ModelAttribute(value="employee") Employee employee, Model model){
 
 

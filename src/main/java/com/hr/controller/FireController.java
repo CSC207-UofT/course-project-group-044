@@ -14,12 +14,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("employee")
+/**
+ * Controller for firing/deletingEmployee
+ *
+ * @see EmployeeModifier
+ */
 public class FireController {
 
     @Autowired
     private EmployeeModifier employeeModifier;
 
     @PostMapping("/fire")
+    /**
+     * check whether employee exists and then delete it.
+     * if the employee doesn't exist, then displays failure notification
+     *
+     * @return a string of "employeemanager"
+     */
     public String deleteEmployee(@ModelAttribute(value="employee") Employee employee, Model model){
 
         Employee user = employeeModifier.findEmployeeById(employee.getId());

@@ -16,6 +16,11 @@ import java.util.List;
 
 @Controller
 @RequestMapping("schedule")
+/**
+ * Controller for scheduling employee
+ *
+ * @see SchedulerImpl
+ */
 public class ScheduleController {
 
 
@@ -23,6 +28,11 @@ public class ScheduleController {
     private EmployeeModifier employeeModifier;
 
     @GetMapping("/schedule")
+    /**
+     * check whether the employee is available at specific time, and then schedule its work
+     *
+     * @return a string of "schedule"
+     */
     public String schedule(Model model){
 
         List<Employee> employees = new ArrayList<>(employeeModifier.findAllEmployees());
