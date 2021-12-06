@@ -3,6 +3,10 @@
 
 **Universal Design in accessibility.md**
 
+**All function and method are tested**
+
+**Observer demo In branch: Observer_ver4**
+
 ## Specification
 
 The HR scheduling system manages scheduling for an organization: shifts and meetings for employees. It maintains a roster of employees at the organization (which may be modified as employees join or leave the organization), along with scheduling constraints. The Manager of the Organization can assign employees work as Event according to specific rules:
