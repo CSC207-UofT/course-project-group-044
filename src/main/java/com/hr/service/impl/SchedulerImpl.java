@@ -7,16 +7,20 @@ import com.hr.entity.Shift;
 import com.hr.repository.CalendarRepository;
 import com.hr.repository.EmployeeRepository;
 import com.hr.repository.EventRepository;
+import org.sat4j.core.Vec;
 import org.sat4j.core.VecInt;
 import org.sat4j.pb.IPBSolver;
 import org.sat4j.pb.SolverFactory;
+import org.sat4j.pb.ObjectiveFunction;
 import org.sat4j.specs.ContradictionException;
 import org.sat4j.specs.IProblem;
+import org.sat4j.specs.IVec;
 import org.sat4j.specs.IVecInt;
 import org.sat4j.specs.TimeoutException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
 import java.time.Duration;
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -305,6 +309,41 @@ public class SchedulerImpl {
         }
     }
 
+    private void constrainAllWork() throws ContradictionException {
+        // All employees must work at least one shift
+        for (int i = 1; i <= employees.size(); ++i) {
+            IVecInt literals = new VecInt();
+
+            for (int d = 1; d <= 7; ++d) {
+                for (int h = s_l; h < s_h; ++h) {
+                    literals.push(var(i, d, h));
+                }
+            }
+
+            solver.addClause(literals);
+        }
+    }
+
+    private void setObjectiveFunction() {
+        // Minimize redundancy (number of hours scheduled)
+        // min sum_{idh} x_ijh
+
+        IVecInt literals = new VecInt();
+        Vec coeffs = new Vec();
+
+        for (int i = 1; i <= employees.size(); ++i) {
+            for (int d = 1; d <= 7; ++d) {
+                for (int h = s_l; h < s_h; ++h) {
+                    literals.push(var(i, d, h));
+                    coeffs.push(BigInteger.ONE);
+                }
+            }
+        }
+
+        ObjectiveFunction obj = new ObjectiveFunction(literals, coeffs);
+        solver.setObjectiveFunction(obj);
+    }
+
     /**
      * Automatically schedule a week
      *
@@ -325,9 +364,13 @@ public class SchedulerImpl {
             constrainMaxHours();
             constrainMinSimultaneous();
             constrainContiguousShifts();
+            constrainAllWork();
         } catch(ContradictionException exp) {
             return false;
         }
+
+        // Define objective function
+        setObjectiveFunction();
 
         // Now solve
         IProblem problem = solver;

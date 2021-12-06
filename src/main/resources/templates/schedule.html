@@ -12,7 +12,7 @@
 
 	<div style="margin-left: 3em">
 		<p th:each="event : ${empl.getCalendar().getEvents()}">
-			<strong th:text="${event.getDate()}"></strong>:
+			<strong th:text="${event.getStartString()}"></strong>:
 			<span th:text="${event.getHours()}"></span>
 			hours
 		</p>
