@@ -104,6 +104,13 @@ Entities must depend on abstractions, not on concretions. It states that the hig
 
 
 # Design patterns
+
+
+### - Dependence Injection Pattern
+
+The dependency injection is to create objects outside the mthod body and pass each objects (or perhaps a list of objects) into other object and to solve hard dependency (First class can create an instance of a second class inside its body by using operatory new(). In our project we apply this design pattern into shift controller. For example, we have method called findEventByDate in shift controller which is supposed to display the event that argument passed in. So in our original design, we create a empty ArrayList and use new() generator to create Event to pass to empty ArrayList and eventually add this ArrayList to model.addAttribute("events", ArrayList) to display our event, however, it creates hard dependency and one change in Event can easily cause other change in shiftcontroller. By using dependence injection pattern, we create ArrayList<Event> events and let all the event created by eventservice(which is use case)passes to that ArrayList<Event> and eventually we add this ArrayList to model, which avoid directly creaing new() event and avoid hard injection.
+ and 
+
 ### - Observer Pattern
 
 Observer pattern is a one-to-many dependency between multiple objects/attributes, and when the state of an object changes, all objects that depend on it are notified and updated automatically. In our code, we can synchronize and update other databases according to the changes of single database. For example, if we delete an Employee, the delete function is responsible to remove the Employee from the EmployeeRepository(database). At the same time, the observer would delete all the events of the Employee in the EventRepository and empty his Calendar after receiving the deletion signal. In this case, we only need call delete function of Employee in `Oberserver` rather than bunch of corresponding delete functions. The benefit is that reduces the coupling between the target and the observer, also conforms to the dependency inversion principle.
