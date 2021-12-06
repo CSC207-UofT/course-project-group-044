@@ -17,7 +17,7 @@ import java.util.UUID;
 
 
 @Service
-/*
+/**
  * A Manager has the power to modify employees in this Organization.
  * has permission to hire and fire Employee from the Organization, and evaluate payroll .
  *
