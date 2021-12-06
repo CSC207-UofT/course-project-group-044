@@ -25,6 +25,17 @@ import java.util.List;
 
 @Controller
 @RequestMapping("event")
+/**
+ * Controller for creating, adding, displaying or editing events.
+ *
+ * @param eventService
+ * @param scheduler
+ * @param employeeModifier
+ * @see EventServiceImpl
+ * @see EmployeeModifier
+ * @see SchedulerImpl
+ *
+ */
 public class ShiftController {
 
     private static ArrayList<Event> eventsByDate = new ArrayList<>();
@@ -40,6 +51,12 @@ public class ShiftController {
     public ShiftController(){}
 
     @PostMapping("/addshift")
+    /**
+     * identify the time and employee, then check whether employee exists and corresponding shift matched
+     * then add it by calling scheduler.
+     *
+     * @return a string of "eventmanager"
+     */
     public String addShift(@ModelAttribute(value="employee")Employee employee, String date, String location,
                            Integer hours){
 
@@ -52,6 +69,12 @@ public class ShiftController {
         return "eventmanager";
     }
     @PostMapping("/addmeeting")
+    /**
+     * identify the time and employee, then check whether employee exists and corresponding meeting matched
+     * then add it by calling scheduler.
+     *
+     * @return a string of "eventmanager"
+     */
     public String addMeeting(@ModelAttribute(value="employee")Employee employee, String participants, String date,
                            String name, String location, Integer hours){
 
@@ -66,6 +89,11 @@ public class ShiftController {
     }
 
     @GetMapping("/displayEvent")
+    /**
+     * categorizing all events into meeting or shift, then display them with corresponding employee
+     *
+     * @return a string of "eventmanager"
+     */
     public String displayEvent(Model model){
         List<Meeting> meetings = new ArrayList<>();
         List<Shift> shifts = new ArrayList<>();
@@ -85,6 +113,11 @@ public class ShiftController {
     }
 
     @PostMapping("/findEventByDate")
+    /**
+     * based on the given date, finding out all events start at the date.
+     *
+     * @return a string of "eventmanager"
+     */
     public String findEventByDate(Model model, String date){
         ArrayList<Event> events;
         events = eventService.getEventsInSameDate(date);
@@ -97,6 +130,12 @@ public class ShiftController {
     }
 
     @PostMapping("/deleteEvent")
+    /**
+     * based on the given start time, converting it through time zone,
+     * and then deleting time-corresponding event
+     *
+     * @return a string of "eventmanager"
+     */
     public String deleteEvent(Model model, String start){
         DateTimeFormatter sourceFormat  = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
         DateTimeFormatter targetFormat  = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -110,6 +149,11 @@ public class ShiftController {
         return "eventmanager";
     }
 
+    /**
+     * converting the given date to the specific time zone
+     *
+     * @return date that converted based on the time zone
+     */
     private ZonedDateTime localZoneconverter(String date){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
         LocalDateTime dateTime = LocalDateTime.parse(date, formatter);
@@ -117,6 +161,13 @@ public class ShiftController {
         return dateTime.atZone( zoneId );
     }
 
+    /**
+     * Separate the given string of participants into a list of employees.
+     * - splitting string by comma and gets a list of employees' id
+     * - create list of employees based on that list of id
+     *
+     * @return list of employees in the participants
+     */
     private ArrayList<Employee> participantSeperate(String participants){
 
         String[] temp = participants.split(",");

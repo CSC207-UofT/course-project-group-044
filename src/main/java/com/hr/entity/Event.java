@@ -50,22 +50,47 @@ public class Event {
     public Event() {
 
     }
+    /**
+     * Gets the start time of the event.
+     *
+     * @return  start time of this Event.
+     */
     public Instant getStart() {
         return start;
     }
 
+    /**
+     * Gets the string of start time of the event.
+     *
+     * @return  string of start time of this Event.
+     */
     public String getStartString() {
         return start.toString();
     }
 
+    /**
+     * Gets the duration of the event.
+     *
+     * @return  duration of this Event.
+     */
     public String getDurationString() {
         return duration.toString();
     }
 
+    /**
+     * Gets the name of the event.
+     *
+     * @return  name of this Event.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Gets the location of the event.
+     *
+     * @return  location of this Event.
+     */
     public String getLocation() {
         return location;
     }

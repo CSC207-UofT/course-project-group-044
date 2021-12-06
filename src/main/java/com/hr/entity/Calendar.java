@@ -68,7 +68,7 @@ public class Calendar {
     /**
      * Get the number of events on a given day.
      *
-     * @param Date/time to check
+     * @param  argument - time to check
      * @return Count
      */
     public long eventsOnDay(ZonedDateTime argument) {

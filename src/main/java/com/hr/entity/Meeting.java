@@ -41,18 +41,36 @@ public class Meeting extends Event {
 
     }
 
+    /**
+     * Gets the holder of the Meeting.
+     *
+     * @return  holder of this Meeting.
+     */
     public Employee getHolder() {
         return holder;
     }
 
+    /**
+     * Sets the new holder of the Meeting.
+     */
     public void setHolder(Employee holder) {
         this.holder = holder;
     }
 
+    /**
+     * Gets the participants of the Meeting.
+     *
+     * @return  list of employees/participants of this Meeting.
+     */
     public List<Employee> getParticipants() {
         return participants;
     }
 
+    /**
+     * Gets all the participants' id of the Meeting.
+     *
+     * @return  list of employees/participants' id of this Meeting.
+     */
     public ArrayList<Integer> getParticipantsID(){
         ArrayList<Integer> result = new ArrayList<>();
         for (Employee participant: participants){
@@ -61,6 +79,9 @@ public class Meeting extends Event {
         return result;
     }
 
+    /**
+     * Sets the participants of the Meeting.
+     */
     public void setParticipants(List<Employee> participants) {
         this.participants = participants;
     }
