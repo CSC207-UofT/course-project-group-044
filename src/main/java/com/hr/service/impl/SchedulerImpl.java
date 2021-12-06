@@ -309,6 +309,21 @@ public class SchedulerImpl {
         }
     }
 
+    private void constrainAllWork() throws ContradictionException {
+        // All employees must work at least one shift
+        for (int i = 1; i <= employees.size(); ++i) {
+            IVecInt literals = new VecInt();
+
+            for (int d = 1; d <= 7; ++d) {
+                for (int h = s_l; h < s_h; ++h) {
+                    literals.push(var(i, d, h));
+                }
+            }
+
+            solver.addClause(literals);
+        }
+    }
+
     private void setObjectiveFunction() {
         // Minimize redundancy (number of hours scheduled)
         // min sum_{idh} x_ijh
@@ -349,6 +364,7 @@ public class SchedulerImpl {
             constrainMaxHours();
             constrainMinSimultaneous();
             constrainContiguousShifts();
+            constrainAllWork();
         } catch(ContradictionException exp) {
             return false;
         }
