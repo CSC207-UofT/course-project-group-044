@@ -104,6 +104,10 @@ Entities must depend on abstractions, not on concretions. It states that the hig
 
 
 # Design patterns
+### - Observer Pattern
+
+Observer pattern is a one-to-many dependency between multiple objects/attributes, and when the state of an object changes, all objects that depend on it are notified and updated automatically. In our code, we can synchronize and update other databases according to the changes of single database. For example, if we delete an Employee, the delete function is responsible to remove the Employee from the EmployeeRepository(database). At the same time, the observer would delete all the events of the Employee in the EventRepository and empty his Calendar after receiving the deletion signal. In this case, we only need call delete function of Employee in `Oberserver` rather than bunch of corresponding delete functions. The benefit is that reduces the coupling between the target and the observer, also conforms to the dependency inversion principle.
+
 ### - Template Pattern
 
 The template method design pattern was used in the Event abstract class and Shift and Meeting subclasses. The `isSameWeek()` template method is used to determine whether an event occurs during the same week as a given date/time for a Shift or Meeting object. This design pattern was used because the method for determining event time was identical for both types of Events. As a result, the duplicated code was moved to an abstract class, while the remaining implementations were moved into subclasses.
@@ -115,10 +119,6 @@ This design pattern is used in the repository Data Acess Object interface. We pr
 As a consequence, if we do not implement the Factory Design Pattern, we must decide which repository class to instantiate every time we want to write an entity into the database. This leads to high-coupling issues.
 
 In this case, Factory Design Pattern is essential to solve the problem. This pattern takes the entity to be stored in the database and determines which repository class should be instantiated. In this manner, we grouped all of the repository classes into a single folder. Other classes are not required to decide which repository class to instantiate. Furthermore, if we want to add more entities in the future, it is easily extensible.
-
-### - Observer Pattern
-
-Observer pattern is a one-to-many dependency between multiple objects/attributes, and when the state of an object changes, all objects that depend on it are notified and updated automatically. In our code, we can synchronize and update other databases according to the changes of single database. For example, if we delete an Employee, the delete function is responsible to remove the Employee from the EmployeeRepository(database). At the same time, the observer would delete all the events of the Employee in the EventRepository and empty his Calendar after receiving the deletion signal. In this case, we only need call delete function of Employee in `Oberserver` rather than bunch of corresponding delete functions. The benefit is that reduces the coupling between the target and the observer, also conforms to the dependency inversion principle.
 
 
 
