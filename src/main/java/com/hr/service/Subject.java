@@ -26,6 +26,8 @@ public class Subject {
         observers.add(o);
     }
 
+    public void remove(Observer o){ observers.remove(o);}
+
     public void setter(EmployeeRepository employeeRepository, CalendarRepository calendarRepository,
                        EventRepository eventRepository){
         this.employeeRepository = employeeRepository;

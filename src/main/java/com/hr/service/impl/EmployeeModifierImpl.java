@@ -37,9 +37,11 @@ public class EmployeeModifierImpl implements EmployeeModifier {
     @Autowired
     private EventServiceImpl eventService;
 
-    Subject subject = new Subject();
-    EmployeeObserver employeeObserver = new EmployeeObserver(subject);
-    EventObserver eventObserver = new EventObserver(subject);
+    @Autowired
+    Subject subject;
+
+    @Autowired
+    EmployeeObserver employeeObserver;
 
     public EmployeeModifierImpl() {}
 
@@ -71,8 +73,11 @@ public class EmployeeModifierImpl implements EmployeeModifier {
     @Override
     public void fireEmployee(Employee employee) {
         Message message = new Message("deleteEmployee", employee);
+        employeeObserver.init(subject);
         subject.setter(employeeRepository, calendarRepository, eventRepository);
         subject.setState(message);
+
+        subject.remove(employeeObserver);
 
         employeeRepository.delete(employee);
     }

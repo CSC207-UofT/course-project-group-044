@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+
 public class EventServiceImpl implements EventService {
     @Autowired
     EventRepository eventRepository;
@@ -26,8 +27,11 @@ public class EventServiceImpl implements EventService {
     @Autowired
     CalendarRepository calendarRepository;
 
-    Subject subject = new Subject();
-    EventObserver eventObserver = new EventObserver(subject);
+    @Autowired
+    Subject subject;
+
+    @Autowired
+    EventObserver eventObserver;
 
     @Override
     public Iterable<Event> findAllEvents(){
@@ -49,6 +53,7 @@ public class EventServiceImpl implements EventService {
             employee.getCalendar().getEvents().remove(event);
 
             Message message = new Message("deleteEvent", employee, event);
+            eventObserver.init(subject);
             subject.setter(employeeRepository, calendarRepository, eventRepository);
             subject.setState(message);
 
@@ -62,11 +67,13 @@ public class EventServiceImpl implements EventService {
             List<Employee> employees = meeting.getParticipants();
 
             Message message = new Message("deleteMeeting", holder, employees, meeting);
+            eventObserver.init(subject);
             subject.setter(employeeRepository, calendarRepository, eventRepository);
             subject.setState(message);
 
             eventRepository.delete(meeting);
         }
+        subject.remove(eventObserver);
     }
 
     @Override

@@ -104,8 +104,11 @@ public class SchedulerImpl {
     private final int s_h = 8;
     private final int daysOfWeek = 7;
 
-    Subject subject = new Subject();
-    EventObserver eventObserver = new EventObserver(subject);
+    @Autowired
+    Subject subject;
+
+    @Autowired
+    EventObserver eventObserver;
 
     /**
      * Determine whether it is valid to schedule a shift with the given
@@ -177,9 +180,11 @@ public class SchedulerImpl {
         this.eventRepository.save(shift);
 
         Message message = new Message("createShift", employee, shift);
+        eventObserver.init(subject);
         subject.setter(employeeRepository, calendarRepository, eventRepository);
         subject.setState(message);
 
+        subject.remove(eventObserver);
         return shift;
     }
 
@@ -199,8 +204,11 @@ public class SchedulerImpl {
         this.eventRepository.save(meeting);
 
         Message message = new Message("createMeeting", host, participants, meeting);
+        eventObserver.init(subject);
         subject.setter(employeeRepository, calendarRepository, eventRepository);
         subject.setState(message);
+
+        subject.remove(eventObserver);
 
         return meeting;
     }

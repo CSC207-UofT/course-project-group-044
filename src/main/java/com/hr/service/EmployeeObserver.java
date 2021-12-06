@@ -7,16 +7,21 @@ import com.hr.repository.CalendarRepository;
 import com.hr.repository.EmployeeRepository;
 import com.hr.repository.EventRepository;
 import com.hr.service.impl.EventServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.UUID;
 
+@Service
+
 public class EmployeeObserver extends Observer{
 
-    EventServiceImpl eventService = new EventServiceImpl();
+    @Autowired
+    EventServiceImpl eventService;
 
-    public EmployeeObserver(Subject subject) {
+    public void init(Subject subject){
         this.subject = subject;
         this.subject.add(this);
     }

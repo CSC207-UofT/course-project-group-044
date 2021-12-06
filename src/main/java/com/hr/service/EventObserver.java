@@ -6,12 +6,15 @@ import com.hr.entity.Shift;
 import com.hr.repository.CalendarRepository;
 import com.hr.repository.EmployeeRepository;
 import com.hr.repository.EventRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
+
 public class EventObserver extends Observer{
 
-    public EventObserver(Subject subject) {
+    public void init(Subject subject){
         this.subject = subject;
         this.subject.add(this);
     }
