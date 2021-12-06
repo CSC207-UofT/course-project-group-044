@@ -108,7 +108,7 @@ Entities must depend on abstractions, not on concretions. It states that the hig
 
 ### - Dependence Injection Pattern
 
-The dependency injection is to create objects outside the mthod body and pass each objects (or perhaps a list of objects) into other object and to solve hard dependency (First class can create an instance of a second class inside its body by using operatory new(). In our project we apply this design pattern into shift controller. For example, we have method called findEventByDate in shift controller which is supposed to display the event that argument passed in. So in our original design, we create a empty ArrayList and use new() generator to create Event to pass to empty ArrayList and eventually add this ArrayList to model.addAttribute("events", ArrayList) to display our event, however, it creates hard dependency and one change in Event can easily cause other change in shiftcontroller. By using dependence injection pattern, we create ArrayList<Event> events and let all the event created by eventservice(which is use case)passes to that ArrayList<Event> and eventually we add this ArrayList to model, which avoid directly creaing new() event and avoid hard injection.
+The dependency injection is to create objects outside the mthod body and pass each objects (or perhaps a list of objects) into other object and to solve hard dependency (First class can create an instance of a second class inside its body by using operatory new(). In our project we apply this design pattern into shift controller. For example, we have method called findEventByDate in shift controller which is supposed to display the event that argument passed in. So in our original design, we create a empty ArrayList and use new() generator to create Event to pass to empty ArrayList and eventually add this ArrayList to model.addAttribute("events", ArrayList) to display our event, however, it creates hard dependency and one change in Event can easily cause other change in shiftcontroller. By using dependence injection pattern, we create ArrayList<Event> events and let all the event created by eventservice(which is use case)passes to that ArrayList<Event> and eventually we add this ArrayList to model, which avoid directly creaing new() event and avoid hard injection. Same design pattern is also appied. Same idea is applied to addMeeting method in ShiftController.
 
 ### - Observer Pattern
 
@@ -117,15 +117,6 @@ Observer pattern is a one-to-many dependency between multiple objects/attributes
 ### - Template Pattern
 
 The template method design pattern was used in the Event abstract class and Shift and Meeting subclasses. The `isSameWeek()` template method is used to determine whether an event occurs during the same week as a given date/time for a Shift or Meeting object. This design pattern was used because the method for determining event time was identical for both types of Events. As a result, the duplicated code was moved to an abstract class, while the remaining implementations were moved into subclasses.
-
-### - Factory Pattern
-
-This design pattern is used in the repository Data Acess Object interface. We provide varied repository classes for loading various entities (e.g. `EmployeeRepository` to access an Employee object into database, `EventRepository` to write an event object into database).
-
-As a consequence, if we do not implement the Factory Design Pattern, we must decide which repository class to instantiate every time we want to write an entity into the database. This leads to high-coupling issues.
-
-In this case, Factory Design Pattern is essential to solve the problem. This pattern takes the entity to be stored in the database and determines which repository class should be instantiated. In this manner, we grouped all of the repository classes into a single folder. Other classes are not required to decide which repository class to instantiate. Furthermore, if we want to add more entities in the future, it is easily extensible.
-
 
 
 # Packaging strategies
