@@ -89,9 +89,9 @@ import java.util.ListIterator;
  */
 
 @Service
+
 public class SchedulerImpl {
-    private IPBSolver solver;
-    private List<Employee> employees;
+
     @Autowired
     EmployeeRepository employeeRepository;
     @Autowired
@@ -99,16 +99,19 @@ public class SchedulerImpl {
     @Autowired
     EventRepository eventRepository;
 
-    // TODO: Should these constants be configurable for more flexibility?
-    private final int s_l = 0;
-    private final int s_h = 8;
-    private final int daysOfWeek = 7;
-
     @Autowired
     Subject subject;
 
     @Autowired
     EventObserver eventObserver;
+
+    private IPBSolver solver;
+    private List<Employee> employees;
+
+    // TODO: Should these constants be configurable for more flexibility?
+    private final int s_l = 0;
+    private final int s_h = 8;
+    private final int daysOfWeek = 7;
 
     /**
      * Determine whether it is valid to schedule a shift with the given
@@ -178,13 +181,8 @@ public class SchedulerImpl {
         Shift shift = new Shift(employee, date.toInstant(), duration, location);
 
         this.eventRepository.save(shift);
-
-        Message message = new Message("createShift", employee, shift);
-        eventObserver.init(subject);
-        subject.setter(employeeRepository, calendarRepository, eventRepository);
-        subject.setState(message);
-
-        subject.remove(eventObserver);
+        employee.getCalendar().addEvent(shift);
+        this.calendarRepository.save(employee.getCalendar());
         return shift;
     }
 
@@ -202,14 +200,12 @@ public class SchedulerImpl {
         Meeting meeting = new Meeting(host, participants, date.toInstant(), duration, name, location);
 
         this.eventRepository.save(meeting);
-
-        Message message = new Message("createMeeting", host, participants, meeting);
-        eventObserver.init(subject);
-        subject.setter(employeeRepository, calendarRepository, eventRepository);
-        subject.setState(message);
-
-        subject.remove(eventObserver);
-
+        host.getCalendar().addEvent(meeting);
+        for (Employee e:participants){
+            e.getCalendar().addEvent(meeting);
+            this.calendarRepository.save(e.getCalendar());
+        }
+        this.calendarRepository.save(host.getCalendar());
         return meeting;
     }
 
