@@ -7,9 +7,6 @@ import com.hr.entity.Shift;
 import com.hr.repository.CalendarRepository;
 import com.hr.repository.EmployeeRepository;
 import com.hr.repository.EventRepository;
-import com.hr.service.EventObserver;
-import com.hr.service.Message;
-import com.hr.service.Subject;
 import org.sat4j.core.VecInt;
 import org.sat4j.pb.IPBSolver;
 import org.sat4j.pb.SolverFactory;
@@ -89,24 +86,15 @@ import java.util.ListIterator;
  */
 
 @Service
-
 public class SchedulerImpl {
-
+    private IPBSolver solver;
+    private List<Employee> employees;
     @Autowired
     EmployeeRepository employeeRepository;
     @Autowired
     CalendarRepository calendarRepository;
     @Autowired
     EventRepository eventRepository;
-
-    @Autowired
-    Subject subject;
-
-    @Autowired
-    EventObserver eventObserver;
-
-    private IPBSolver solver;
-    private List<Employee> employees;
 
     // TODO: Should these constants be configurable for more flexibility?
     private final int s_l = 0;
