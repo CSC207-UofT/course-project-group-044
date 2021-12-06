@@ -75,6 +75,9 @@ It contains two parts,  `EmployeeModifierImpl ` and  `SchedulerImpl `, provid
 
 2.  `SchedulerImpl `: The automatic scheduler manages the Calendars in the Organization,  creating Shift objects to satisfy shift scheduling constraints. We handle this as a discrete problem, with the basic step of scheduling a single Shift, or refusing to schedule any Shifts if scheduling is impossible.
 
+ - Controller Layer:
+
+We offer five different controllers. `FireController`, `HireController` and `ScheduleController` are responsible for adding, deleting and scheduleing employees. `ShiftController` is for creating, adding, displaying or editing events. `WelcomeController` is for welcome words when employee, employeemanager, eventmanager login. `SecurityController` provide the web based security configuration by requiring the user to be authenticated prior to accessing any URL within our application.
 
 
 
