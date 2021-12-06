@@ -6,7 +6,7 @@ import com.hr.entity.Event;
 import com.hr.repository.CalendarRepository;
 import com.hr.repository.EmployeeRepository;
 import com.hr.repository.EventRepository;
-import com.hr.service.EmployeeModifier;
+import com.hr.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +37,10 @@ public class EmployeeModifierImpl implements EmployeeModifier {
     @Autowired
     private EventServiceImpl eventService;
 
+    Subject subject = new Subject();
+    EmployeeObserver employeeObserver = new EmployeeObserver(subject);
+    EventObserver eventObserver = new EventObserver(subject);
+
     public EmployeeModifierImpl() {}
 
     /**
@@ -66,20 +70,9 @@ public class EmployeeModifierImpl implements EmployeeModifier {
      */
     @Override
     public void fireEmployee(Employee employee) {
-        UUID calendarID = employee.getCalendar().getCalendarID();
-        Calendar calendar = calendarRepository.findById(calendarID).orElse(null);
-        if (calendar == null){
-            return;
-        }
-        ArrayList<Instant> ids = new ArrayList<>();
-        for (Event event: calendar.getEvents()){
-            ids.add(event.getStart());
-        }
-
-        calendar.getEvents().clear();
-        for (Instant eventID: ids){
-            eventService.deleteEventByInstant(eventID);
-        }
+        Message message = new Message("deleteEmployee", employee);
+        subject.setter(employeeRepository, calendarRepository, eventRepository);
+        subject.setState(message);
 
         employeeRepository.delete(employee);
     }

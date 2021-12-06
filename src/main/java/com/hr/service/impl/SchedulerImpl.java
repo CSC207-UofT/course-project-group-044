@@ -7,6 +7,9 @@ import com.hr.entity.Shift;
 import com.hr.repository.CalendarRepository;
 import com.hr.repository.EmployeeRepository;
 import com.hr.repository.EventRepository;
+import com.hr.service.EventObserver;
+import com.hr.service.Message;
+import com.hr.service.Subject;
 import org.sat4j.core.VecInt;
 import org.sat4j.pb.IPBSolver;
 import org.sat4j.pb.SolverFactory;
@@ -101,6 +104,9 @@ public class SchedulerImpl {
     private final int s_h = 8;
     private final int daysOfWeek = 7;
 
+    Subject subject = new Subject();
+    EventObserver eventObserver = new EventObserver(subject);
+
     /**
      * Determine whether it is valid to schedule a shift with the given
      * configuration.
@@ -169,8 +175,11 @@ public class SchedulerImpl {
         Shift shift = new Shift(employee, date.toInstant(), duration, location);
 
         this.eventRepository.save(shift);
-        employee.getCalendar().addEvent(shift);
-        this.calendarRepository.save(employee.getCalendar());
+
+        Message message = new Message("createShift", employee, shift);
+        subject.setter(employeeRepository, calendarRepository, eventRepository);
+        subject.setState(message);
+
         return shift;
     }
 
@@ -188,12 +197,11 @@ public class SchedulerImpl {
         Meeting meeting = new Meeting(host, participants, date.toInstant(), duration, name, location);
 
         this.eventRepository.save(meeting);
-        host.getCalendar().addEvent(meeting);
-        for (Employee e:participants){
-            e.getCalendar().addEvent(meeting);
-            this.calendarRepository.save(e.getCalendar());
-        }
-        this.calendarRepository.save(host.getCalendar());
+
+        Message message = new Message("createMeeting", host, participants, meeting);
+        subject.setter(employeeRepository, calendarRepository, eventRepository);
+        subject.setState(message);
+
         return meeting;
     }
 
