@@ -7,7 +7,7 @@ import com.hr.entity.Shift;
 import com.hr.repository.CalendarRepository;
 import com.hr.repository.EmployeeRepository;
 import com.hr.repository.EventRepository;
-import com.hr.service.EventService;
+import com.hr.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+
 public class EventServiceImpl implements EventService {
     @Autowired
     EventRepository eventRepository;
@@ -25,6 +26,12 @@ public class EventServiceImpl implements EventService {
     EmployeeRepository employeeRepository;
     @Autowired
     CalendarRepository calendarRepository;
+
+    @Autowired
+    Subject subject;
+
+    @Autowired
+    EventObserver eventObserver;
 
     @Override
     public Iterable<Event> findAllEvents(){
@@ -44,9 +51,11 @@ public class EventServiceImpl implements EventService {
             //update employee's calendar
             Employee employee = ((Shift) event).getEmployee();
             employee.getCalendar().getEvents().remove(event);
-            calendarRepository.save(employee.getCalendar());
-            // update employee
-            employeeRepository.save(employee);
+
+            Message message = new Message("deleteEvent", employee, event);
+            eventObserver.init(subject);
+            subject.setter(employeeRepository, calendarRepository, eventRepository);
+            subject.setState(message);
 
             eventRepository.delete(event);
         }
@@ -54,19 +63,17 @@ public class EventServiceImpl implements EventService {
             Meeting meeting = (Meeting) event;
             // delete holder's calendar which contains this event
             Employee holder = meeting.getHolder();
-            holder.getCalendar().getEvents().remove(meeting);
-            calendarRepository.save(holder.getCalendar());
-            employeeRepository.save(holder);
-            // delete all Events in participants' calendar
+
             List<Employee> employees = meeting.getParticipants();
-            for (Employee employee: employees){
-                employee.getCalendar().getEvents().remove(meeting);
-                calendarRepository.save(employee.getCalendar());
-            }
-            employeeRepository.saveAll(employees);
+
+            Message message = new Message("deleteMeeting", holder, employees, meeting);
+            eventObserver.init(subject);
+            subject.setter(employeeRepository, calendarRepository, eventRepository);
+            subject.setState(message);
 
             eventRepository.delete(meeting);
         }
+        subject.remove(eventObserver);
     }
 
     @Override
@@ -118,5 +125,12 @@ public class EventServiceImpl implements EventService {
         LocalDate localDate = LocalDate.parse(date, formatter);
 
         return localDate;
+    }
+
+    public void setter(EmployeeRepository employeeRepository, CalendarRepository calendarRepository,
+                       EventRepository eventRepository){
+        this.employeeRepository = employeeRepository;
+        this.calendarRepository = calendarRepository;
+        this.eventRepository = eventRepository;
     }
 }

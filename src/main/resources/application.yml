@@ -9,7 +9,7 @@ spring:
     console.enabled: true
     console.path: /h2
   datasource:
-    url: jdbc:h2:./data7
+    url: jdbc:h2:./data11
     username: jack
     password: csc207
     driver-class-name: org.h2.Driver
