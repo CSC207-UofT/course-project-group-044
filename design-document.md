@@ -145,7 +145,7 @@ Jiawei Chen:
  Entities, Spring Framework, Mockito Test, Gradle setup, Writting welcome controller and help to modify and improve other controller, CRUDRepository setup, Authored employee modifier service and event service while test them
 
 Duan Kunhan:
-Spring Framework, CSS file, FireController Test, Gradle setup, all controller except shedule controller(shift controller is cooperated with Alex). help to do modification on Test a
+Spring Framework, CSS file, most Controller Test, Gradle setup, all controller except shedule controller(shift controller is cooperated with Alex). help to do modification on Test. most of html file. Java spring security
 
 Xinglin Chen:
 Design document(clean architecture, solid principle, packaging strategies, design patterns), CRC cards, javadoc(controller & entitiy & service).
