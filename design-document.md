@@ -152,3 +152,6 @@ Design document(clean architecture, solid principle, packaging strategies, desig
 
 Haitao Zeng: 
 Tests for service and controller classes (by using Mockito), and solving some error in these classes.
+ 
+Yuxiang Lin:
+Created Observer design pattern for use case classes, refactoring parts of 3 implictions of use case classes to make them more fix the SOLID principle.
